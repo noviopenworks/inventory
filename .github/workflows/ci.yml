@@ -11,6 +11,9 @@ jobs:
     name: Tests (Python 3.14 / Linux)
     runs-on: ubuntu-latest
 
+    env:
+      QT_QPA_PLATFORM: offscreen
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,19 +22,20 @@ jobs:
           python-version: "3.14"
           enable-cache: true
 
+      - name: Install Task
+        run: sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+
       - name: Install dependencies
-        run: uv sync --all-groups
+        run: task install
 
       - name: Lint (ruff)
-        run: uv run ruff check .
+        run: task lint
 
       - name: Format check (ruff)
-        run: uv run ruff format --check .
+        run: task fmt:check
 
       - name: Type check (mypy)
-        run: uv run mypy db/ app/ main.py
+        run: task type:check
 
       - name: Run tests
-        env:
-          QT_QPA_PLATFORM: offscreen
-        run: uv run pytest -q
+        run: task test
