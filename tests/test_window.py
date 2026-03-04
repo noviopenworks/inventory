@@ -8,30 +8,18 @@ Dialog exec() is monkeypatched so no real modal loops open.
 
 import sqlite3
 
-import pytest
 from PyQt6.QtWidgets import QDialog, QMessageBox
 
 import db as db_module
 from app.dialogs import AssetDialog
-from app.main_window import MainWindow
 
-# ── Fixtures ───────────────────────────────────────────────────────────────────
-
-
-@pytest.fixture()
-def tmp_db(tmp_path, monkeypatch):
-    db_file = tmp_path / "test.db"
-    monkeypatch.setattr(db_module, "DB_PATH", db_file)
-    db_module.init_db()
-    yield db_file
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
 
-@pytest.fixture()
-def win(tmp_db, qtbot):
-    """A fully constructed MainWindow backed by a temp DB."""
-    w = MainWindow()
-    qtbot.addWidget(w)
-    return w
+def _accept_with(monkeypatch, record: dict) -> None:
+    """Patch AssetDialog so exec() returns Accepted and get_data() returns record."""
+    monkeypatch.setattr(AssetDialog, "exec", lambda self: QDialog.DialogCode.Accepted)
+    monkeypatch.setattr(AssetDialog, "get_data", lambda self: record)
 
 
 def _tab_index(name: str) -> int:
@@ -41,11 +29,8 @@ def _tab_index(name: str) -> int:
 
 
 def _switch_to(win: object, name: str) -> None:
-    """Switch *win* to the given tab, handling the separate Users button."""
-    if name == "Users":
-        win._users_btn.click()  # type: ignore[attr-defined]
-    else:
-        win._tab_bar.setCurrentIndex(_tab_index(name))  # type: ignore[attr-defined]
+    """Switch *win* to the given tab."""
+    win._tab_bar.setCurrentIndex(_tab_index(name))  # type: ignore[attr-defined]
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -280,14 +265,9 @@ class TestAssetDialogPopulate:
 
 
 class TestMainWindowAdd:
-    def _accept_with(self, monkeypatch, record: dict):
-        """Patch AssetDialog so exec() returns Accepted and get_data() returns record."""
-        monkeypatch.setattr(AssetDialog, "exec", lambda self: QDialog.DialogCode.Accepted)
-        monkeypatch.setattr(AssetDialog, "get_data", lambda self: record)
-
     def test_add_inserts_record_to_db(self, win, monkeypatch):
         win._tab_bar.setCurrentIndex(_tab_index("Computer"))
-        self._accept_with(monkeypatch, {"type": "Computer", "name": "New PC", "status": "Active"})
+        _accept_with(monkeypatch, {"type": "Computer", "name": "New PC", "status": "Active"})
         win._add_asset()
         rows = db_module.fetch_records("Computer")
         assert len(rows) == 1
@@ -295,7 +275,7 @@ class TestMainWindowAdd:
 
     def test_add_refreshes_model(self, win, monkeypatch):
         win._tab_bar.setCurrentIndex(_tab_index("Computer"))
-        self._accept_with(monkeypatch, {"type": "Computer", "name": "PC", "status": "Active"})
+        _accept_with(monkeypatch, {"type": "Computer", "name": "PC", "status": "Active"})
         win._add_asset()
         assert win._models["Computer"].rowCount() == 1
 
@@ -331,18 +311,13 @@ class TestMainWindowAdd:
 class TestMainWindowEdit:
     def _setup_computer(self) -> dict:
         db_module.insert_record("Computer", {"name": "Original", "status": "Active"})
-        rows = db_module.fetch_records("Computer")
-        return rows[0]
-
-    def _accept_with(self, monkeypatch, record: dict):
-        monkeypatch.setattr(AssetDialog, "exec", lambda self: QDialog.DialogCode.Accepted)
-        monkeypatch.setattr(AssetDialog, "get_data", lambda self: record)
+        return db_module.fetch_records("Computer")[0]
 
     def test_edit_updates_record_in_db(self, win, monkeypatch):
         row = self._setup_computer()
         win._tab_bar.setCurrentIndex(_tab_index("Computer"))
         win._selected_data = row
-        self._accept_with(monkeypatch, {"type": "Computer", "name": "Updated", "status": "Active"})
+        _accept_with(monkeypatch, {"type": "Computer", "name": "Updated", "status": "Active"})
         win._edit_asset()
         assert db_module.fetch_records("Computer")[0]["name"] == "Updated"
 
@@ -367,8 +342,7 @@ class TestMainWindowEdit:
         row = self._setup_computer()
         win._tab_bar.setCurrentIndex(_tab_index("Computer"))
         win._selected_data = row
-        monkeypatch.setattr(AssetDialog, "exec", lambda self: QDialog.DialogCode.Accepted)
-        monkeypatch.setattr(AssetDialog, "get_data", lambda self: {"type": "Computer", "name": "X"})
+        _accept_with(monkeypatch, {"type": "Computer", "name": "X"})
         monkeypatch.setattr(
             db_module,
             "update_record",

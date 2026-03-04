@@ -48,20 +48,6 @@ STYLESHEET = """
     QPushButton:hover   { background: #bbdefb; border-color: #1976d2; }
     QPushButton:pressed { background: #90caf9; }
 
-    QPushButton#usersTabBtn {
-        padding: 5px 20px;
-        font-weight: bold;
-        font-size: 12px;
-        background: #dce3ed;
-        color: #444;
-        border: 1px solid #b0bec5;
-        border-bottom: none;
-        border-radius: 4px 4px 0 0;
-        margin-bottom: 0px;
-    }
-    QPushButton#usersTabBtn:checked { background: #1565c0; color: white; }
-    QPushButton#usersTabBtn:hover:!checked { background: #bbdefb; }
-
     QLineEdit {
         border: 1px solid #b0bec5;
         border-radius: 4px;

@@ -147,7 +147,12 @@ class AssetDialog(QDialog):
             elif col == "status":
                 widget = QComboBox()
                 _close_popup(widget)
-                widget.addItems(db_module.STATUS_OPTIONS)
+                opts = (
+                    db_module.USER_STATUS_OPTIONS
+                    if self._category == "Users"
+                    else db_module.STATUS_OPTIONS
+                )
+                widget.addItems(opts)
             elif col == "notes":
                 widget = QTextEdit()
                 widget.setFixedHeight(72)

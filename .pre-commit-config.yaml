@@ -1,7 +1,7 @@
 repos:
   # Ruff – lint + format (replaces flake8, isort, pyupgrade, etc.)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.0
+    rev: v0.15.4
     hooks:
       - id: ruff
         args: [--fix]
@@ -18,9 +18,19 @@ repos:
         args: [db/, app/, main.py]
         pass_filenames: false
 
+  # Version sync – keep pyproject.toml and app/_version.py in step with .app-version
+  - repo: local
+    hooks:
+      - id: version-sync
+        name: version sync
+        entry: task version:sync
+        language: system
+        pass_filenames: false
+        files: ^\.app-version$
+
   # General file hygiene
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer

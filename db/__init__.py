@@ -45,6 +45,9 @@ from db.config import (
     TABLE_CONFIG as TABLE_CONFIG,
 )
 from db.config import (
+    USER_STATUS_OPTIONS as USER_STATUS_OPTIONS,
+)
+from db.config import (
     TableSpec as TableSpec,
 )
 

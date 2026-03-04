@@ -204,7 +204,7 @@ tasks:
       - chmod 755 "dist/{{.TAR_NAME}}/bin/{{.APP_NAME}}"
       - cp packaging/deb/usr/share/applications/inventory.desktop
             "dist/{{.TAR_NAME}}/share/applications/{{.APP_NAME}}.desktop"
-      - |  
+      - |
         cat > "dist/{{.TAR_NAME}}/install.sh" << 'EOF'
         #!/usr/bin/env sh
         # Install inventory system-wide (run as root)

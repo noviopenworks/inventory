@@ -4,25 +4,14 @@ tests/test_models.py – Tests for AssetTableModel (models.py).
 All tests use an isolated temp DB via the shared tmp_db fixture.
 """
 
-import pytest
 from PyQt6.QtCore import QModelIndex, Qt
 
 import db as db_module
 from app.models import AssetTableModel
 
-# ── Fixture ────────────────────────────────────────────────────────────────────
+# ── Helpers ──────────────────────────────────────────────────────────────────
 
-
-@pytest.fixture()
-def tmp_db(tmp_path, monkeypatch):
-    db_file = tmp_path / "test.db"
-    monkeypatch.setattr(db_module, "DB_PATH", db_file)
-    db_module.init_db()
-    yield db_file
-
-
-def _insert(category: str, data: dict) -> int:
-    return db_module.insert_record(category, data)
+_insert = db_module.insert_record
 
 
 # ── Construction & columns ─────────────────────────────────────────────────────

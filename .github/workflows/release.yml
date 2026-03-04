@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Tag, build & publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Use a PAT if you need workflows to trigger downstream CI; GITHUB_TOKEN
+          # is sufficient just to push a tag and create a release.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Read version ──────────────────────────────────────────────────────
+      - name: Read version
+        id: ver
+        run: echo "version=$(cat .app-version | tr -d '[:space:]')" >> "$GITHUB_OUTPUT"
+
+      # ── Create & push git tag ─────────────────────────────────────────────
+      - name: Create and push tag
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.ver.outputs.version }}"
+          git push origin "v${{ steps.ver.outputs.version }}"
+
+      # ── Python + uv ───────────────────────────────────────────────────────
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+          enable-cache: true
+
+      - name: Install Python dependencies
+        run: uv sync --all-groups
+
+      # ── System packaging tools ────────────────────────────────────────────
+      - name: Install packaging tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends rpm-build
+
+      # ── Install Task (go-task) ────────────────────────────────────────────
+      - name: Install Task
+        run: |
+          sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+
+      # ── Build Linux binary + .deb + .tar.gz + .rpm ────────────────────────
+      - name: Build Linux packages
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: task build:linux
+
+      # ── Create GitHub release & upload artefacts ──────────────────────────
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.ver.outputs.version }}"
+          gh release create "v${VERSION}" \
+            --title "Release v${VERSION}" \
+            --notes "Release v${VERSION}" \
+            dist/*.deb \
+            dist/*.tar.gz \
+            dist/*.rpm
