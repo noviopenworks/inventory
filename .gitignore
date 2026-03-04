@@ -1,4 +1,4 @@
-# Python
+# ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -8,19 +8,24 @@ __pycache__/
 *.egg
 *.egg-info/
 .eggs/
+MANIFEST
 
-# Virtual environments
+# ── Virtual environments ──────────────────────────────────────────────────────
 .venv/
 venv/
 env/
 ENV/
+.python-version
 
-# PyInstaller
+# ── uv ───────────────────────────────────────────────────────────────────────
+# uv.lock is intentionally committed – do NOT add it here
+
+# ── PyInstaller ───────────────────────────────────────────────────────────────
 build/
 dist/
 *.spec.bak
 
-# Unit test / coverage
+# ── Testing & coverage ────────────────────────────────────────────────────────
 .coverage
 .coverage.*
 htmlcov/
@@ -28,25 +33,83 @@ htmlcov/
 .tox/
 coverage.xml
 *.cover
+*.coveragerc
 test-results/
+junit*.xml
 
-# Editors
-.vscode/
+# ── Type checkers ─────────────────────────────────────────────────────────────
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyright/
+pyrightconfig.json
+
+# ── Linters / formatters ──────────────────────────────────────────────────────
+.ruff_cache/
+
+# ── pre-commit ────────────────────────────────────────────────────────────────
+# .pre-commit-config.yaml is committed; skip generated cache
+.pre-commit-hooks.yaml.bak
+
+# ── Task (go-task) ────────────────────────────────────────────────────────────
+.task/
+
+# ── Editors ───────────────────────────────────────────────────────────────────
+# VS Code – keep settings.json / extensions.json if you share them
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/*.code-snippets
+.vscode/ipch/
+# IntelliJ / PyCharm
 .idea/
+*.iml
+*.iws
+# Vim / Emacs
 *.swp
 *.swo
 *~
+\#*\#
+.\#*
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
 
-# OS
+# ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# Taskfile
-.task/
+# ── Packaging artefacts ───────────────────────────────────────────────────────
+*.deb
+*.rpm
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+*.whl
+sdist/
 
-# Project specific
+# ── SQLite databases (runtime data, not source) ───────────────────────────────
 *.db
 *.db-shm
 *.db-wal
 *.sqlite
 *.sqlite3
+
+# ── Secrets & local config ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets/
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
