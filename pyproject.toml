@@ -1,0 +1,45 @@
+[project]
+name = "it-asset-inventory"
+version = "0.2.0"
+description = "IT Asset Inventory – track computers, phones, tablets, licenses and subscriptions"
+license = { file = "LICENSE" }
+requires-python = ">=3.14.3"
+dependencies = [
+    "PyQt6>=6.4.0",
+]
+
+[project.scripts]
+inventory = "main:main"
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+qt_api = "pyqt6"
+
+[tool.mypy]
+python_version = "3.14"
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_return_any = true
+no_implicit_optional = true
+
+[dependency-groups]
+dev = [
+    "mypy>=1.0",
+    "pre-commit>=4.0",
+    "pytest>=9.0.2",
+    "pytest-cov>=6.0",
+    "pytest-qt>=4.5.0",
+    "pyinstaller>=6.0",
+    "ruff>=0.15.4",
+]

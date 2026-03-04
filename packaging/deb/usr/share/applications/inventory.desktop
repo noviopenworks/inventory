@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=IT Asset Inventory
+Comment=Track computers, phones, tablets and software licences
+Exec=/usr/local/bin/inventory
+Icon=computer
+Categories=Office;Utility;
+Terminal=false
+StartupNotify=true

@@ -1,0 +1,269 @@
+# https://taskfile.dev
+version: '3'
+
+set: [pipefail]
+
+vars:
+  APP_NAME: inventory
+  APP_VERSION:
+    sh: cat .app-version
+  ARCH:
+    sh: dpkg --print-architecture 2>/dev/null || echo "amd64"
+  RPM_ARCH:
+    sh: rpm --eval '%{_arch}' 2>/dev/null || uname -m
+  DIST_LINUX: dist/linux
+  DIST_WINDOWS: dist/windows
+  TAR_NAME: "{{.APP_NAME}}-{{.APP_VERSION}}-linux-{{.RPM_ARCH}}"
+  TAR_OUT: "dist/{{.APP_NAME}}-{{.APP_VERSION}}-linux-{{.RPM_ARCH}}.tar.gz"
+  DEB_STAGE: dist/deb/{{.APP_NAME}}_{{.APP_VERSION}}_{{.ARCH}}
+  DEB_OUT: dist/{{.APP_NAME}}_{{.APP_VERSION}}_{{.ARCH}}.deb
+  RPM_OUT: "dist/{{.APP_NAME}}-{{.APP_VERSION}}-1.{{.RPM_ARCH}}.rpm"
+
+# ──────────────────────────────── default ────────────────────────────────────
+tasks:
+  default:
+    desc: List all available tasks
+    silent: true
+    cmds:
+      - task --list
+
+# ──────────────────────────────── version ───────────────────────────────────
+  version:bump:
+    desc: "Set a new version and sync everywhere (usage: task version:bump VERSION=1.2.3)"
+    aliases: [bump]
+    vars:
+      VERSION: '{{.VERSION}}'
+    preconditions:
+      - sh: '[[ "{{.VERSION}}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]'
+        msg: "VERSION must follow semver — e.g. task version:bump VERSION=1.2.3"
+    cmds:
+      - printf '%s\n' '{{.VERSION}}' > .app-version
+      - task: version:sync
+      - echo "Bumped to {{.VERSION}}"
+
+  version:sync:
+    desc: "Sync version from .app-version into pyproject.toml and app/_version.py"
+    aliases: [vsync]
+    vars:
+      VERSION:
+        sh: cat .app-version
+    cmds:
+      - sed -i 's/^version = ".*"/version = "{{.VERSION}}"/' pyproject.toml
+      - sed -i 's/^__version__ = ".*"/__version__ = "{{.VERSION}}"/' app/_version.py
+      - echo "Synced version {{.VERSION}} to pyproject.toml and app/_version.py"
+
+# ──────────────────────────────── hooks ─────────────────────────────────────
+  hooks:install:
+    desc: Install pre-commit hooks into .git/hooks
+    cmds:
+      - uv run pre-commit install --install-hooks
+      - echo "pre-commit hooks installed"
+
+  hooks:run:
+    desc: Run all pre-commit hooks against all files
+    aliases: [hooks]
+    cmds:
+      - uv run pre-commit run --all-files
+
+# ──────────────────────────────── dev ────────────────────────────────────────
+  run:
+    desc: Launch the application
+    cmds:
+      - uv run python main.py
+
+  install:
+    desc: Sync all dependencies (including dev)
+    cmds:
+      - uv sync --all-groups
+
+# ──────────────────────────────── quality ────────────────────────────────────
+  lint:
+    desc: Lint with ruff (errors only)
+    cmds:
+      - uv run ruff check .
+
+  lint:fix:
+    desc: Lint and auto-fix with ruff
+    aliases: [lf]
+    cmds:
+      - uv run ruff check --fix .
+
+  fmt:
+    desc: Format code with ruff
+    cmds:
+      - uv run ruff format .
+
+  fmt:check:
+    desc: Check formatting without applying changes
+    cmds:
+      - uv run ruff format --check .
+
+  test:
+    desc: Run the test suite
+    cmds:
+      - uv run pytest -q
+
+  test:verbose:
+    desc: Run the test suite with full output
+    aliases: [tv]
+    cmds:
+      - uv run pytest -v
+
+  test:cov:
+    desc: Run tests with coverage report (target ≥ 85%)
+    aliases: [tc:cov]
+    cmds:
+      - uv run pytest --cov=db --cov=app --cov=main.py --cov-report=term-missing --cov-fail-under=85 -q
+
+  type:check:
+    desc: Type-check with mypy
+    aliases: [tc]
+    cmds:
+      - uv run mypy db/ app/ main.py
+
+  check:
+    desc: Run lint + type-check + tests (CI-style)
+    cmds:
+      - task: lint
+      - task: type:check
+      - task: test
+
+# ──────────────────────────────── build ──────────────────────────────────────
+  build:linux_base:
+    desc: Build a standalone Linux binary with PyInstaller
+    platforms: [linux]
+    sources:
+      - "*.py"
+      - "db/**/*.py"
+      - "app/**/*.py"
+      - inventory.spec
+    generates:
+      - "{{.DIST_LINUX}}/{{.APP_NAME}}"
+    cmds:
+      - uv run pyinstaller inventory.spec --distpath {{.DIST_LINUX}} --workpath build/linux --noconfirm
+      - echo "Binary → {{.DIST_LINUX}}/{{.APP_NAME}}"
+
+  build:windows:
+    desc: Build a standalone Windows .exe with PyInstaller (run on Windows)
+    platforms: [windows]
+    sources:
+      - "*.py"
+      - "db/**/*.py"
+      - "app/**/*.py"
+      - inventory.spec
+    generates:
+      - "{{.DIST_WINDOWS}}/{{.APP_NAME}}.exe"
+    cmds:
+      - uv run pyinstaller inventory.spec --distpath {{.DIST_WINDOWS}} --workpath build\windows --noconfirm
+      - echo Binary → {{.DIST_WINDOWS}}\{{.APP_NAME}}.exe
+
+  build:deb:
+    desc: Package the Linux binary as a .deb (requires build:linux)
+    platforms: [linux]
+    deps: [build:linux_base]
+    vars:
+      INSTALLED_SIZE:
+        sh: du -sk {{.DIST_LINUX}}/{{.APP_NAME}} | cut -f1
+    cmds:
+      # Stage directory tree
+      - rm -rf "{{.DEB_STAGE}}"
+      - mkdir -p "{{.DEB_STAGE}}/DEBIAN"
+      - mkdir -p "{{.DEB_STAGE}}/usr/local/bin"
+      - mkdir -p "{{.DEB_STAGE}}/usr/share/applications"
+
+      # Binary
+      - cp "{{.DIST_LINUX}}/{{.APP_NAME}}" "{{.DEB_STAGE}}/usr/local/bin/{{.APP_NAME}}"
+      - chmod 755 "{{.DEB_STAGE}}/usr/local/bin/{{.APP_NAME}}"
+
+      # Desktop entry
+      - cp packaging/deb/usr/share/applications/inventory.desktop
+          "{{.DEB_STAGE}}/usr/share/applications/{{.APP_NAME}}.desktop"
+
+      # Control file (fill in placeholders)
+      - |
+        sed \
+          -e 's/__APP_NAME__/{{.APP_NAME}}/g' \
+          -e 's/__APP_VERSION__/{{.APP_VERSION}}/g' \
+          -e 's/__ARCH__/{{.ARCH}}/g' \
+          -e 's/__INSTALLED_SIZE__/{{.INSTALLED_SIZE}}/g' \
+          packaging/deb/DEBIAN/control.tpl \
+          > "{{.DEB_STAGE}}/DEBIAN/control"
+
+      # Build .deb
+      - dpkg-deb --root-owner-group --build "{{.DEB_STAGE}}" "{{.DEB_OUT}}"
+      - echo "Package → {{.DEB_OUT}}"
+
+  build:tar:
+    desc: Package the Linux binary as a .tar.gz archive
+    platforms: [linux]
+    deps: [build:linux_base]
+    cmds:
+      - rm -rf "dist/{{.TAR_NAME}}"
+      - mkdir -p "dist/{{.TAR_NAME}}/bin" "dist/{{.TAR_NAME}}/share/applications"
+      - cp "{{.DIST_LINUX}}/{{.APP_NAME}}" "dist/{{.TAR_NAME}}/bin/{{.APP_NAME}}"
+      - chmod 755 "dist/{{.TAR_NAME}}/bin/{{.APP_NAME}}"
+      - cp packaging/deb/usr/share/applications/inventory.desktop
+            "dist/{{.TAR_NAME}}/share/applications/{{.APP_NAME}}.desktop"
+      - |  
+        cat > "dist/{{.TAR_NAME}}/install.sh" << 'EOF'
+        #!/usr/bin/env sh
+        # Install inventory system-wide (run as root)
+        set -e
+        SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+        install -D -m 0755 "$SCRIPT_DIR/bin/inventory" /usr/local/bin/inventory
+        install -D -m 0644 "$SCRIPT_DIR/share/applications/inventory.desktop" \
+            /usr/share/applications/inventory.desktop
+        echo "Installed to /usr/local/bin/inventory"
+        EOF
+      - chmod 755 "dist/{{.TAR_NAME}}/install.sh"
+      - tar -C dist -czf "{{.TAR_OUT}}" "{{.TAR_NAME}}"
+      - rm -rf "dist/{{.TAR_NAME}}"
+      - echo "Archive → {{.TAR_OUT}}"
+
+  build:rpm:
+    desc: Package the Linux binary as an .rpm (requires rpmbuild)
+    platforms: [linux]
+    deps: [build:linux_base]
+    vars:
+      RPM_DATE:
+        sh: date '+%a %b %d %Y'
+      RPM_BUILD: "{{.HOME}}/rpmbuild"
+    cmds:
+      # Ensure rpmbuild tree exists
+      - mkdir -p "{{.RPM_BUILD}}/SOURCES" "{{.RPM_BUILD}}/SPECS" "{{.RPM_BUILD}}/RPMS" "{{.RPM_BUILD}}/SRPMS" "{{.RPM_BUILD}}/BUILD"
+      # Stage sources
+      - cp "{{.DIST_LINUX}}/{{.APP_NAME}}" "{{.RPM_BUILD}}/SOURCES/{{.APP_NAME}}"
+      - cp packaging/deb/usr/share/applications/inventory.desktop "{{.RPM_BUILD}}/SOURCES/inventory.desktop"
+      # Generate spec from template
+      - |
+        sed \
+          -e 's/__APP_NAME__/{{.APP_NAME}}/g' \
+          -e 's/__APP_VERSION__/{{.APP_VERSION}}/g' \
+          -e 's/__RPM_ARCH__/{{.RPM_ARCH}}/g' \
+          -e 's/__DATE__/{{.RPM_DATE}}/g' \
+          packaging/rpm/inventory.spec.tpl \
+          > "{{.RPM_BUILD}}/SPECS/{{.APP_NAME}}.spec"
+      # Build the RPM
+      - rpmbuild -bb "{{.RPM_BUILD}}/SPECS/{{.APP_NAME}}.spec"
+      # Copy result to dist/
+      - mkdir -p dist
+      - cp "{{.RPM_BUILD}}/RPMS/{{.RPM_ARCH}}/{{.APP_NAME}}-{{.APP_VERSION}}-1.{{.RPM_ARCH}}.rpm" "{{.RPM_OUT}}"
+      - echo "Package → {{.RPM_OUT}}"
+
+  build:linux:
+    desc: Build Linux binary + .deb + .tar.gz + .rpm packages
+    platforms: [linux]
+    cmds:
+      - task: build:linux_base
+      - task: build:deb
+      - task: build:tar
+      - task: build:rpm
+
+# ──────────────────────────────── clean ──────────────────────────────────────
+  clean:
+    desc: Remove all build artefacts
+    prompt: "Remove dist/, build/ and __pycache__ trees?"
+    cmds:
+      - rm -rf dist/ build/ .task/
+      - find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+      - echo "Clean done."
