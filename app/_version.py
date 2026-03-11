@@ -1,3 +1,3 @@
 # AUTO-GENERATED — do not edit by hand.
 # Update via: task bump VERSION=x.y.z
-__version__ = "0.2.0"
+__version__ = "0.3.0"
