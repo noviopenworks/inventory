@@ -7,24 +7,22 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Tag, build & publish
+  # ── 1. Tag the commit ──────────────────────────────────────────────────────
+  tag:
+    name: Create git tag
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # Use a PAT if you need workflows to trigger downstream CI; GITHUB_TOKEN
-          # is sufficient just to push a tag and create a release.
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # ── Read version ──────────────────────────────────────────────────────
       - name: Read version
         id: ver
         run: echo "version=$(cat .app-version | tr -d '[:space:]')" >> "$GITHUB_OUTPUT"
 
-      # ── Create & push git tag ─────────────────────────────────────────────
       - name: Create and push tag
         run: |
           git config user.name  "github-actions[bot]"
@@ -32,7 +30,14 @@ jobs:
           git tag "v${{ steps.ver.outputs.version }}"
           git push origin "v${{ steps.ver.outputs.version }}"
 
-      # ── Python + uv ───────────────────────────────────────────────────────
+  # ── 2a. Linux binary + packages ───────────────────────────────────────────
+  build-linux:
+    name: Build Linux packages
+    needs: tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.14"
@@ -41,32 +46,88 @@ jobs:
       - name: Install Python dependencies
         run: uv sync --all-groups
 
-      # ── System packaging tools ────────────────────────────────────────────
       - name: Install packaging tools
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends rpm
 
-      # ── Install Task (go-task) ────────────────────────────────────────────
       - name: Install Task
-        run: |
-          sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+        run: sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
-      # ── Build Linux binary + .deb + .tar.gz + .rpm ────────────────────────
       - name: Build Linux packages
         env:
           QT_QPA_PLATFORM: offscreen
         run: task build:linux
 
-      # ── Create GitHub release & upload artefacts ──────────────────────────
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-packages
+          path: |
+            dist/*.deb
+            dist/*.tar.gz
+            dist/*.rpm
+
+  # ── 2b. Windows .exe ──────────────────────────────────────────────────────
+  build-windows:
+    name: Build Windows binary
+    needs: tag
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+          enable-cache: true
+
+      - name: Install Python dependencies
+        run: uv sync --all-groups
+
+      - name: Install Task
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Windows binary
+        run: task build:windows
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-binary
+          path: dist/windows/inventory.exe
+
+  # ── 3. Publish GitHub release ─────────────────────────────────────────────
+  publish:
+    name: Publish GitHub release
+    needs: [tag, build-linux, build-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-packages
+          path: dist/linux
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-binary
+          path: dist/windows
+
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION="${{ steps.ver.outputs.version }}"
+          VERSION="${{ needs.tag.outputs.version }}"
           gh release create "v${VERSION}" \
             --title "Release v${VERSION}" \
             --notes "Release v${VERSION}" \
-            dist/*.deb \
-            dist/*.tar.gz \
-            dist/*.rpm
+            dist/linux/*.deb \
+            dist/linux/*.tar.gz \
+            dist/linux/*.rpm \
+            dist/windows/inventory.exe

@@ -1,6 +1,6 @@
 [project]
 name = "it-asset-inventory"
-version = "0.3.0"
+version = "0.4.0"
 description = "IT Asset Inventory – track computers, phones, tablets, licenses and subscriptions"
 license = { file = "LICENSE" }
 requires-python = ">=3.14.3"

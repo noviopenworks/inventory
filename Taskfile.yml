@@ -10,7 +10,7 @@ vars:
   ARCH:
     sh: dpkg --print-architecture 2>/dev/null || echo "amd64"
   RPM_ARCH:
-    sh: rpm --eval '%{_arch}' 2>/dev/null || uname -m
+    sh: rpm --eval '%{_arch}' 2>/dev/null || uname -m 2>/dev/null || echo "x86_64"
   DIST_LINUX: dist/linux
   DIST_WINDOWS: dist/windows
   TAR_NAME: "{{.APP_NAME}}-{{.APP_VERSION}}-linux-{{.RPM_ARCH}}"
@@ -34,23 +34,27 @@ tasks:
     vars:
       VERSION: '{{.VERSION}}'
     preconditions:
-      - sh: '[[ "{{.VERSION}}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]'
+      - sh: 'uv run python -c "import re,sys; sys.exit(0 if re.fullmatch(r\"[0-9]+\.[0-9]+\.[0-9]+\",\"{{.VERSION}}\") else 1)"'
         msg: "VERSION must follow semver — e.g. task version:bump VERSION=1.2.3"
     cmds:
-      - printf '%s\n' '{{.VERSION}}' > .app-version
+      - uv run python -c "open('.app-version','w').write('{{.VERSION}}\n')"
       - task: version:sync
-      - echo "Bumped to {{.VERSION}}"
+      - uv run python -c "print('Bumped to {{.VERSION}}')"
 
   version:sync:
     desc: "Sync version from .app-version into pyproject.toml and app/_version.py"
     aliases: [vsync]
-    vars:
-      VERSION:
-        sh: cat .app-version
     cmds:
-      - sed -i 's/^version = ".*"/version = "{{.VERSION}}"/' pyproject.toml
-      - sed -i 's/^__version__ = ".*"/__version__ = "{{.VERSION}}"/' app/_version.py
-      - echo "Synced version {{.VERSION}} to pyproject.toml and app/_version.py"
+      - uv run python -c "
+          import re, pathlib;
+          v = pathlib.Path('.app-version').read_text().strip();
+          pairs = [
+            ('pyproject.toml',   r'^version = \".*\"',        'version = \"' + v + '\"'),
+            ('app/_version.py',  r'^__version__ = \".*\"',    '__version__ = \"' + v + '\"'),
+          ];
+          [pathlib.Path(f).write_text(re.sub(p, r, pathlib.Path(f).read_text(), flags=re.MULTILINE)) for f,p,r in pairs];
+          print('Synced', v, 'to pyproject.toml and app/_version.py')
+          "
 
 # ──────────────────────────────── hooks ─────────────────────────────────────
   hooks:install:
@@ -154,8 +158,8 @@ tasks:
     generates:
       - "{{.DIST_WINDOWS}}/{{.APP_NAME}}.exe"
     cmds:
-      - uv run pyinstaller inventory.spec --distpath {{.DIST_WINDOWS}} --workpath build\windows --noconfirm
-      - echo Binary → {{.DIST_WINDOWS}}\{{.APP_NAME}}.exe
+      - uv run pyinstaller inventory.spec --distpath {{.DIST_WINDOWS}} --workpath build/windows --noconfirm
+      - echo Binary → {{.DIST_WINDOWS}}/{{.APP_NAME}}.exe
 
   build:deb:
     desc: Package the Linux binary as a .deb (requires build:linux)
