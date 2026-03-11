@@ -1,67 +1,45 @@
 """
-app.style – Application-wide Qt stylesheet.
+app.style – Theme helpers for qt-material integration.
 """
 
 import db as db_module
 
-STYLESHEET = """
-    QMainWindow, QWidget { background: #f4f6f9; }
+# Theme names passed to apply_stylesheet()
+THEME_DARK = "dark_blue.xml"
+THEME_LIGHT = "light_blue.xml"
 
+# Small app-level tweaks applied on top of qt-material via setStyleSheet.
+# Keep this minimal – qt-material already handles inputs, buttons, combos, etc.
+EXTRA_STYLESHEET = """
     QTabBar::tab {
         padding: 5px 20px;
         font-weight: bold;
         font-size: 12px;
-        background: #dce3ed;
-        color: #444;
-        border: 1px solid #b0bec5;
         border-bottom: none;
         border-radius: 4px 4px 0 0;
         margin-right: 2px;
     }
-    QTabBar::tab:selected  { background: #1565c0; color: white; }
-    QTabBar::tab:hover:!selected { background: #bbdefb; }
-
-    QTableView {
-        background: white;
-        alternate-background-color: #f1f5fb;
-        gridline-color: #d0d8e4;
-        font-size: 12px;
-        selection-background-color: #bbdefb;
-        selection-color: #0d47a1;
-        border: 1px solid #b0bec5;
-    }
-    QHeaderView::section {
-        background: #e3eaf4;
-        padding: 4px 8px;
-        border: 1px solid #c5cdd8;
-        font-weight: bold;
-        font-size: 11px;
-    }
-
-    QPushButton {
-        padding: 4px 14px;
-        border-radius: 4px;
-        background: #e8edf4;
-        border: 1px solid #b0bec5;
-        font-size: 12px;
-    }
-    QPushButton:hover   { background: #bbdefb; border-color: #1976d2; }
-    QPushButton:pressed { background: #90caf9; }
-
-    QLineEdit {
-        border: 1px solid #b0bec5;
-        border-radius: 4px;
-        padding: 4px 8px;
-        background: white;
-        font-size: 12px;
-    }
-    QLineEdit:focus { border-color: #1976d2; }
-
-    QStatusBar { font-size: 11px; color: #555; }
+    QStatusBar { font-size: 11px; }
 """
 
-LEGEND_ITEMS: list[tuple[str, str]] = [
-    ("#ffcdd2", "Expired"),
-    ("#fff9c4", f"Expires ≤ {db_module.EXPIRY_WARNING_DAYS} days"),
-    ("#eeeeee", "Retired"),
-]
+
+def get_legend_items(dark: bool = False) -> list[tuple[str, str]]:
+    if dark:
+        return [
+            ("#b71c1c", "Expired"),
+            ("#f57f17", f"Expires \u2264 {db_module.EXPIRY_WARNING_DAYS} days"),
+            ("#2a2d4a", "Retired"),
+        ]
+    return [
+        ("#ffcdd2", "Expired"),
+        ("#fff9c4", f"Expires \u2264 {db_module.EXPIRY_WARNING_DAYS} days"),
+        ("#d0d0d0", "Retired"),
+    ]
+
+
+LEGEND_ITEMS = get_legend_items(dark=False)
+
+# Backwards-compat aliases
+LIGHT_STYLESHEET = ""
+DARK_STYLESHEET = ""
+STYLESHEET = ""

@@ -1,11 +1,12 @@
 [project]
 name = "it-asset-inventory"
-version = "0.2.0"
+version = "0.3.0"
 description = "IT Asset Inventory – track computers, phones, tablets, licenses and subscriptions"
 license = { file = "LICENSE" }
 requires-python = ">=3.14.3"
 dependencies = [
     "PyQt6>=6.4.0",
+    "qt-material>=2.17",
 ]
 
 [project.scripts]

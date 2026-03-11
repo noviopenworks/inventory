@@ -193,7 +193,7 @@ class TestModelBackground:
     def test_retired_row_has_grey_background(self, tmp_db, qtbot):
         bg = self._bg(tmp_db, qtbot, {"name": "AV", "status": "Retired"})
         assert bg is not None
-        assert bg.name().lower() == "#eeeeee"
+        assert bg.name().lower() == "#d0d0d0"
 
     def test_active_valid_row_has_no_background(self, tmp_db, qtbot):
         from datetime import date, timedelta

@@ -34,7 +34,7 @@ from PyQt6.QtWidgets import (
 import db as db_module
 from app.dialogs import AssetDialog
 from app.models import AssetTableModel
-from app.style import LEGEND_ITEMS, STYLESHEET
+from app.style import EXTRA_STYLESHEET, THEME_DARK, THEME_LIGHT
 
 _MAIN_TABS: list[str] = ["All"] + list(db_module.CATEGORIES)
 TABS: list[str] = _MAIN_TABS
@@ -54,8 +54,11 @@ class MainWindow(QMainWindow):
         self._selected_data: dict | None = None  # last selected row, survives focus loss
         self._col_widths: dict[str, list[int]] = {}
 
+        settings = QSettings("ITDept", "Inventory")
+        self._dark_mode: bool = settings.value("dark_mode", False, type=bool)
+
         self._build_ui()
-        self._apply_style()
+        self._apply_theme(self._dark_mode)
         self._restore_all_col_widths()
         self._check_alerts()
 
@@ -71,7 +74,6 @@ class MainWindow(QMainWindow):
         root.setSpacing(4)
 
         root.addLayout(self._build_toolbar())
-        root.addWidget(self._build_legend())
         root.addWidget(self._build_tabs())
         self._btn_add.setEnabled(self._current_tab != "All")
 
@@ -144,11 +146,11 @@ class MainWindow(QMainWindow):
             b.setFixedHeight(34)
             return b
 
-        self._btn_add = btn("➕  Add", "Add new asset  (Ins)")
-        self._btn_edit = btn("✏️  Edit", "Edit selected asset  (Enter)")
-        self._btn_del = btn("🗑  Delete", "Delete selected asset  (Del)")
-        self._btn_export = btn("⬇  Export CSV", "Export current view to CSV")
-        self._btn_alerts = btn("🔔  Alerts", "Show expiry alerts")
+        self._btn_add = btn("+ Add", "Add new asset  (Ins)")
+        self._btn_edit = btn("Edit", "Edit selected asset  (Enter)")
+        self._btn_del = btn("Delete", "Delete selected asset  (Del)")
+        self._btn_export = btn("↓ Export CSV", "Export current view to CSV")
+        self._btn_alerts = btn("⚠ Alerts", "Show expiry alerts")
 
         self._btn_edit.setEnabled(False)
         self._btn_del.setEnabled(False)
@@ -163,15 +165,17 @@ class MainWindow(QMainWindow):
         sep.setFixedHeight(28)
 
         self._search = QLineEdit()
-        self._search.setPlaceholderText("🔍  Search across all fields…")
+        self._search.setPlaceholderText("Search across all fields…")
         self._search.setMinimumWidth(280)
         self._search.setFixedHeight(34)
+        self._search.setClearButtonEnabled(True)
         self._search.textChanged.connect(self._on_search)
 
-        btn_clear = QPushButton("✕")
-        btn_clear.setFixedSize(34, 34)
-        btn_clear.setToolTip("Clear search")
-        btn_clear.clicked.connect(self._search.clear)
+        self._btn_theme = QPushButton("Light mode")
+        self._btn_theme.setToolTip("Currently: Light mode  |  Click to switch to Dark mode")
+        self._btn_theme.setFixedWidth(120)
+        self._btn_theme.setFixedHeight(34)
+        self._btn_theme.clicked.connect(self._toggle_theme)
 
         for w in (
             self._btn_add,
@@ -181,7 +185,7 @@ class MainWindow(QMainWindow):
             self._btn_alerts,
             sep,
             self._search,
-            btn_clear,
+            self._btn_theme,
         ):
             row.addWidget(w)
         row.addStretch()
@@ -195,26 +199,6 @@ class MainWindow(QMainWindow):
         QShortcut(QKeySequence(Qt.Key.Key_Escape), self._search, self._search.clear)
 
         return row
-
-    # ── Legend ────────────────────────────────────────────────────────────────
-    def _build_legend(self) -> QWidget:
-        bar = QWidget()
-        bar.setFixedHeight(22)
-        row = QHBoxLayout(bar)
-        row.setContentsMargins(4, 0, 4, 0)
-        row.setSpacing(16)
-
-        for color, label in LEGEND_ITEMS:
-            box = QFrame()
-            box.setFixedSize(14, 14)
-            box.setStyleSheet(f"background:{color}; border:1px solid #aaa; border-radius:2px;")
-            lbl = QLabel(label)
-            lbl.setStyleSheet("color:#555; font-size:11px;")
-            row.addWidget(box)
-            row.addWidget(lbl)
-
-        row.addStretch()
-        return bar
 
     # ── Tab bar + stacked tables ───────────────────────────────────────────────
     def _build_tabs(self) -> QWidget:
@@ -247,7 +231,7 @@ class MainWindow(QMainWindow):
             table = QTableView()
             _init_header = table.horizontalHeader()
             assert _init_header is not None
-            _init_header.setDefaultSectionSize(120)
+            _init_header.setDefaultSectionSize(180)
             table.setModel(model)
             table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
             table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
@@ -260,7 +244,7 @@ class MainWindow(QMainWindow):
             assert h_header is not None
             h_header.setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
             h_header.setStretchLastSection(True)
-            h_header.setMinimumSectionSize(80)
+            h_header.setMinimumSectionSize(150)
             v_header = table.verticalHeader()
             assert v_header is not None
             v_header.setDefaultSectionSize(24)
@@ -274,7 +258,6 @@ class MainWindow(QMainWindow):
                 lambda _sel, _desel, t=cat: self._on_selection_changed(t)
             )
             table.installEventFilter(self)
-            table.resizeColumnsToContents()
 
             self._tables[cat] = table
             self._stack.addWidget(table)
@@ -282,9 +265,35 @@ class MainWindow(QMainWindow):
         layout.addWidget(self._stack)
         return container
 
-    # ── Style ─────────────────────────────────────────────────────────────────
-    def _apply_style(self) -> None:
-        self.setStyleSheet(STYLESHEET)
+    # ── Theme ─────────────────────────────────────────────────────────────────
+    def _apply_theme(self, dark: bool) -> None:
+        self._dark_mode = dark
+        AssetTableModel.set_dark_mode(dark)
+        from PyQt6.QtWidgets import QApplication
+        from qt_material import apply_stylesheet
+
+        app = QApplication.instance()
+        apply_stylesheet(app, theme=THEME_DARK if dark else THEME_LIGHT)
+        self.setStyleSheet(self.styleSheet() + EXTRA_STYLESHEET)
+        # Re-measure headers now that the correct font is loaded (only for tabs
+        # without user-saved widths so we don't shrink custom columns)
+        for tab, table in self._tables.items():
+            if tab not in self._col_widths:
+                h = table.horizontalHeader()
+                if h:
+                    h.resizeSections(QHeaderView.ResizeMode.ResizeToContents)
+        # Repaint row highlights
+        for m in self._models.values():
+            m.layoutChanged.emit()
+        # Update toggle button icon
+        if hasattr(self, "_btn_theme"):
+            mode = "Dark mode" if dark else "Light mode"
+            next_mode = "Light mode" if dark else "Dark mode"
+            self._btn_theme.setText(mode)
+            self._btn_theme.setToolTip(f"Currently: {mode}  |  Click to switch to {next_mode}")
+
+    def _toggle_theme(self) -> None:
+        self._apply_theme(not self._dark_mode)
 
     # ══════════════════════════════════════════════════════════════════════════
     # Helpers
@@ -307,12 +316,7 @@ class MainWindow(QMainWindow):
         self._refresh_status()
 
     def _refresh_status(self) -> None:
-        count = self._current_model().rowCount()
-        search = self._search.text().strip() if hasattr(self, "_search") else ""
-        filter_note = "  (filtered)" if search else ""
-        self._status_bar.showMessage(
-            f"  {count} record(s){filter_note}    |    DB: {db_module.DB_PATH}"
-        )
+        self._status_bar.showMessage(f"  DB: {db_module.DB_PATH}")
 
     # ══════════════════════════════════════════════════════════════════════════
     # Slots
@@ -428,15 +432,41 @@ class MainWindow(QMainWindow):
         self._status_bar.showMessage(f"  Opened: {path}", 5000)
 
     def _show_about(self) -> None:
+        import platform
+        import sqlite3
+        import sys
+
+        from PyQt6.QtCore import PYQT_VERSION_STR, QT_VERSION_STR
+
+        from app._version import __version__
+
+        try:
+            import qt_material
+
+            qt_material_ver = qt_material.__version__
+        except Exception:
+            qt_material_ver = "unknown"
+
+        py_ver = sys.version.split()[0]
+        os_info = f"{platform.system()} {platform.release()}"
+
         QMessageBox.about(
             self,
             "About IT Asset Inventory",
-            "<h3>IT Asset Inventory</h3>"
+            f"<h3>IT Asset Inventory <small>v{__version__}</small></h3>"
             "<p>A desktop tool to track computers, devices, licenses "
             "and software subscriptions.</p>"
-            "<p><b>Stack:</b> Python 3.14 · PyQt6 · SQLite</p>"
-            "<p><b>License:</b> GNU GPL v3 or later</p>"
-            "<p><b>DB file:</b> " + str(db_module.DB_PATH) + "</p>",
+            "<hr>"
+            "<table cellspacing='4'>"
+            f"<tr><td><b>Python</b></td><td>{py_ver}</td></tr>"
+            f"<tr><td><b>PyQt6</b></td><td>{PYQT_VERSION_STR} (Qt {QT_VERSION_STR})</td></tr>"
+            f"<tr><td><b>SQLite</b></td><td>{sqlite3.sqlite_version}</td></tr>"
+            f"<tr><td><b>qt-material</b></td><td>{qt_material_ver}</td></tr>"
+            f"<tr><td><b>OS</b></td><td>{os_info}</td></tr>"
+            f"<tr><td><b>DB file</b></td><td>{db_module.DB_PATH}</td></tr>"
+            "</table>"
+            "<hr>"
+            "<p><b>License:</b> GNU GPL v3 or later</p>",
         )
 
     def _show_license(self) -> None:
@@ -458,6 +488,11 @@ class MainWindow(QMainWindow):
 
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close, dlg)
         buttons.rejected.connect(dlg.reject)
+        close_btn = buttons.button(QDialogButtonBox.StandardButton.Close)
+        if close_btn:
+            from PyQt6.QtGui import QIcon
+
+            close_btn.setIcon(QIcon())
 
         layout = QVBoxLayout(dlg)
         layout.addWidget(browser)
@@ -505,13 +540,14 @@ class MainWindow(QMainWindow):
 
     def _update_alert_badge(self, count: int) -> None:
         if count:
-            self._btn_alerts.setText(f"🔔  Alerts ({count})")
+            self._btn_alerts.setText(f"⚠ Alerts ({count})")
         else:
-            self._btn_alerts.setText("🔔  Alerts")
+            self._btn_alerts.setText("⚠ Alerts")
 
     def _show_alerts_dialog(self, expired: list, expiring: list) -> None:
         dlg = QDialog(self)
         dlg.setWindowTitle("Expiry Alerts")
+        dlg.setWindowFlags(dlg.windowFlags() & ~Qt.WindowType.WindowCloseButtonHint)
         dlg.resize(720, 440)
 
         all_items = [("🔴  Expired", r) for r in expired] + [
@@ -544,6 +580,11 @@ class MainWindow(QMainWindow):
         )
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close, dlg)
         buttons.rejected.connect(dlg.reject)
+        close_btn = buttons.button(QDialogButtonBox.StandardButton.Close)
+        if close_btn:
+            from PyQt6.QtGui import QIcon
+
+            close_btn.setIcon(QIcon())
 
         layout = QVBoxLayout(dlg)
         layout.addWidget(summary)
@@ -575,7 +616,7 @@ class MainWindow(QMainWindow):
         """Load persisted column widths from QSettings and apply to current tab."""
         settings = QSettings("ITDept", "Inventory")
         for tab in TABS:
-            raw = settings.value(f"col_widths_v2/{tab}", [])
+            raw = settings.value(f"col_widths_v3/{tab}", [])
             if raw:
                 try:
                     self._col_widths[tab] = [int(w) for w in raw]
@@ -587,7 +628,8 @@ class MainWindow(QMainWindow):
         self._save_column_widths(self._current_tab)
         settings = QSettings("ITDept", "Inventory")
         for tab, widths in self._col_widths.items():
-            settings.setValue(f"col_widths_v2/{tab}", widths)
+            settings.setValue(f"col_widths_v3/{tab}", widths)
+        settings.setValue("dark_mode", self._dark_mode)
         super().closeEvent(event)
 
     # ── Row selection helpers ──────────────────────────────────────────────────

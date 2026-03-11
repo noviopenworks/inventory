@@ -9,13 +9,29 @@ from PyQt6.QtGui import QColor, QFont
 
 import db as db_module
 
-_EXPIRED_COLOR = QColor("#ffcdd2")  # light red
-_EXPIRING_COLOR = QColor("#fff9c4")  # light yellow
-_RETIRED_COLOR = QColor("#eeeeee")  # grey
+_EXPIRED_COLOR = QColor("#ffcdd2")  # light red  (light mode)
+_EXPIRING_COLOR = QColor("#fff9c4")  # light yellow (light mode)
+_RETIRED_COLOR = QColor("#d0d0d0")  # grey         (light mode)
+
+# Dark-mode variants
+_EXPIRED_COLOR_DARK = QColor("#4a1020")  # deep crimson
+_EXPIRING_COLOR_DARK = QColor("#3d2e00")  # deep amber
+_RETIRED_COLOR_DARK = QColor("#2a2d4a")  # muted navy (visible on dark)
+
+_FG_RETIRED_LIGHT = QColor("#9e9e9e")
+_FG_MISSING_LIGHT = QColor("#c62828")
+_FG_RETIRED_DARK = QColor("#565f89")
+_FG_MISSING_DARK = QColor("#f7768e")
 
 
 class AssetTableModel(QAbstractTableModel):
     """Flat table model for one asset category (or 'All')."""
+
+    _dark_mode: bool = False
+
+    @classmethod
+    def set_dark_mode(cls, dark: bool) -> None:
+        cls._dark_mode = dark
 
     def __init__(self, category: str = "All", search: str = "", parent=None) -> None:
         super().__init__(parent)
@@ -95,10 +111,11 @@ class AssetTableModel(QAbstractTableModel):
             return self._row_bg(row_data)
 
         if role == Qt.ItemDataRole.ForegroundRole:
+            dark = self.__class__._dark_mode
             if row_data.get("status") == "Retired":
-                return QColor("#9e9e9e")
+                return _FG_RETIRED_DARK if dark else _FG_RETIRED_LIGHT
             if row_data.get("status") == "Missing":
-                return QColor("#b71c1c")
+                return _FG_MISSING_DARK if dark else _FG_MISSING_LIGHT
 
         if role == Qt.ItemDataRole.ToolTipRole:
             tip_parts = [f"ID: {row_data.get('id')}"]
@@ -143,9 +160,10 @@ class AssetTableModel(QAbstractTableModel):
     # ── Helpers ────────────────────────────────────────────────────────────────
     @staticmethod
     def _row_bg(row_data: dict):
+        dark = AssetTableModel._dark_mode
         status = row_data.get("status", "")
         if status == "Retired":
-            return _RETIRED_COLOR
+            return _RETIRED_COLOR_DARK if dark else _RETIRED_COLOR
 
         today = date.today().isoformat()
         threshold = (date.today() + timedelta(days=db_module.EXPIRY_WARNING_DAYS)).isoformat()
@@ -153,7 +171,7 @@ class AssetTableModel(QAbstractTableModel):
         warranty = row_data.get("warranty_expiry") or ""
 
         if (expiry and expiry < today) or (warranty and warranty < today):
-            return _EXPIRED_COLOR
+            return _EXPIRED_COLOR_DARK if dark else _EXPIRED_COLOR
         if (expiry and expiry <= threshold) or (warranty and warranty <= threshold):
-            return _EXPIRING_COLOR
+            return _EXPIRING_COLOR_DARK if dark else _EXPIRING_COLOR
         return None
