@@ -620,7 +620,8 @@ class MainWindow(QMainWindow):
             if raw:
                 try:
                     self._col_widths[tab] = [int(w) for w in raw]
-                except TypeError, ValueError:
+                except (TypeError, ValueError):
+                    # Ignore malformed or non-integer column width settings and fall back to defaults.
                     pass
         self._restore_column_widths(self._current_tab)
 
