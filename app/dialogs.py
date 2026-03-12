@@ -258,7 +258,6 @@ class AssetDialog(QDialog):
                 text = widget.text().strip()
             else:
                 continue
-            text = text
             if not text or text == _NA:
                 continue  # blank and N/A are allowed
             if not _DATE_RE.match(text):
