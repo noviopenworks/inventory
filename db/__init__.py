@@ -24,10 +24,10 @@ from db.alerts import (
     get_expiring_soon as get_expiring_soon,
 )
 from db.config import (
-    _ALL_TAB_CATS as _ALL_TAB_CATS,
+    ALL_DISPLAY_COLS as ALL_DISPLAY_COLS,
 )
 from db.config import (
-    ALL_DISPLAY_COLS as ALL_DISPLAY_COLS,
+    ALL_TAB_CATS as ALL_TAB_CATS,
 )
 from db.config import (
     CATEGORIES as CATEGORIES,

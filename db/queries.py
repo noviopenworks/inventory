@@ -2,7 +2,7 @@
 db.queries – Generic CRUD operations, fetch helpers, and the All-tab UNION.
 """
 
-from db.config import _ALL_TAB_CATS, CATEGORIES, TABLE_CONFIG
+from db.config import ALL_TAB_CATS, CATEGORIES, TABLE_CONFIG
 from db.connection import get_connection
 
 # ── Non-text columns (excluded from text search) ──────────────────────────────
@@ -117,7 +117,7 @@ def fetch_records(category: str, search: str | None = None) -> list[dict]:
 
 def _fetch_all(search: str | None = None) -> list[dict]:
     """UNION ALL across hardware device tables (Computer, Smartphone, Tablet)."""
-    asset_cats = [c for c in CATEGORIES if c in _ALL_TAB_CATS]
+    asset_cats = [c for c in CATEGORIES if c in ALL_TAB_CATS]
 
     def row_expr(cat: str) -> tuple[str, list]:
         cfg = TABLE_CONFIG[cat]
@@ -128,7 +128,7 @@ def _fetch_all(search: str | None = None) -> list[dict]:
         has_purchase = "purchase_date" in db_cols
         has_warranty = "warranty_expiry" in db_cols
 
-        # All _ALL_TAB_CATS are hardware with user_id
+        # All ALL_TAB_CATS are hardware with user_id
         user_expr = "u.name" if "user_id" in db_cols else "NULL"
         joins = "LEFT JOIN users u ON t.user_id = u.id" if "user_id" in db_cols else ""
 
