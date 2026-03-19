@@ -5,7 +5,7 @@ app.main_window – Main application window.
 import csv
 from pathlib import Path
 
-from PyQt6.QtCore import QEvent, QItemSelectionModel, QSettings, Qt
+from PyQt6.QtCore import QEvent, QItemSelectionModel, QSettings, QSize, Qt
 from PyQt6.QtGui import QAction, QKeySequence, QShortcut
 from PyQt6.QtWidgets import (
     QAbstractItemView,
@@ -35,6 +35,20 @@ import db as db_module
 from app.dialogs import AssetDialog
 from app.models import AssetTableModel
 from app.style import EXTRA_STYLESHEET, THEME_DARK, THEME_LIGHT
+
+
+class _NameSizedTabBar(QTabBar):
+    """Tab bar where each tab is sized to fit its label text."""
+
+    _H_PAD = 20  # horizontal padding per side, in pixels
+
+    def tabSizeHint(self, index: int) -> QSize:
+        size = super().tabSizeHint(index)
+        fm = self.fontMetrics()
+        text_w = fm.horizontalAdvance(self.tabText(index))
+        size.setWidth(text_w + 2 * self._H_PAD)
+        return size
+
 
 _MAIN_TABS: list[str] = ["All"] + list(db_module.CATEGORIES)
 TABS: list[str] = _MAIN_TABS
@@ -211,7 +225,7 @@ class MainWindow(QMainWindow):
         tab_row.setContentsMargins(0, 0, 0, 0)
         tab_row.setSpacing(0)
 
-        self._tab_bar = QTabBar()
+        self._tab_bar = _NameSizedTabBar()
         self._tab_bar.setExpanding(False)
         self._tab_bar.setDocumentMode(True)
         for tab in _MAIN_TABS:
