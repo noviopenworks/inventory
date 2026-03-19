@@ -26,16 +26,6 @@ buildwindows/
 dist/
 *.spec.bak
 
-# ── Flatpak build artefacts ───────────────────────────────────────────────────
-.flatpak-builder/
-build/flatpak-build/
-build/flatpak-repo/
-# generated from .tpl at build time – do not commit
-packaging/flatpak/io.github.noviopenworks.inventory.metainfo.xml
-# generated PNG icons (converted from SVG at build time)
-packaging/flatpak/io.github.noviopenworks.inventory-64.png
-packaging/flatpak/io.github.noviopenworks.inventory-128.png
-
 # ── Testing & coverage ────────────────────────────────────────────────────────
 .coverage
 .coverage.*

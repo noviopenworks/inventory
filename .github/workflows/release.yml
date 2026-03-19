@@ -71,7 +71,7 @@ jobs:
       - name: Build Linux packages
         env:
           QT_QPA_PLATFORM: offscreen
-        run: task build:linux_base build:deb build:tar build:rpm
+        run: task build:linux
 
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v4
@@ -82,47 +82,7 @@ jobs:
             dist/*.tar.gz
             dist/*.rpm
 
-  # ── 2b. Flatpak bundle ────────────────────────────────────────────────────
-  build-flatpak:
-    name: Build Flatpak bundle
-    needs: tag
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v5
-        with:
-          python-version: "3.14"
-          enable-cache: true
-
-      - name: Install Python dependencies
-        run: uv sync --all-groups
-
-      - name: Install Flatpak tools
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends flatpak flatpak-builder librsvg2-bin
-
-      - name: Install Flatpak runtime and SDK
-        run: |
-          flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak install --user -y flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
-
-      - name: Install Task
-        run: sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
-
-      - name: Build Flatpak bundle
-        env:
-          QT_QPA_PLATFORM: offscreen
-        run: task build:flatpak
-
-      - name: Upload Flatpak artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: flatpak-bundle
-          path: dist/*.flatpak
-
-  # ── 2c. Windows .exe ──────────────────────────────────────────────────────
+  # ── 2b. Windows .exe ──────────────────────────────────────────────────────
   build-windows:
     name: Build Windows binary
     needs: tag
@@ -156,7 +116,7 @@ jobs:
   # ── 3. Publish GitHub release ─────────────────────────────────────────────
   publish:
     name: Publish GitHub release
-    needs: [tag, build-linux, build-flatpak, build-windows]
+    needs: [tag, build-linux, build-windows]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -166,12 +126,6 @@ jobs:
         with:
           name: linux-packages
           path: dist/linux
-
-      - name: Download Flatpak artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: flatpak-bundle
-          path: dist/flatpak
 
       - name: Download Windows artifact
         uses: actions/download-artifact@v4
@@ -184,11 +138,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${{ needs.tag.outputs.version }}"
+          mv dist/windows/inventory.exe "dist/windows/inventory-${VERSION}-windows-x86_64.exe"
           gh release create "v${VERSION}" \
             --title "Release v${VERSION}" \
             --notes "Release v${VERSION}" \
             dist/linux/*.deb \
             dist/linux/*.tar.gz \
             dist/linux/*.rpm \
-            dist/flatpak/*.flatpak \
-            dist/windows/inventory.exe
+            "dist/windows/inventory-${VERSION}-windows-x86_64.exe"
