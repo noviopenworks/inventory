@@ -16,8 +16,6 @@
 
   <launchable type="desktop-id">io.github.inventory.desktop</launchable>
 
-  <url type="homepage">https://github.com/mg/inventory</url>
-
   <releases>
     <release version="0.4.0" date="2026-03-19">
       <description><p>Automated build.</p></description>

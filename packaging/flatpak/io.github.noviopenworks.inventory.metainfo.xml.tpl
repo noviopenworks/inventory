@@ -16,8 +16,6 @@
 
   <launchable type="desktop-id">io.github.inventory.desktop</launchable>
 
-  <url type="homepage">https://github.com/mg/inventory</url>
-
   <releases>
     <release version="__APP_VERSION__" date="__DATE__">
       <description><p>Automated build.</p></description>
