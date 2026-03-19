@@ -26,6 +26,13 @@ buildwindows/
 dist/
 *.spec.bak
 
+# ── Flatpak build artefacts ───────────────────────────────────────────────────
+.flatpak-builder/
+build/flatpak-build/
+build/flatpak-repo/
+# generated from .tpl at build time – do not commit
+packaging/flatpak/io.github.noviopenworks.inventory.metainfo.xml
+
 # ── Testing & coverage ────────────────────────────────────────────────────────
 .coverage
 .coverage.*

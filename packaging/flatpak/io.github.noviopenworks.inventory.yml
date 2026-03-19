@@ -1,0 +1,41 @@
+app-id: io.github.noviopenworks.inventory
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: inventory
+
+finish-args:
+  # Display
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  # Allow reading/writing the user's home directory for the SQLite database
+  - --filesystem=home
+
+modules:
+  - name: inventory
+    buildsystem: simple
+    build-commands:
+      # Binary (produced by PyInstaller)
+      - install -Dm755 inventory /app/bin/inventory
+      # Desktop entry
+      - install -Dm644 io.github.noviopenworks.inventory.desktop
+          /app/share/applications/io.github.noviopenworks.inventory.desktop
+      # AppStream metadata
+      - install -Dm644 io.github.noviopenworks.inventory.metainfo.xml
+          /app/share/metainfo/io.github.noviopenworks.inventory.metainfo.xml
+      # Icon
+      - install -Dm644 io.github.noviopenworks.inventory.svg
+          /app/share/icons/hicolor/scalable/apps/io.github.noviopenworks.inventory.svg
+    sources:
+      # PyInstaller binary – built by `task build:linux_base` before flatpak-builder
+      - type: file
+        path: ../../dist/linux/inventory
+        dest-filename: inventory
+      - type: file
+        path: io.github.noviopenworks.inventory.desktop
+      - type: file
+        path: io.github.noviopenworks.inventory.metainfo.xml
+      - type: file
+        path: io.github.noviopenworks.inventory.svg
