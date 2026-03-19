@@ -158,6 +158,9 @@ TABLE_CONFIG: dict[str, TableSpec] = {
 
 CATEGORIES: list[str] = list(TABLE_CONFIG.keys())
 
+# Categories included in the "All" overview tab
+ALL_TAB_CATS: set[str] = {"Computer", "Smartphone", "Tablet"}
+
 # Columns visible in the "All" overview tab
 ALL_DISPLAY_COLS = [
     "type",
@@ -192,8 +195,6 @@ COLUMN_LABELS: dict[str, str] = {
     "created_at": "Created",
     "updated_at": "Updated",
 }
-
-ALL_TAB_CATS: set[str] = {"Computer", "Smartphone", "Tablet"}
 
 STATUS_OPTIONS = ["Active", "In Repair", "Spare", "Retired", "Missing"]
 USER_STATUS_OPTIONS = ["Active", "On Leave", "Inactive", "Terminated"]
