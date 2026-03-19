@@ -6,6 +6,9 @@ on:
 permissions:
   contents: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # ── 1. Tag the commit ──────────────────────────────────────────────────────
   tag:
@@ -49,7 +52,18 @@ jobs:
       - name: Install packaging tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends rpm
+          sudo apt-get install -y --no-install-recommends \
+            rpm \
+            libxcb-util1 \
+            libxkbcommon-x11-0 \
+            libxcb-shape0 \
+            libxcb-keysyms1 \
+            libxcb-icccm4 \
+            libxcb-image0 \
+            libxcb-xkb1 \
+            libxcb-render-util0 \
+            libxcb-cursor0 \
+            libtiff5
 
       - name: Install Task
         run: sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
