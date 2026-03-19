@@ -11,7 +11,7 @@ a = Analysis(
     ["main.py"],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[("LICENSE", ".")],
     hiddenimports=[
         "PyQt6.sip",
         "PyQt6.QtCore",
