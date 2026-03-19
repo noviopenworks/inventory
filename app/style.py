@@ -12,7 +12,8 @@ THEME_LIGHT = "light_blue.xml"
 # Keep this minimal – qt-material already handles inputs, buttons, combos, etc.
 EXTRA_STYLESHEET = """
     QTabBar::tab {
-        padding: 5px 20px;
+        padding: 5px 0px;
+        min-width: 0;
         font-weight: bold;
         font-size: 12px;
         border-bottom: none;
