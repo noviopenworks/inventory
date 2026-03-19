@@ -63,7 +63,7 @@ jobs:
             libxcb-xkb1 \
             libxcb-render-util0 \
             libxcb-cursor0 \
-            libtiff5
+            libtiff6
 
       - name: Install Task
         run: sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
