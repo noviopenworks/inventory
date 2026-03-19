@@ -49,10 +49,6 @@ class _NameSizedTabBar(QTabBar):
         size.setWidth(text_w + 2 * self._H_PAD)
         return size
 
-    def minimumTabSizeHint(self, index: int) -> QSize:
-        size = self.tabSizeHint(index)
-        return size
-
 
 _MAIN_TABS: list[str] = ["All"] + list(db_module.CATEGORIES)
 TABS: list[str] = _MAIN_TABS
