@@ -193,6 +193,8 @@ COLUMN_LABELS: dict[str, str] = {
     "updated_at": "Updated",
 }
 
+ALL_TAB_CATS: set[str] = {"Computer", "Smartphone", "Tablet"}
+
 STATUS_OPTIONS = ["Active", "In Repair", "Spare", "Retired", "Missing"]
 USER_STATUS_OPTIONS = ["Active", "On Leave", "Inactive", "Terminated"]
 EXPIRY_WARNING_DAYS = 30
