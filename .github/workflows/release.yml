@@ -87,7 +87,7 @@ jobs:
       - name: Install Flatpak tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends flatpak flatpak-builder
+          sudo apt-get install -y --no-install-recommends flatpak flatpak-builder librsvg2-bin
 
       - name: Install Flatpak runtime and SDK
         run: |

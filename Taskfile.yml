@@ -273,6 +273,9 @@ tasks:
           -e 's/__DATE__/{{.FLATPAK_DATE}}/g' \
           packaging/flatpak/io.github.noviopenworks.inventory.metainfo.xml.tpl \
           > packaging/flatpak/io.github.noviopenworks.inventory.metainfo.xml
+      # Convert SVG icon to PNG for appstreamcli compatibility
+      - rsvg-convert -w 64  -h 64  packaging/flatpak/io.github.noviopenworks.inventory.svg -o packaging/flatpak/io.github.noviopenworks.inventory-64.png
+      - rsvg-convert -w 128 -h 128 packaging/flatpak/io.github.noviopenworks.inventory.svg -o packaging/flatpak/io.github.noviopenworks.inventory-128.png
       # Build the Flatpak
       - rm -rf "{{.FLATPAK_BUILD}}" "{{.FLATPAK_REPO}}"
       - |
