@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.inventory</id>
+  <id>io.github.noviopenworks.inventory</id>
   <name>IT Asset Inventory</name>
   <summary>Track computers, phones, tablets and software licences</summary>
   <metadata_license>MIT</metadata_license>
@@ -14,7 +14,7 @@
     </p>
   </description>
 
-  <launchable type="desktop-id">io.github.inventory.desktop</launchable>
+  <launchable type="desktop-id">io.github.noviopenworks.inventory.desktop</launchable>
 
   <releases>
     <release version="0.4.0" date="2026-03-19">

@@ -271,8 +271,8 @@ tasks:
         sed \
           -e 's/__APP_VERSION__/{{.APP_VERSION}}/g' \
           -e 's/__DATE__/{{.FLATPAK_DATE}}/g' \
-          packaging/flatpak/io.github.inventory.metainfo.xml.tpl \
-          > packaging/flatpak/io.github.inventory.metainfo.xml
+          packaging/flatpak/io.github.noviopenworks.inventory.metainfo.xml.tpl \
+          > packaging/flatpak/io.github.noviopenworks.inventory.metainfo.xml
       # Build the Flatpak
       - rm -rf "{{.FLATPAK_BUILD}}" "{{.FLATPAK_REPO}}"
       - |
@@ -280,9 +280,9 @@ tasks:
           --repo="{{.FLATPAK_REPO}}" \
           --force-clean \
           "{{.FLATPAK_BUILD}}" \
-          packaging/flatpak/io.github.inventory.yml
+          packaging/flatpak/io.github.noviopenworks.inventory.yml
       # Export as a single-file bundle
-      - flatpak build-bundle "{{.FLATPAK_REPO}}" "{{.FLATPAK_OUT}}" io.github.inventory
+      - flatpak build-bundle "{{.FLATPAK_REPO}}" "{{.FLATPAK_OUT}}" io.github.noviopenworks.inventory
       - echo "Package → {{.FLATPAK_OUT}}"
 
   build:linux:
