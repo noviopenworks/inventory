@@ -158,8 +158,8 @@ TABLE_CONFIG: dict[str, TableSpec] = {
 
 CATEGORIES: list[str] = list(TABLE_CONFIG.keys())
 
-# Categories included in the "All" overview tab (hardware devices only)
-_ALL_TAB_CATS = {"Computer", "Smartphone", "Tablet"}
+# Categories included in the "All" overview tab
+ALL_TAB_CATS: set[str] = {"Computer", "Smartphone", "Tablet"}
 
 # Columns visible in the "All" overview tab
 ALL_DISPLAY_COLS = [
