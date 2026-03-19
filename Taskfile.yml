@@ -18,6 +18,9 @@ vars:
   DEB_STAGE: dist/deb/{{.APP_NAME}}_{{.APP_VERSION}}_{{.ARCH}}
   DEB_OUT: dist/{{.APP_NAME}}_{{.APP_VERSION}}_{{.ARCH}}.deb
   RPM_OUT: "dist/{{.APP_NAME}}-{{.APP_VERSION}}-1.{{.RPM_ARCH}}.rpm"
+  FLATPAK_OUT: "dist/{{.APP_NAME}}-{{.APP_VERSION}}.flatpak"
+  FLATPAK_BUILD: build/flatpak-build
+  FLATPAK_REPO: build/flatpak-repo
 
 # ──────────────────────────────── default ────────────────────────────────────
 tasks:
@@ -254,14 +257,43 @@ tasks:
       - cp "{{.RPM_BUILD}}/RPMS/{{.RPM_ARCH}}/{{.APP_NAME}}-{{.APP_VERSION}}-1.{{.RPM_ARCH}}.rpm" "{{.RPM_OUT}}"
       - echo "Package → {{.RPM_OUT}}"
 
+  build:flatpak:
+    desc: Build a Flatpak bundle (.flatpak) from the Linux binary
+    platforms: [linux]
+    deps: [build:linux_base]
+    vars:
+      FLATPAK_DATE:
+        sh: date '+%Y-%m-%d'
+    cmds:
+      # Generate metainfo XML from template
+      - mkdir -p dist
+      - |
+        sed \
+          -e 's/__APP_VERSION__/{{.APP_VERSION}}/g' \
+          -e 's/__DATE__/{{.FLATPAK_DATE}}/g' \
+          packaging/flatpak/io.github.inventory.metainfo.xml.tpl \
+          > packaging/flatpak/io.github.inventory.metainfo.xml
+      # Build the Flatpak
+      - rm -rf "{{.FLATPAK_BUILD}}" "{{.FLATPAK_REPO}}"
+      - |
+        flatpak-builder \
+          --repo="{{.FLATPAK_REPO}}" \
+          --force-clean \
+          "{{.FLATPAK_BUILD}}" \
+          packaging/flatpak/io.github.inventory.yml
+      # Export as a single-file bundle
+      - flatpak build-bundle "{{.FLATPAK_REPO}}" "{{.FLATPAK_OUT}}" io.github.inventory
+      - echo "Package → {{.FLATPAK_OUT}}"
+
   build:linux:
-    desc: Build Linux binary + .deb + .tar.gz + .rpm packages
+    desc: Build Linux binary + .deb + .tar.gz + .rpm + .flatpak packages
     platforms: [linux]
     cmds:
       - task: build:linux_base
       - task: build:deb
       - task: build:tar
       - task: build:rpm
+      - task: build:flatpak
 
 # ──────────────────────────────── clean ──────────────────────────────────────
   clean:
