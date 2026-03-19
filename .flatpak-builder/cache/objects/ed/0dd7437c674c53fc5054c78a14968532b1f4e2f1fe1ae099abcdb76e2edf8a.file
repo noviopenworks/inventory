@@ -1,0 +1,11 @@
+[Application]
+name=io.github.inventory
+runtime=org.freedesktop.Platform/x86_64/24.08
+sdk=org.freedesktop.Sdk/x86_64/24.08
+command=inventory
+
+[Context]
+shared=ipc;
+sockets=x11;wayland;fallback-x11;
+devices=dri;
+filesystems=home;

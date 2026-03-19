@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=IT Asset Inventory
+Comment=Track computers, phones, tablets and software licences
+Exec=inventory
+Icon=io.github.inventory
+Categories=Office;Utility;
+Terminal=false
+StartupNotify=true
