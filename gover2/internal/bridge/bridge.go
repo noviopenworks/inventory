@@ -3,6 +3,7 @@ package bridge
 import (
 	"gover2/internal/backup"
 	"gover2/internal/config"
+	"gover2/internal/database"
 	"gover2/internal/models"
 	"gover2/internal/services"
 )
@@ -66,3 +67,4 @@ func (a *App) ExportCSV(category string, destPath string) error {
 }
 
 var _ = backup.BackupDB
+var _ = database.Open
