@@ -1261,7 +1261,7 @@ git commit -m "feat(gover2): add Vue Router hash-mode routes and AppShell layout
 - Consumes: `useAssetsStore` from `@/stores/assets`
 - Produces: 9 `<template>` stubs that render a placeholder `<div>` with the category name; no `window.go.*` calls
 
-- [ ] **Step 1: Create ComputersView.vue**
+- [x] **Step 1: Create ComputersView.vue**
 
 Create `gover2/frontend/src/features/assets/ComputersView.vue`:
 
@@ -1278,7 +1278,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 2: Create SmartphonesView.vue**
+- [x] **Step 2: Create SmartphonesView.vue**
 
 Create `gover2/frontend/src/features/assets/SmartphonesView.vue`:
 
@@ -1295,7 +1295,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 3: Create TabletsView.vue**
+- [x] **Step 3: Create TabletsView.vue**
 
 Create `gover2/frontend/src/features/assets/TabletsView.vue`:
 
@@ -1312,7 +1312,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 4: Create AllAssetsView.vue**
+- [x] **Step 4: Create AllAssetsView.vue**
 
 Create `gover2/frontend/src/features/assets/AllAssetsView.vue`:
 
@@ -1329,7 +1329,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 5: Create WindowsKeysView.vue**
+- [x] **Step 5: Create WindowsKeysView.vue**
 
 Create `gover2/frontend/src/features/licenses/WindowsKeysView.vue`:
 
@@ -1346,7 +1346,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 6: Create AntivirusView.vue**
+- [x] **Step 6: Create AntivirusView.vue**
 
 Create `gover2/frontend/src/features/licenses/AntivirusView.vue`:
 
@@ -1363,7 +1363,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 7: Create OtherSoftwareView.vue**
+- [x] **Step 7: Create OtherSoftwareView.vue**
 
 Create `gover2/frontend/src/features/licenses/OtherSoftwareView.vue`:
 
@@ -1380,7 +1380,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 8: Create UsersView.vue**
+- [x] **Step 8: Create UsersView.vue**
 
 Create `gover2/frontend/src/features/users/UsersView.vue`:
 
@@ -1397,7 +1397,7 @@ import DataTable from '@/components/DataTable.vue'
 </script>
 ```
 
-- [ ] **Step 9: Create AlertsView.vue (Phase 4 placeholder — not routed)**
+- [x] **Step 9: Create AlertsView.vue (Phase 4 placeholder — not routed)**
 
 Create `gover2/frontend/src/features/alerts/AlertsView.vue`:
 
@@ -1414,7 +1414,7 @@ Create `gover2/frontend/src/features/alerts/AlertsView.vue`:
 </script>
 ```
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 cd /home/mg/inventory
