@@ -974,5 +974,264 @@
 
 </div><!-- /shell -->
 
+<!-- ═══════════════════════════════════════════════════════
+     VIEW: COMPACT DENSITY (24 px rows)
+════════════════════════════════════════════════════════ -->
+<p style="font-family:var(--ui);font-size:11px;color:var(--text-2);padding:8px 16px;background:var(--page);border-top:1px solid var(--border);margin-top:24px;">
+  VIEW: Compact density — 24 px row height (matches current PyQt6 app)
+</p>
+<div class="shell" style="height:320px;margin-top:0;">
+  <nav class="sidebar">
+    <div class="sidebar-head">
+      <div class="logo">
+        <div class="logo-mark">IT</div>
+        <span class="logo-text">Inventory</span>
+      </div>
+    </div>
+    <div class="sidebar-body">
+      <div class="sidebar-section">
+        <div class="section-label">Hardware</div>
+        <div class="nav-item is-active">Computers <span class="nav-count">18</span></div>
+        <div class="nav-item">Smartphones <span class="nav-count">9</span></div>
+        <div class="nav-item">Tablets <span class="nav-count">5</span></div>
+      </div>
+    </div>
+    <div class="sidebar-foot"><div class="sidebar-version">v2.0.0-dev · inventory.db</div></div>
+  </nav>
+  <div class="main">
+    <div class="topbar">
+      <div class="search-wrap"><input class="search-input" type="text" placeholder="Search computers…" /></div>
+      <div class="topbar-gap"></div>
+      <button class="tbtn">Export CSV</button>
+      <button class="tbtn tbtn-alert">Alerts <span class="alert-pip">2</span></button>
+    </div>
+    <div class="content">
+      <div class="content-bar">
+        <div><div class="content-heading">Computers</div><div class="content-sub">18 records · compact</div></div>
+        <div class="content-actions"><button class="btn btn-primary">+ Add Computer</button></div>
+      </div>
+      <div class="workspace">
+        <div class="table-area">
+          <div class="table-scroll">
+            <table class="dtable">
+              <thead><tr>
+                <th class="col-strip"></th>
+                <th>ID</th><th>Name</th><th>Model</th><th>User</th><th>Status</th><th>Warranty</th>
+              </tr></thead>
+              <tbody>
+                <tr style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#2563EB;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-001</td>
+                  <td class="c-name" style="padding:3px 11px;">WKSTN-MGLOW</td>
+                  <td style="padding:3px 11px;">MacBook Pro 16"</td>
+                  <td style="padding:3px 11px;">Głowacki, M.</td>
+                  <td style="padding:3px 11px;"><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date" style="padding:3px 11px;">2026-04-12</td>
+                </tr>
+                <tr class="is-expiring" style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#D97706;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-002</td>
+                  <td class="c-name" style="padding:3px 11px;">LAPTOP-SALES</td>
+                  <td style="padding:3px 11px;">Dell XPS 15</td>
+                  <td style="padding:3px 11px;">Nowak, A.</td>
+                  <td style="padding:3px 11px;"><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date is-warn" style="padding:3px 11px;">2026-07-03</td>
+                </tr>
+                <tr style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#7C3AED;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-003</td>
+                  <td class="c-name" style="padding:3px 11px;">SPARE-01</td>
+                  <td style="padding:3px 11px;">Lenovo ThinkPad</td>
+                  <td style="padding:3px 11px; color:var(--text-3);">—</td>
+                  <td style="padding:3px 11px;"><span class="badge b-spare"><span class="dot"></span>Spare</span></td>
+                  <td class="c-date" style="padding:3px 11px;">2027-01-15</td>
+                </tr>
+                <tr style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#9CA3AF;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-004</td>
+                  <td class="c-name c-muted" style="padding:3px 11px;">OLD-MGMT-01</td>
+                  <td style="padding:3px 11px; color:var(--text-3);">HP EliteBook</td>
+                  <td style="padding:3px 11px; color:var(--text-3);">—</td>
+                  <td style="padding:3px 11px;"><span class="badge b-retired"><span class="dot"></span>Retired</span></td>
+                  <td class="c-date" style="padding:3px 11px;">2023-06-01</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statusbar">
+      <span class="sb-item"><strong>18</strong> computers</span>
+      <div class="sb-rule"></div>
+      <span class="sb-item">density: <strong>compact</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     VIEW: DARK MODE SKELETON
+════════════════════════════════════════════════════════ -->
+<p style="font-family:var(--ui);font-size:11px;color:var(--text-2);padding:8px 16px;background:var(--page);border-top:1px solid var(--border);margin-top:24px;">
+  VIEW: Dark mode — manual toggle, Light default. System-follow deferred to Phase 4.
+</p>
+<div class="shell" style="height:320px;margin-top:0;background:#0F172A;">
+  <nav class="sidebar" style="background:#060D18;border-right-color:#0A1120;">
+    <div class="sidebar-head">
+      <div class="logo">
+        <div class="logo-mark">IT</div>
+        <span class="logo-text" style="color:#DDE8F5;">Inventory</span>
+      </div>
+    </div>
+    <div class="sidebar-body">
+      <div class="sidebar-section">
+        <div class="section-label" style="color:#3A4F6A;">Hardware</div>
+        <div class="nav-item is-active" style="background:#182337;border-left-color:#2563EB;color:#DDE8F5;">Computers <span class="nav-count" style="color:#4A6480;">18</span></div>
+        <div class="nav-item" style="color:#6B82A0;">Smartphones <span class="nav-count">9</span></div>
+        <div class="nav-item" style="color:#6B82A0;">Tablets <span class="nav-count">5</span></div>
+      </div>
+    </div>
+    <div class="sidebar-foot"><div class="sidebar-version" style="color:#3A4F6A;">v2.0.0-dev · inventory.db</div></div>
+  </nav>
+  <div class="main" style="background:#0F172A;">
+    <div class="topbar" style="background:#1E293B;border-bottom-color:#0A1120;">
+      <div class="search-wrap" style="background:#0F172A;border-color:#334155;">
+        <input class="search-input" type="text" placeholder="Search computers…" style="color:#DDE8F5;" />
+      </div>
+      <div class="topbar-gap"></div>
+      <button class="tbtn" style="background:transparent;color:#94A3B8;border-color:#334155;">Export CSV</button>
+      <button class="tbtn" style="background:transparent;color:#94A3B8;border-color:#334155;position:relative;">Alerts<span class="alert-pip" style="background:#DC2626;">2</span></button>
+      <button class="tbtn" style="background:transparent;color:#F1C40F;border-color:#334155;font-size:16px;line-height:1;" title="Switch to Light mode">☀</button>
+    </div>
+    <div class="content">
+      <div class="content-bar">
+        <div><div class="content-heading" style="color:#DDE8F5;">Computers</div><div class="content-sub">18 records</div></div>
+        <div class="content-actions"><button class="btn btn-primary">+ Add Computer</button></div>
+      </div>
+      <div class="workspace">
+        <div class="table-area">
+          <div class="table-scroll" style="border-color:#1E293B;">
+            <table class="dtable">
+              <thead><tr>
+                <th class="col-strip" style="background:#060D18;"></th>
+                <th style="background:#060D18;color:#4A6480;">ID</th>
+                <th style="background:#060D18;color:#4A6480;">Name</th>
+                <th style="background:#060D18;color:#4A6480;">Model</th>
+                <th style="background:#060D18;color:#4A6480;">User</th>
+                <th style="background:#060D18;color:#4A6480;">Status</th>
+                <th style="background:#060D18;color:#4A6480;">Warranty</th>
+              </tr></thead>
+              <tbody>
+                <tr style="background:#1A2947;border-bottom:1px solid #1E293B;">
+                  <td class="col-strip"><span class="strip" style="background:#2563EB;"></span></td>
+                  <td class="c-id" style="color:#94A3B8;">C-001</td>
+                  <td style="font-weight:500;color:#DDE8F5;">WKSTN-MGLOW</td>
+                  <td style="color:#64748B;">MacBook Pro 16"</td>
+                  <td style="color:#64748B;">Głowacki, M.</td>
+                  <td><span style="background:rgba(37,99,235,.2);color:#60A5FA;font-size:11px;padding:1px 7px 2px;border-radius:2px;">● Active</span></td>
+                  <td class="c-date" style="color:#64748B;">2026-04-12</td>
+                </tr>
+                <tr style="background:#1C1A10;border-bottom:1px solid #1E293B;">
+                  <td class="col-strip"><span class="strip" style="background:#D97706;"></span></td>
+                  <td class="c-id" style="color:#94A3B8;">C-002</td>
+                  <td style="font-weight:500;color:#DDE8F5;">LAPTOP-SALES</td>
+                  <td style="color:#64748B;">Dell XPS 15</td>
+                  <td style="color:#64748B;">Nowak, A.</td>
+                  <td><span style="background:rgba(217,119,6,.2);color:#FBBF24;font-size:11px;padding:1px 7px 2px;border-radius:2px;">● Expiring</span></td>
+                  <td class="c-date" style="color:#D97706;">2026-07-03</td>
+                </tr>
+                <tr style="background:#0F172A;border-bottom:1px solid #1E293B;">
+                  <td class="col-strip"><span class="strip" style="background:#7C3AED;"></span></td>
+                  <td class="c-id" style="color:#94A3B8;">C-003</td>
+                  <td style="font-weight:500;color:#DDE8F5;">SPARE-01</td>
+                  <td style="color:#64748B;">Lenovo ThinkPad</td>
+                  <td style="color:#64748B;">—</td>
+                  <td><span style="background:rgba(124,58,237,.2);color:#A78BFA;font-size:11px;padding:1px 7px 2px;border-radius:2px;">● Spare</span></td>
+                  <td class="c-date" style="color:#64748B;">2027-01-15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statusbar" style="background:#1E293B;border-top-color:#0A1120;">
+      <span class="sb-item" style="color:#64748B;"><strong style="color:#94A3B8;">18</strong> computers</span>
+      <div class="sb-rule" style="background:#334155;"></div>
+      <span class="sb-item" style="color:#64748B;">dark mode <strong style="color:#94A3B8;">on</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     VIEW: ALERTS OVERLAY (F5 / Alerts button)
+════════════════════════════════════════════════════════ -->
+<p style="font-family:var(--ui);font-size:11px;color:var(--text-2);padding:8px 16px;background:var(--page);border-top:1px solid var(--border);margin-top:24px;">
+  VIEW: Alerts overlay — triggered by F5 or Alerts button. Shows warranty/expiry alerts. Closes on Esc or click-outside.
+</p>
+<div style="position:relative;height:420px;background:var(--page);overflow:hidden;margin-top:0;border-top:1px solid var(--border);">
+  <!-- Dimmed shell behind overlay -->
+  <div class="shell" style="height:420px;opacity:.35;pointer-events:none;">
+    <nav class="sidebar">
+      <div class="sidebar-head"><div class="logo"><div class="logo-mark">IT</div><span class="logo-text">Inventory</span></div></div>
+    </nav>
+    <div class="main">
+      <div class="topbar"></div>
+    </div>
+  </div>
+  <!-- Overlay backdrop -->
+  <div style="position:absolute;inset:0;background:rgba(15,23,42,.45);z-index:10;"></div>
+  <!-- Alerts modal panel -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;background:var(--surface);border:1px solid var(--border);width:640px;max-height:320px;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(15,23,42,.18);">
+    <!-- Modal header — uses signature dark bg matching table header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--th-bg);">
+      <span style="font-size:13px;font-weight:600;color:#DDE8F5;letter-spacing:.02em;">ALERTS — Expiring &amp; Expired</span>
+      <button style="background:none;border:none;cursor:pointer;color:#6B82A0;font-size:16px;line-height:1;padding:2px 6px;" title="Close (Esc)">×</button>
+    </div>
+    <!-- Modal table -->
+    <div style="overflow-y:auto;flex:1;">
+      <table style="width:100%;border-collapse:collapse;font-family:var(--ui);font-size:12px;">
+        <thead>
+          <tr style="background:var(--page);">
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Type</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">ID</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Name</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Warranty Expiry</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Days</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#FFF5F5;border-bottom:1px solid #FFE4E4;">
+            <td style="padding:6px 10px;color:var(--text-2);">Computer</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--text-2);">C-007</td>
+            <td style="padding:6px 10px;font-weight:500;color:var(--text);">SERVER-BACK</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--s-expired);">2026-04-01</td>
+            <td style="padding:6px 10px;"><span style="background:rgba(220,38,38,.12);color:var(--s-expired);font-size:10px;padding:1px 6px;border-radius:2px;font-weight:600;">EXPIRED</span></td>
+          </tr>
+          <tr style="background:#FFFBEB;border-bottom:1px solid #FEF3C7;">
+            <td style="padding:6px 10px;color:var(--text-2);">Computer</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--text-2);">C-002</td>
+            <td style="padding:6px 10px;font-weight:500;color:var(--text);">LAPTOP-SALES</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--s-expiring);">2026-07-03</td>
+            <td style="padding:6px 10px;"><span style="background:rgba(217,119,6,.12);color:var(--s-expiring);font-size:10px;padding:1px 6px;border-radius:2px;font-weight:600;">16 days</span></td>
+          </tr>
+          <tr style="background:#FFFBEB;border-bottom:1px solid #FEF3C7;">
+            <td style="padding:6px 10px;color:var(--text-2);">Smartphone</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--text-2);">S-004</td>
+            <td style="padding:6px 10px;font-weight:500;color:var(--text);">PHONE-HR-02</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--s-expiring);">2026-07-14</td>
+            <td style="padding:6px 10px;"><span style="background:rgba(217,119,6,.12);color:var(--s-expiring);font-size:10px;padding:1px 6px;border-radius:2px;font-weight:600;">27 days</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Modal footer -->
+    <div style="padding:8px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;background:var(--page);">
+      <span style="font-size:11px;color:var(--text-3);align-self:center;">1 expired · 2 expiring within 30 days</span>
+      <button class="btn" style="font-size:12px;height:26px;">Close</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
