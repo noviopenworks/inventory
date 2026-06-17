@@ -8,11 +8,17 @@ Use Wails as the desktop runtime, Go as the backend application layer, Vue and T
 
 ## Candidate Runtime Boundaries
 
+> **Resolved (2026-06-17, change `gover-phase1-architecture`):** Go owns all data access and business logic via a 6-package `internal/` layout; Vue owns presentation; TypeScript API wrappers in `src/lib/api/` mediate the Wails bridge.
+> Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
+
 - Go owns database access, migrations, validation that protects data integrity, file system paths, backup, restore, import, export, and platform-specific behavior.
 - Vue owns layout, navigation, presentation state, forms, table interactions, filters, and user-facing feedback.
 - TypeScript API clients wrap Wails-generated bindings so frontend components do not depend directly on low-level bridge details.
 
 ## Candidate Go Areas
+
+> **Resolved (2026-06-17, change `gover-phase1-architecture`):** Six packages confirmed: `internal/database`, `internal/models`, `internal/services`, `internal/bridge`, `internal/config`, `internal/backup`. Dependency order locked; `bridge` is the sole package that imports from all others.
+> Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
 
 - `database`: connection management, SQLite pragmas, transactions, migrations.
 - `models`: typed records for users, devices, licenses, software, alerts, and settings.
@@ -22,6 +28,9 @@ Use Wails as the desktop runtime, Go as the backend application layer, Vue and T
 - `backup`: database backup and restore utilities if approved.
 
 ## Candidate Frontend Areas
+
+> **Resolved (2026-06-17, change `gover-phase1-architecture`):** Feature-folder structure adopted: `features/` (assets, licenses, users, alerts stub), `components/` (10 shared components), `lib/api/index.ts`, `lib/types/index.ts`, `stores/assets.ts`, `stores/ui.ts`. Hash-mode Vue Router with 9 routes.
+> Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
 
 - `app`: Vue app setup and global providers.
 - `layouts`: main shell, navigation, top bar, and responsive structure.
@@ -34,6 +43,9 @@ Use Wails as the desktop runtime, Go as the backend application layer, Vue and T
 - `components`: reusable buttons, fields, modals, panels, tables, badges, and empty states.
 
 ## Data Strategy Options To Evaluate
+
+> **Resolved (2026-06-17, change `gover-phase1-architecture`):** Option 1 adopted — reuse current schema directly. Go DDL in `internal/database` carries the 7-table schema verbatim from `db/schema.py`. SQLite driver: `modernc.org/sqlite` (pure Go, no CGo).
+> Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
 
 1. Reuse current schema directly.
    Pros: fastest path and less migration risk.
