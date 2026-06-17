@@ -49,6 +49,12 @@ Use Wails as the desktop runtime, Go as the backend application layer, Vue and T
 
 ## UI Strategy Options To Evaluate
 
+> **Resolved (2026-06-17, change `gover-ui-spec`):** Option 2 (Dashboard plus sidebar) adopted with modifications.
+> Full decisions: [`openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md`](../openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md)
+> Visual reference: [`gover/UI_DESIGN_REFERENCE.html`](UI_DESIGN_REFERENCE.html)
+>
+> Key decisions: persistent left sidebar (200 px, `#0E1520`), Computers as first screen, slide-in right panel for add/edit (300 px), Comfortable/Compact density toggle, manual dark mode toggle (Light default), 7 fixed categories, native OS menu bar via `wails/v2/pkg/menu`.
+
 1. Familiar table-first layout.
    Pros: easy transition from current app.
    Cons: less modern if not improved carefully.
