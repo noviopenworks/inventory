@@ -25,9 +25,9 @@
 
 ## 3. Vue Frontend Structure
 
-- [ ] 3.1 Replace generated `frontend/` with pnpm-based Vite + Vue 3 + TypeScript project
-- [ ] 3.2 Create `frontend/src/lib/types/index.ts` with all 7 domain interfaces (Computer, Smartphone, Tablet, WindowsKey, Antivirus, OtherSoftware, User) + AppConfig + Alert
-- [ ] 3.3 Create `frontend/src/lib/api/index.ts` wrapping all 10 bridge methods (returning `Promise.resolve([])` for list methods in scaffold)
+- [x] 3.1 Replace generated `frontend/` with pnpm-based Vite + Vue 3 + TypeScript project
+- [x] 3.2 Create `frontend/src/lib/types/index.ts` with all 7 domain interfaces (Computer, Smartphone, Tablet, WindowsKey, Antivirus, OtherSoftware, User) + AppConfig + Alert
+- [x] 3.3 Create `frontend/src/lib/api/index.ts` wrapping all 10 bridge methods (returning `Promise.resolve([])` for list methods in scaffold)
 - [ ] 3.4 Create `frontend/src/stores/assets.ts` (currentCategory, items, selectedId, filters)
 - [ ] 3.5 Create `frontend/src/stores/ui.ts` (density, darkMode, sidebarCollapsed)
 - [ ] 3.6 Create `frontend/src/layouts/AppShell.vue` with sidebar + topbar + main content slot

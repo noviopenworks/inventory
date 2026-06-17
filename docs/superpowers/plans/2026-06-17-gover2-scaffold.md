@@ -633,7 +633,7 @@ git commit -m "feat(gover2): add 6 Go package stubs with dependency-ordered layo
   - All bridge wrapper functions exported from `frontend/src/lib/api/index.ts`, all returning `Promise.resolve([])`/`Promise.resolve('')`/`Promise.resolve()`
   - Runnable `pnpm run typecheck` command
 
-- [ ] **Step 1: Replace package.json with pnpm + Vue 3 stack**
+- [x] **Step 1: Replace package.json with pnpm + Vue 3 stack**
 
 Replace `gover2/frontend/package.json` entirely:
 
@@ -667,7 +667,7 @@ Replace `gover2/frontend/package.json` entirely:
 }
 ```
 
-- [ ] **Step 2: Create vite.config.ts**
+- [x] **Step 2: Create vite.config.ts**
 
 Create `gover2/frontend/vite.config.ts`:
 
@@ -688,7 +688,7 @@ export default defineConfig({
 
 Note: do NOT use `@tailwindcss/vite` — that is the v4 plugin and incompatible with the v3 config. PostCSS handles Tailwind separately.
 
-- [ ] **Step 3: Create tsconfig.json with strict mode**
+- [x] **Step 3: Create tsconfig.json with strict mode**
 
 Create `gover2/frontend/tsconfig.json`:
 
@@ -735,7 +735,7 @@ Create `gover2/frontend/tsconfig.node.json`:
 }
 ```
 
-- [ ] **Step 4: Create index.html**
+- [x] **Step 4: Create index.html**
 
 Create `gover2/frontend/index.html`:
 
@@ -754,7 +754,7 @@ Create `gover2/frontend/index.html`:
 </html>
 ```
 
-- [ ] **Step 5: Install frontend dependencies**
+- [x] **Step 5: Install frontend dependencies**
 
 ```bash
 cd /home/mg/inventory/gover2/frontend
@@ -763,7 +763,7 @@ pnpm install
 
 Expected: `node_modules/` created, `pnpm-lock.yaml` written. No npm warnings. Tailwind version installed should be 3.x.x — confirm with `pnpm list tailwindcss`.
 
-- [ ] **Step 6: Create TypeScript domain interfaces**
+- [x] **Step 6: Create TypeScript domain interfaces**
 
 Create `gover2/frontend/src/lib/types/index.ts`:
 
@@ -878,7 +878,7 @@ export interface Alert {
 }
 ```
 
-- [ ] **Step 7: Create API bridge wrapper layer**
+- [x] **Step 7: Create API bridge wrapper layer**
 
 Create `gover2/frontend/src/lib/api/index.ts`:
 
@@ -958,7 +958,7 @@ export function exportCSV(_category: string, _destPath: string): Promise<void> {
 }
 ```
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 cd /home/mg/inventory
