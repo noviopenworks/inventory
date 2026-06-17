@@ -30,11 +30,11 @@
 - [x] 3.3 Create `frontend/src/lib/api/index.ts` wrapping all 10 bridge methods (returning `Promise.resolve([])` for list methods in scaffold)
 - [x] 3.4 Create `frontend/src/stores/assets.ts` (currentCategory, items, selectedId, filters)
 - [x] 3.5 Create `frontend/src/stores/ui.ts` (density, darkMode, sidebarCollapsed)
-- [ ] 3.6 Create `frontend/src/layouts/AppShell.vue` with sidebar + topbar + main content slot
+- [x] 3.6 Create `frontend/src/layouts/AppShell.vue` with sidebar + topbar + main content slot
 - [x] 3.7 Create `frontend/src/components/` — 9 stub components (Sidebar, SidebarItem, Topbar, DataTable, StatusBadge, EditPanel, FormField, AlertsModal, Statusbar)
 - [x] 3.8 Create `frontend/src/features/` — 4 feature folders (assets, licenses, users, alerts) with stub Index.vue per category view (Computers, Smartphones, Tablets, All, WindowsKeys, Antivirus, OtherSoftware, Users)
-- [ ] 3.9 Set up `frontend/src/router/index.ts` with 9 hash-mode routes (/ → /computers redirect + 8 views)
-- [ ] 3.10 Wire `frontend/src/main.ts` with Pinia + Router + App mount
+- [x] 3.9 Set up `frontend/src/router/index.ts` with 9 hash-mode routes (/ → /computers redirect + 8 views)
+- [x] 3.10 Wire `frontend/src/main.ts` with Pinia + Router + App mount
 
 ## 4. Tailwind Configuration
 

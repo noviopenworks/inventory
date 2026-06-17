@@ -1110,7 +1110,7 @@ git commit -m "feat(gover2): add Pinia assets and ui stores"
 
 Note: Task 5 is written before Task 6 (view stubs). The router imports views by path — if typecheck is run before Task 6, it will fail. Run typecheck after Task 6 is complete.
 
-- [ ] **Step 1: Create router**
+- [x] **Step 1: Create router**
 
 Create `gover2/frontend/src/router/index.ts`:
 
@@ -1162,7 +1162,7 @@ const router = createRouter({
 export default router
 ```
 
-- [ ] **Step 2: Create App.vue**
+- [x] **Step 2: Create App.vue**
 
 Create `gover2/frontend/src/App.vue`:
 
@@ -1178,7 +1178,7 @@ import AppShell from '@/layouts/AppShell.vue'
 </script>
 ```
 
-- [ ] **Step 3: Create main.ts entry point**
+- [x] **Step 3: Create main.ts entry point**
 
 Create `gover2/frontend/src/main.ts`:
 
@@ -1201,7 +1201,7 @@ Note: `style.css` is created in Task 8. The import here will cause a typecheck e
 touch /home/mg/inventory/gover2/frontend/src/style.css
 ```
 
-- [ ] **Step 4: Create AppShell layout**
+- [x] **Step 4: Create AppShell layout**
 
 Create `gover2/frontend/src/layouts/AppShell.vue`:
 
@@ -1234,7 +1234,7 @@ import Statusbar from '@/components/Statusbar.vue'
 </script>
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd /home/mg/inventory
