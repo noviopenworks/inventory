@@ -115,7 +115,7 @@ Files created or modified by this change, grouped by task:
 **Interfaces:**
 - Produces: `wails` binary on PATH, `pnpm` binary on PATH
 
-- [ ] **Step 1: Install Wails v2**
+- [x] **Step 1: Install Wails v2**
 
 ```bash
 go install github.com/wailsapp/wails/v2/cmd/wails@latest
@@ -123,7 +123,7 @@ go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
 Expected: installs without error. The binary lands in `$(go env GOPATH)/bin/`.
 
-- [ ] **Step 2: Verify wails is on PATH**
+- [x] **Step 2: Verify wails is on PATH**
 
 ```bash
 wails version
@@ -136,7 +136,7 @@ Wails CLI v2.9.x
 
 If `command not found`, add `$(go env GOPATH)/bin` to your `PATH` and reload the shell.
 
-- [ ] **Step 3: Enable pnpm via corepack**
+- [x] **Step 3: Enable pnpm via corepack**
 
 ```bash
 corepack enable pnpm
@@ -144,7 +144,7 @@ corepack enable pnpm
 
 Expected: no error. Corepack is bundled with Node 16.9+. If Node is not installed, install it first (`nvm install --lts` or system package manager), then re-run.
 
-- [ ] **Step 4: Verify pnpm is available**
+- [x] **Step 4: Verify pnpm is available**
 
 ```bash
 pnpm --version

@@ -1,8 +1,8 @@
 ## 0. Toolchain Prerequisites
 
-- [ ] 0.1 Install Wails v2: `go install github.com/wailsapp/wails/v2/cmd/wails@latest`
-- [ ] 0.2 Install pnpm: `corepack enable pnpm`
-- [ ] 0.3 Verify: `wails version` and `pnpm --version` both print
+- [x] 0.1 Install Wails v2: `go install github.com/wailsapp/wails/v2/cmd/wails@latest`
+- [x] 0.2 Install pnpm: `corepack enable pnpm`
+- [x] 0.3 Verify: `wails version` and `pnpm --version` both print
 
 ## 1. Wails Project Init
 
