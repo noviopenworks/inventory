@@ -46,6 +46,21 @@ We then:
 3. Add all 6 `internal/` packages as stubs
 4. Wire `app.go` to expose the bridge struct
 
+## wails.json pnpm Configuration
+
+Wails v2 defaults to `npm`. Using pnpm requires these fields in `wails.json` before any build:
+
+```json
+{
+  "frontend:install": "pnpm install",
+  "frontend:build": "pnpm run build",
+  "frontend:dev:watcher": "pnpm run dev",
+  "frontend:dev:serverUrl": "auto"
+}
+```
+
+Without this, `wails build` calls `npm install` and fails.
+
 ## Toolchain Prerequisites
 
 Install before scaffolding (one-time):
