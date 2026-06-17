@@ -163,7 +163,7 @@ Expected: prints a version string like `9.x.x`. If this fails after `corepack en
 **Interfaces:**
 - Produces: compilable `gover2/` Go module with `module gover2`; `wails.json` configured for pnpm
 
-- [ ] **Step 1: Run wails init from inventory root**
+- [x] **Step 1: Run wails init from inventory root**
 
 ```bash
 cd /home/mg/inventory
@@ -174,7 +174,7 @@ Flags: `-n gover2` (app name), `-t vue` (Vue template), `-d gover2` (output dire
 
 Expected: directory `gover2/` is created with `go.mod`, `main.go`, `app.go`, `wails.json`, and `frontend/`.
 
-- [ ] **Step 2: Verify module name**
+- [x] **Step 2: Verify module name**
 
 ```bash
 head -1 /home/mg/inventory/gover2/go.mod
@@ -187,7 +187,7 @@ module gover2
 
 If it says something else (e.g. `module github.com/...`), edit `go.mod` so line 1 is exactly `module gover2`.
 
-- [ ] **Step 3: Verify generated files exist**
+- [x] **Step 3: Verify generated files exist**
 
 ```bash
 ls /home/mg/inventory/gover2/
@@ -195,7 +195,7 @@ ls /home/mg/inventory/gover2/
 
 Expected to include: `go.mod`, `main.go`, `app.go`, `wails.json`, `frontend/`
 
-- [ ] **Step 4: Add modernc.org/sqlite dependency**
+- [x] **Step 4: Add modernc.org/sqlite dependency**
 
 ```bash
 cd /home/mg/inventory/gover2
@@ -204,7 +204,7 @@ go get modernc.org/sqlite
 
 Expected: `go.mod` and `go.sum` updated; no error output.
 
-- [ ] **Step 5: Patch wails.json for pnpm**
+- [x] **Step 5: Patch wails.json for pnpm**
 
 Open `gover2/wails.json`. The generated file uses npm. Replace it entirely with:
 
@@ -232,7 +232,7 @@ Open `gover2/wails.json`. The generated file uses npm. Replace it entirely with:
 
 Save the file.
 
-- [ ] **Step 6: Verify Go compiles with no errors**
+- [x] **Step 6: Verify Go compiles with no errors**
 
 ```bash
 cd /home/mg/inventory/gover2
@@ -241,7 +241,7 @@ go build ./...
 
 Expected: exits 0, no output. (The generated `app.go` stubs compile cleanly; we replace them in Task 2.)
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 cd /home/mg/inventory

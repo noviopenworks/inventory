@@ -6,11 +6,11 @@
 
 ## 1. Wails Project Init
 
-- [ ] 1.1 Run `wails init -n gover2 -t vue -d gover2 -g` (or equivalent) from inventory root
-- [ ] 1.2 Verify `gover2/go.mod` contains `module gover2`
-- [ ] 1.3 Verify `gover2/main.go` and `gover2/app.go` exist
-- [ ] 1.4 Add `modernc.org/sqlite` to `gover2/go.mod` via `go get modernc.org/sqlite`
-- [ ] 1.5 Verify `go build ./...` passes in `gover2/`
+- [x] 1.1 Run `wails init -n gover2 -t vue -d gover2 -g` (or equivalent) from inventory root
+- [x] 1.2 Verify `gover2/go.mod` contains `module gover2`
+- [x] 1.3 Verify `gover2/main.go` and `gover2/app.go` exist
+- [x] 1.4 Add `modernc.org/sqlite` to `gover2/go.mod` via `go get modernc.org/sqlite`
+- [x] 1.5 Verify `go build ./...` passes in `gover2/`
 
 ## 2. Go Package Stubs
 
