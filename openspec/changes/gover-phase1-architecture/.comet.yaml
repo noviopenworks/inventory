@@ -1,12 +1,12 @@
 workflow: full
-phase: build
+phase: verify
 context_compression: off
 build_mode: executing-plans
 build_pause: null
 subagent_dispatch: null
 tdd_mode: tdd
 isolation: branch
-verify_mode: null
+verify_mode: full
 auto_transition: true
 base_ref: 96225d8e148ef2eb0a595c861c4c5ef9e9a87009
 design_doc: docs/superpowers/specs/2026-06-17-gover-phase1-architecture-design.md
