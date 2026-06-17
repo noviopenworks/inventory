@@ -158,15 +158,18 @@ Columns shown in All Assets: Type, ID, Name, Model, User, Status, Purchase Date,
 ```css
 /* Sidebar */
 --sidebar-bg:      #0E1520;
+--sidebar-hover:   #131E2E;
 --sidebar-active:  #182337;
+--sidebar-border:  #141D2B;
 --sidebar-text:    #6B82A0;
 --sidebar-text-hi: #DDE8F5;
 --sidebar-accent:  #2563EB;
 
 /* Page structure */
---page:    #EEF1F7;
---surface: #FFFFFF;
---border:  #DDE1EC;
+--page:         #EEF1F7;
+--surface:      #FFFFFF;
+--border:       #DDE1EC;
+--border-light: #EAECF4;
 
 /* Text */
 --text:   #0F172A;
