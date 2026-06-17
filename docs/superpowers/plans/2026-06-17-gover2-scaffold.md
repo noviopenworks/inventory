@@ -272,7 +272,7 @@ git commit -m "feat(gover2): wails init with pnpm wiring and sqlite dep"
   - `bridge.App` struct with `NewApp() *bridge.App`; methods: `ListComputers()`, `ListSmartphones()`, `ListTablets()`, `ListWindowsKeys()`, `ListAntivirus()`, `ListOtherSoftware()`, `ListUsers()`, `GetDatabasePath()`, `GetConfig()`, `SetConfig()`, `NewDatabase()`, `OpenDatabase()`, `ExportCSV()`
   - `app.go` `NewApp() *bridge.App` function
 
-- [ ] **Step 1: Create models package**
+- [x] **Step 1: Create models package**
 
 Create file `gover2/internal/models/models.go`:
 
@@ -392,7 +392,7 @@ type Alert struct {
 }
 ```
 
-- [ ] **Step 2: Create database package stub**
+- [x] **Step 2: Create database package stub**
 
 Create file `gover2/internal/database/database.go`:
 
@@ -413,7 +413,7 @@ func Open(path string) (*sql.DB, error) {
 
 Note: the blank import `_ "modernc.org/sqlite"` is required even in stub form to keep the dep in `go.sum` so `go mod tidy` does not remove it.
 
-- [ ] **Step 3: Create config package stub**
+- [x] **Step 3: Create config package stub**
 
 Create file `gover2/internal/config/config.go`:
 
@@ -437,7 +437,7 @@ func Save(cfg models.AppConfig) error {
 }
 ```
 
-- [ ] **Step 4: Create backup package stub**
+- [x] **Step 4: Create backup package stub**
 
 Create file `gover2/internal/backup/backup.go`:
 
@@ -450,7 +450,7 @@ func BackupDB(srcPath, destDir string) error {
 }
 ```
 
-- [ ] **Step 5: Create services package stub**
+- [x] **Step 5: Create services package stub**
 
 Create file `gover2/internal/services/services.go`:
 
@@ -499,7 +499,7 @@ func ListUsers(db *sql.DB) ([]models.User, error) {
 }
 ```
 
-- [ ] **Step 6: Create bridge package stub**
+- [x] **Step 6: Create bridge package stub**
 
 Create file `gover2/internal/bridge/bridge.go`:
 
@@ -582,7 +582,7 @@ func (a *App) ExportCSV(category string, destPath string) error {
 var _ = backup.BackupDB
 ```
 
-- [ ] **Step 7: Replace app.go to wire bridge**
+- [x] **Step 7: Replace app.go to wire bridge**
 
 Replace the contents of `gover2/app.go` entirely:
 
@@ -597,7 +597,7 @@ func NewApp() *bridge.App {
 }
 ```
 
-- [ ] **Step 8: Verify no import cycles**
+- [x] **Step 8: Verify no import cycles**
 
 ```bash
 cd /home/mg/inventory/gover2
@@ -606,7 +606,7 @@ go build ./...
 
 Expected: exits 0, no output. Any import cycle error here means a package in `internal/` (other than `bridge`) is importing `bridge` — check the failing package and remove the cycle.
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 cd /home/mg/inventory

@@ -14,14 +14,14 @@
 
 ## 2. Go Package Stubs
 
-- [ ] 2.1 Create `internal/models/models.go` with 7 domain structs + AppConfig + Alert (exact field mapping from architecture spec §3)
-- [ ] 2.2 Create `internal/database/database.go` with `Open(path string) (*sql.DB, error)` stub returning nil
-- [ ] 2.3 Create `internal/config/config.go` with `AppConfig` struct and `Load()/Save()` stubs
-- [ ] 2.4 Create `internal/backup/backup.go` with `BackupDB(srcPath, destDir string) error` stub returning nil
-- [ ] 2.5 Create `internal/services/services.go` with `ListComputers`, `ListSmartphones`, `ListTablets`, `ListWindowsKeys`, `ListAntivirus`, `ListOtherSoftware`, `ListUsers` — all return `([]models.X, nil)`
-- [ ] 2.6 Create `internal/bridge/bridge.go` with `App` struct and all 10 Phase-2 bridge methods + 3 file-dialog stubs, delegating to services
-- [ ] 2.7 Update `app.go` to use `bridge.App` as the Wails context struct
-- [ ] 2.8 Verify `go build ./...` passes with no import cycles
+- [x] 2.1 Create `internal/models/models.go` with 7 domain structs + AppConfig + Alert (exact field mapping from architecture spec §3)
+- [x] 2.2 Create `internal/database/database.go` with `Open(path string) (*sql.DB, error)` stub returning nil
+- [x] 2.3 Create `internal/config/config.go` with `AppConfig` struct and `Load()/Save()` stubs
+- [x] 2.4 Create `internal/backup/backup.go` with `BackupDB(srcPath, destDir string) error` stub returning nil
+- [x] 2.5 Create `internal/services/services.go` with `ListComputers`, `ListSmartphones`, `ListTablets`, `ListWindowsKeys`, `ListAntivirus`, `ListOtherSoftware`, `ListUsers` — all return `([]models.X, nil)`
+- [x] 2.6 Create `internal/bridge/bridge.go` with `App` struct and all 10 Phase-2 bridge methods + 3 file-dialog stubs, delegating to services
+- [x] 2.7 Update `app.go` to use `bridge.App` as the Wails context struct
+- [x] 2.8 Verify `go build ./...` passes with no import cycles
 
 ## 3. Vue Frontend Structure
 
