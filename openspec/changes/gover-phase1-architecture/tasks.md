@@ -33,7 +33,7 @@
 
 - [x] 5.1 Write the `gover:` namespace task definitions (all 9 commands from design.md)
 - [x] 5.2 Verify each command is runnable on Linux (check tool availability requirements)
-- [x] 5.3 Add `gover:` commands to root `Taskfile.yml`
+- [x] 5.3 Document `gover:` namespace command definitions in spec §6 (actual Taskfile.yml entries added in Phase 2 scaffolding)
 
 ## 6. Cross-Reference Update
 

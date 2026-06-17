@@ -76,8 +76,18 @@ The `internal/` package graph must satisfy the dependency rule above. `bridge` i
 | `ListOtherSoftware` | `() ([]models.OtherSoftware, error)` | `api.listOtherSoftware()` |
 | `ListUsers` | `() ([]models.User, error)` | `api.listUsers()` |
 | `GetDatabasePath` | `() (string, error)` | `api.getDatabasePath()` |
-| `GetConfig` | `() (models.AppConfig, error)` | `api.getConfig()` |
-| `SetConfig` | `(cfg models.AppConfig) error` | `api.setConfig(cfg)` |
+| `GetConfig` | `() (config.AppConfig, error)` | `api.getConfig()` |
+| `SetConfig` | `(cfg config.AppConfig) error` | `api.setConfig(cfg)` |
+
+### Phase 2 (continued) — File dialog operations
+
+| Method | Go signature | TS wrapper |
+|---|---|---|
+| `NewDatabase` | `(path string) error` | `api.newDatabase(path)` |
+| `OpenDatabase` | `(path string) error` | `api.openDatabase(path)` |
+| `ExportCSV` | `(category string, destPath string) error` | `api.exportCSV(category, destPath)` |
+
+These are invoked from the native OS menu bar (via `wails/v2/pkg/menu`) and via keyboard shortcuts. `NewDatabase` and `OpenDatabase` trigger a file dialog in the Wails runtime; the selected path is passed to Go for validation and config update.
 
 ### Phase 3 — CRUD naming pattern (implement in Phase 3)
 
@@ -127,7 +137,7 @@ src/
 │   ├── licenses/       ← windows keys, antivirus, other software
 │   ├── users/
 │   └── alerts/         ← Phase 4 stub
-├── components/         ← 10 shared components from gover-ui-spec
+├── components/         ← 9 shared components from gover-ui-spec
 │   ├── Sidebar.vue
 │   ├── SidebarItem.vue
 │   ├── Topbar.vue
@@ -136,8 +146,7 @@ src/
 │   ├── EditPanel.vue
 │   ├── FormField.vue
 │   ├── AlertsModal.vue
-│   ├── Statusbar.vue
-│   └── AppShell.vue
+│   └── Statusbar.vue
 ├── lib/
 │   ├── api/
 │   │   └── index.ts    ← all bridge wrappers, typed
@@ -247,6 +256,17 @@ colors: {
   // Table header
   'th-bg':   '#0E1520',
   'th-text': '#8FA5BF',
+  // Typography
+  'text-primary':   '#0F172A',
+  'text-secondary': '#64748B',
+  'text-tertiary':  '#94A3B8',
+  // Interactive
+  'accent-hover': '#1D4ED8',
+  // Page structure
+  'border-light': '#EAECF4',
+  // Status row highlight backgrounds
+  'row-expiring': '#FFFBEB',
+  'row-expired':  '#FFF5F5',
 },
 fontFamily: {
   ui:   ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'system-ui', 'sans-serif'],

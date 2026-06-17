@@ -86,8 +86,8 @@ Dependency rule: `models` → nothing internal. `database` → `models`. `servic
 | ListOtherSoftware | `() ([]models.OtherSoftware, error)` | `api.listOtherSoftware()` |
 | ListUsers | `() ([]models.User, error)` | `api.listUsers()` |
 | GetDatabasePath | `() (string, error)` | `api.getDatabasePath()` |
-| GetConfig | `() (models.AppConfig, error)` | `api.getConfig()` |
-| SetConfig | `(cfg models.AppConfig) error` | `api.setConfig(cfg)` |
+| GetConfig | `() (config.AppConfig, error)` | `api.getConfig()` |
+| SetConfig | `(cfg config.AppConfig) error` | `api.setConfig(cfg)` |
 
 **Phase 3 naming pattern (establish now, implement later):**
 ```
@@ -119,11 +119,11 @@ src/
 │   ├── licenses/      ← windows keys, antivirus, other software
 │   ├── users/
 │   └── alerts/        ← Phase 4 stub
-├── components/        ← 10 components from gover-ui-spec
+├── components/        ← 9 shared components from gover-ui-spec
 │   ├── Sidebar.vue, SidebarItem.vue, Topbar.vue
 │   ├── DataTable.vue, StatusBadge.vue
 │   ├── EditPanel.vue, FormField.vue
-│   ├── AlertsModal.vue, Statusbar.vue, AppShell.vue
+│   ├── AlertsModal.vue, Statusbar.vue
 ├── lib/
 │   ├── api/index.ts   ← all bridge wrappers, typed
 │   └── types/index.ts ← all domain interfaces
@@ -217,6 +217,17 @@ theme: {
       's-expired':  '#DC2626',
       'th-bg':   '#0E1520',
       'th-text': '#8FA5BF',
+      // Typography
+      'text-primary':   '#0F172A',
+      'text-secondary': '#64748B',
+      'text-tertiary':  '#94A3B8',
+      // Interactive
+      'accent-hover': '#1D4ED8',
+      // Page structure
+      'border-light': '#EAECF4',
+      // Status row highlight backgrounds
+      'row-expiring': '#FFFBEB',
+      'row-expired':  '#FFF5F5',
     },
     fontFamily: {
       ui:   ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'system-ui', 'sans-serif'],
