@@ -1441,7 +1441,7 @@ git commit -m "feat(gover2): add 9 feature view stubs (scaffold placeholders)"
 - Consumes: Tailwind classes from `tailwind.config.ts` (Task 8); `useUiStore` from `@/stores/ui`; router-link for sidebar nav
 - Produces: 9 stub components; `DataTable` accepts `items: unknown[]` prop; `StatusBadge` accepts `status: string` prop
 
-- [ ] **Step 1: Create Sidebar.vue**
+- [x] **Step 1: Create Sidebar.vue**
 
 Create `gover2/frontend/src/components/Sidebar.vue`:
 
@@ -1474,7 +1474,7 @@ import SidebarItem from '@/components/SidebarItem.vue'
 </script>
 ```
 
-- [ ] **Step 2: Create SidebarItem.vue**
+- [x] **Step 2: Create SidebarItem.vue**
 
 Create `gover2/frontend/src/components/SidebarItem.vue`:
 
@@ -1497,7 +1497,7 @@ defineProps<{
 </script>
 ```
 
-- [ ] **Step 3: Create Topbar.vue**
+- [x] **Step 3: Create Topbar.vue**
 
 Create `gover2/frontend/src/components/Topbar.vue`:
 
@@ -1517,7 +1517,7 @@ const title = computed(() => String(route.path).replace('/', '').replace('-', ' 
 </script>
 ```
 
-- [ ] **Step 4: Create DataTable.vue**
+- [x] **Step 4: Create DataTable.vue**
 
 Create `gover2/frontend/src/components/DataTable.vue`:
 
@@ -1549,7 +1549,7 @@ defineProps<{
 </script>
 ```
 
-- [ ] **Step 5: Create StatusBadge.vue**
+- [x] **Step 5: Create StatusBadge.vue**
 
 Create `gover2/frontend/src/components/StatusBadge.vue`:
 
@@ -1585,7 +1585,7 @@ const badgeClass = computed(() => {
 </script>
 ```
 
-- [ ] **Step 6: Create EditPanel.vue**
+- [x] **Step 6: Create EditPanel.vue**
 
 Create `gover2/frontend/src/components/EditPanel.vue`:
 
@@ -1601,7 +1601,7 @@ Create `gover2/frontend/src/components/EditPanel.vue`:
 </script>
 ```
 
-- [ ] **Step 7: Create FormField.vue**
+- [x] **Step 7: Create FormField.vue**
 
 Create `gover2/frontend/src/components/FormField.vue`:
 
@@ -1620,7 +1620,7 @@ defineProps<{
 </script>
 ```
 
-- [ ] **Step 8: Create AlertsModal.vue**
+- [x] **Step 8: Create AlertsModal.vue**
 
 Create `gover2/frontend/src/components/AlertsModal.vue`:
 
@@ -1646,7 +1646,7 @@ defineEmits<{ (e: 'close'): void }>()
 </script>
 ```
 
-- [ ] **Step 9: Create Statusbar.vue**
+- [x] **Step 9: Create Statusbar.vue**
 
 Create `gover2/frontend/src/components/Statusbar.vue`:
 
@@ -1662,7 +1662,7 @@ Create `gover2/frontend/src/components/Statusbar.vue`:
 </script>
 ```
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 cd /home/mg/inventory

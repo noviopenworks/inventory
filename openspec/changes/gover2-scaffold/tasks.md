@@ -31,7 +31,7 @@
 - [x] 3.4 Create `frontend/src/stores/assets.ts` (currentCategory, items, selectedId, filters)
 - [x] 3.5 Create `frontend/src/stores/ui.ts` (density, darkMode, sidebarCollapsed)
 - [ ] 3.6 Create `frontend/src/layouts/AppShell.vue` with sidebar + topbar + main content slot
-- [ ] 3.7 Create `frontend/src/components/` — 9 stub components (Sidebar, SidebarItem, Topbar, DataTable, StatusBadge, EditPanel, FormField, AlertsModal, Statusbar)
+- [x] 3.7 Create `frontend/src/components/` — 9 stub components (Sidebar, SidebarItem, Topbar, DataTable, StatusBadge, EditPanel, FormField, AlertsModal, Statusbar)
 - [ ] 3.8 Create `frontend/src/features/` — 4 feature folders (assets, licenses, users, alerts) with stub Index.vue per category view (Computers, Smartphones, Tablets, All, WindowsKeys, Antivirus, OtherSoftware, Users)
 - [ ] 3.9 Set up `frontend/src/router/index.ts` with 9 hash-mode routes (/ → /computers redirect + 8 views)
 - [ ] 3.10 Wire `frontend/src/main.ts` with Pinia + Router + App mount
