@@ -2,6 +2,7 @@
 change: gover2-scaffold
 design-doc: docs/superpowers/specs/2026-06-17-gover2-scaffold-design.md
 base-ref: 39fb9f362c810c56a3214f33fce474c0fb739db5
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 # Gover2 Scaffold Implementation Plan
@@ -29,6 +30,7 @@ base-ref: 39fb9f362c810c56a3214f33fce474c0fb739db5
 - No unit tests in this change (added in `gover2-readonly`).
 - No SQLite connections, no real data, no packaging scripts (Phase 5).
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ## File Map
@@ -106,6 +108,7 @@ Files created or modified by this change, grouped by task:
 **Task 10 — Verification**
 - (no new files; smoke-test sequence)
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 0: Toolchain Prerequisites
@@ -152,6 +155,7 @@ pnpm --version
 
 Expected: prints a version string like `9.x.x`. If this fails after `corepack enable`, run `corepack prepare pnpm@latest --activate`.
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 1: Wails Project Init + pnpm Wiring
@@ -249,6 +253,7 @@ git add gover2/go.mod gover2/go.sum gover2/main.go gover2/app.go gover2/wails.js
 git commit -m "feat(gover2): wails init with pnpm wiring and sqlite dep"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 2: Go Package Stubs
@@ -614,6 +619,7 @@ git add gover2/internal/ gover2/app.go
 git commit -m "feat(gover2): add 6 Go package stubs with dependency-ordered layout"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 3: Frontend Package Setup + TypeScript Types + API Layer
@@ -966,6 +972,7 @@ git add gover2/frontend/
 git commit -m "feat(gover2): frontend package setup with TS types and API stub layer"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 4: Pinia Stores
@@ -1094,6 +1101,7 @@ git add gover2/frontend/src/stores/
 git commit -m "feat(gover2): add Pinia assets and ui stores"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 5: Vue Router + App Shell
@@ -1242,6 +1250,7 @@ git add gover2/frontend/src/router/ gover2/frontend/src/App.vue gover2/frontend/
 git commit -m "feat(gover2): add Vue Router hash-mode routes and AppShell layout"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 6: Feature View Stubs
@@ -1422,6 +1431,7 @@ git add gover2/frontend/src/features/
 git commit -m "feat(gover2): add 9 feature view stubs (scaffold placeholders)"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 7: Shared Component Stubs
@@ -1670,6 +1680,7 @@ git add gover2/frontend/src/components/
 git commit -m "feat(gover2): add 9 shared component stubs"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 8: Tailwind CSS v3 Configuration
@@ -1783,6 +1794,7 @@ git add gover2/frontend/tailwind.config.ts gover2/frontend/postcss.config.js gov
 git commit -m "feat(gover2): configure Tailwind CSS v3 with all 25 design tokens"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 9: Taskfile Integration
@@ -1885,6 +1897,7 @@ git add Taskfile.yml
 git commit -m "feat(gover2): add 9 gover: Taskfile commands"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ### Task 10: Verification
@@ -1971,6 +1984,7 @@ git add -p  # review and stage any unstaged cleanup changes
 git commit -m "feat(gover2): scaffold complete — go build, typecheck, and wails build pass"
 ```
 
+archived-with: 2026-06-17-gover2-scaffold
 ---
 
 ## Self-Review Checklist

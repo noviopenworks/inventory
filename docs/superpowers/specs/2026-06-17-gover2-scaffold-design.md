@@ -2,6 +2,8 @@
 comet_change: gover2-scaffold
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-17-gover2-scaffold
+status: final
 ---
 
 # Technical Design: gover2-scaffold
