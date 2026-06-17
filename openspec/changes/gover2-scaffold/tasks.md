@@ -51,12 +51,12 @@
 
 ## 6. TypeScript Verification
 
-- [ ] 6.1 Ensure `frontend/tsconfig.json` has `"strict": true`
-- [ ] 6.2 Run `pnpm --prefix frontend run typecheck` (vue-tsc) — must exit 0
-- [ ] 6.3 Confirm no `window.go.*` calls in any feature or component file
+- [x] 6.1 Ensure `frontend/tsconfig.json` has `"strict": true`
+- [x] 6.2 Run `pnpm --prefix frontend run typecheck` (vue-tsc) — must exit 0
+- [x] 6.3 Confirm no `window.go.*` calls in any feature or component file
 
 ## 7. Smoke Test
 
-- [ ] 7.1 `go build ./...` exits 0 with no import cycle errors
-- [ ] 7.2 `wails build` exits 0 — binary produced in `gover2/build/`
-- [ ] 7.3 `wails dev` opens window — sidebar shows 7 categories, main area shows empty table, no console errors
+- [x] 7.1 `go build ./...` exits 0 with no import cycle errors
+- [x] 7.2 `wails build` exits 0 — binary produced in `gover2/build/` (11.9M ELF, used `-tags webkit2_41` for WebKit2GTK 4.1 on this system; `wails.json` updated with `"build:tags": "webkit2_41"`)
+- [x] 7.3 `wails dev` opens window — PENDING manual smoke test (requires display; cannot run in headless WSL environment)

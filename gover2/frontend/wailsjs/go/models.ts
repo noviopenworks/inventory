@@ -1,0 +1,224 @@
+export namespace models {
+
+	export class Antivirus {
+	    id: number;
+	    name: string;
+	    licenseKey: string;
+	    computerId?: number;
+	    smartphoneId?: number;
+	    tabletId?: number;
+	    status: string;
+	    expiryDate?: string;
+	    notes?: string;
+	    createdAt: string;
+	    updatedAt: string;
+
+	    static createFrom(source: any = {}) {
+	        return new Antivirus(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.licenseKey = source["licenseKey"];
+	        this.computerId = source["computerId"];
+	        this.smartphoneId = source["smartphoneId"];
+	        this.tabletId = source["tabletId"];
+	        this.status = source["status"];
+	        this.expiryDate = source["expiryDate"];
+	        this.notes = source["notes"];
+	        this.createdAt = source["createdAt"];
+	        this.updatedAt = source["updatedAt"];
+	    }
+	}
+	export class AppConfig {
+	    dbPath: string;
+	    density: string;
+	    darkMode: boolean;
+	    expiryWarningDays: number;
+
+	    static createFrom(source: any = {}) {
+	        return new AppConfig(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.dbPath = source["dbPath"];
+	        this.density = source["density"];
+	        this.darkMode = source["darkMode"];
+	        this.expiryWarningDays = source["expiryWarningDays"];
+	    }
+	}
+	export class Computer {
+	    id: number;
+	    name: string;
+	    model: string;
+	    userId?: number;
+	    status: string;
+	    purchaseDate?: string;
+	    warrantyExpiry?: string;
+	    notes?: string;
+	    createdAt: string;
+	    updatedAt: string;
+
+	    static createFrom(source: any = {}) {
+	        return new Computer(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.model = source["model"];
+	        this.userId = source["userId"];
+	        this.status = source["status"];
+	        this.purchaseDate = source["purchaseDate"];
+	        this.warrantyExpiry = source["warrantyExpiry"];
+	        this.notes = source["notes"];
+	        this.createdAt = source["createdAt"];
+	        this.updatedAt = source["updatedAt"];
+	    }
+	}
+	export class OtherSoftware {
+	    id: number;
+	    name: string;
+	    licenseKey: string;
+	    computerId?: number;
+	    smartphoneId?: number;
+	    tabletId?: number;
+	    status: string;
+	    expiryDate?: string;
+	    notes?: string;
+	    createdAt: string;
+	    updatedAt: string;
+
+	    static createFrom(source: any = {}) {
+	        return new OtherSoftware(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.licenseKey = source["licenseKey"];
+	        this.computerId = source["computerId"];
+	        this.smartphoneId = source["smartphoneId"];
+	        this.tabletId = source["tabletId"];
+	        this.status = source["status"];
+	        this.expiryDate = source["expiryDate"];
+	        this.notes = source["notes"];
+	        this.createdAt = source["createdAt"];
+	        this.updatedAt = source["updatedAt"];
+	    }
+	}
+	export class Smartphone {
+	    id: number;
+	    name: string;
+	    model: string;
+	    userId?: number;
+	    status: string;
+	    purchaseDate?: string;
+	    warrantyExpiry?: string;
+	    notes?: string;
+	    createdAt: string;
+	    updatedAt: string;
+
+	    static createFrom(source: any = {}) {
+	        return new Smartphone(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.model = source["model"];
+	        this.userId = source["userId"];
+	        this.status = source["status"];
+	        this.purchaseDate = source["purchaseDate"];
+	        this.warrantyExpiry = source["warrantyExpiry"];
+	        this.notes = source["notes"];
+	        this.createdAt = source["createdAt"];
+	        this.updatedAt = source["updatedAt"];
+	    }
+	}
+	export class Tablet {
+	    id: number;
+	    name: string;
+	    model: string;
+	    userId?: number;
+	    status: string;
+	    purchaseDate?: string;
+	    warrantyExpiry?: string;
+	    notes?: string;
+	    createdAt: string;
+	    updatedAt: string;
+
+	    static createFrom(source: any = {}) {
+	        return new Tablet(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.model = source["model"];
+	        this.userId = source["userId"];
+	        this.status = source["status"];
+	        this.purchaseDate = source["purchaseDate"];
+	        this.warrantyExpiry = source["warrantyExpiry"];
+	        this.notes = source["notes"];
+	        this.createdAt = source["createdAt"];
+	        this.updatedAt = source["updatedAt"];
+	    }
+	}
+	export class User {
+	    id: number;
+	    name: string;
+	    surname?: string;
+	    status: string;
+	    notes?: string;
+	    createdAt: string;
+	    updatedAt: string;
+
+	    static createFrom(source: any = {}) {
+	        return new User(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.surname = source["surname"];
+	        this.status = source["status"];
+	        this.notes = source["notes"];
+	        this.createdAt = source["createdAt"];
+	        this.updatedAt = source["updatedAt"];
+	    }
+	}
+	export class WindowsKey {
+	    id: number;
+	    licenseKey: string;
+	    computerId?: number;
+	    status: string;
+	    notes?: string;
+	    createdAt: string;
+	    updatedAt: string;
+
+	    static createFrom(source: any = {}) {
+	        return new WindowsKey(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.licenseKey = source["licenseKey"];
+	        this.computerId = source["computerId"];
+	        this.status = source["status"];
+	        this.notes = source["notes"];
+	        this.createdAt = source["createdAt"];
+	        this.updatedAt = source["updatedAt"];
+	    }
+	}
+
+}
