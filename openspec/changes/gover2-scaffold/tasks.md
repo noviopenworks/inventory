@@ -38,10 +38,10 @@
 
 ## 4. Tailwind Configuration
 
-- [ ] 4.1 Install Tailwind CSS + Vite plugin in frontend
-- [ ] 4.2 Create `frontend/tailwind.config.ts` with all 25 design tokens (from architecture spec §4)
-- [ ] 4.3 Create `frontend/src/style.css` with `@tailwind` directives
-- [ ] 4.4 Verify no inline style fallbacks in any component
+- [x] 4.1 Install Tailwind CSS + Vite plugin in frontend
+- [x] 4.2 Create `frontend/tailwind.config.ts` with all 25 design tokens (from architecture spec §4)
+- [x] 4.3 Create `frontend/src/style.css` with `@tailwind` directives
+- [x] 4.4 Verify no inline style fallbacks in any component
 
 ## 5. Taskfile Commands
 

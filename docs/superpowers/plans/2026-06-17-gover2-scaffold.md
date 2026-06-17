@@ -1682,7 +1682,7 @@ git commit -m "feat(gover2): add 9 shared component stubs"
 **Interfaces:**
 - Produces: all 25 design tokens available as Tailwind utility classes (e.g. `bg-sidebar`, `text-text-primary`, `bg-s-active`, `rounded-badge`, `font-ui`)
 
-- [ ] **Step 1: Create tailwind.config.ts**
+- [x] **Step 1: Create tailwind.config.ts**
 
 Create `gover2/frontend/tailwind.config.ts`:
 
@@ -1750,7 +1750,7 @@ export default {
 
 The `content` array includes `./src/**/*.{vue,ts}` so dynamic class strings like `bg-s-active` are not purged by Tailwind's JIT engine.
 
-- [ ] **Step 2: Create postcss.config.js**
+- [x] **Step 2: Create postcss.config.js**
 
 Create `gover2/frontend/postcss.config.js`:
 
@@ -1765,7 +1765,7 @@ export default {
 
 Note: do NOT use `@tailwindcss/postcss` (that is the v4 PostCSS plugin). The standard `tailwindcss` key is correct for v3.
 
-- [ ] **Step 3: Replace style.css with Tailwind directives**
+- [x] **Step 3: Replace style.css with Tailwind directives**
 
 Replace `gover2/frontend/src/style.css` entirely:
 
@@ -1775,7 +1775,7 @@ Replace `gover2/frontend/src/style.css` entirely:
 @tailwind utilities;
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /home/mg/inventory
