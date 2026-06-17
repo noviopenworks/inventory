@@ -3,7 +3,7 @@
 - Change: gover-ui-spec
 - Phase: design
 - Mode: compact
-- Context hash: 5809d654ead99e9013caf8bdecc5ec6de8cd2789e0ac9e36f7e7579d620ac8b1
+- Context hash: eded2a4130c4b02f8fc050338cbe0f9c2a320b6e4282f2cba9120945766a3ceb
 
 Generated-by: comet-handoff.sh
 
@@ -182,8 +182,8 @@ Full source: openspec/changes/gover-ui-spec/design.md
 ## openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md
 
 - Source: openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md
-- Lines: 1-233
-- SHA256: 09b2d3fe88a5a188fc3a632e87425106826f0462ffb7cebe4412f309acc2a243
+- Lines: 1-260
+- SHA256: b8bb5a73a4e73802a1ae38fd48e4b33cdc7117dc6ebccc047f678c6bddeb40e3
 
 [TRUNCATED]
 

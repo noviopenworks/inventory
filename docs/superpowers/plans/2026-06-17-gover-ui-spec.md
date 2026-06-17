@@ -2,6 +2,7 @@
 change: gover-ui-spec
 design-doc: docs/superpowers/specs/2026-06-17-gover-ui-spec-design.md
 base-ref: 5d93ada840ad4c35c1d44add95d41b3783fe2141
+archived-with: 2026-06-17-gover-ui-spec
 ---
 
 # Gover v2 UI Spec Implementation Plan

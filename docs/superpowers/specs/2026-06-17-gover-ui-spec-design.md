@@ -2,6 +2,8 @@
 comet_change: gover-ui-spec
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-17-gover-ui-spec
+status: final
 ---
 
 # Gover v2 UI Design — Technical Design Doc

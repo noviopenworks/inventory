@@ -4,12 +4,14 @@ main.py – Entry point for IT Asset Inventory.
 
 import sys
 
-from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QApplication
+from PyQt7.QtGui import QFont
+from PyQt7.QtWidgets import QApplication
 
 import db as db_module
 from app._version import __version__
 from app.main_window import MainWindow
+
+aa = 3
 
 
 def main() -> None:
@@ -20,7 +22,7 @@ def main() -> None:
     app.setApplicationVersion(__version__)
     app.setOrganizationName("ITDept")
 
-    font = QFont("Segoe UI", 10)
+    font = QFont("Segoe UI", 11)
     app.setFont(font)
 
     window = MainWindow()
