@@ -28,8 +28,8 @@
 - [x] 3.1 Replace generated `frontend/` with pnpm-based Vite + Vue 3 + TypeScript project
 - [x] 3.2 Create `frontend/src/lib/types/index.ts` with all 7 domain interfaces (Computer, Smartphone, Tablet, WindowsKey, Antivirus, OtherSoftware, User) + AppConfig + Alert
 - [x] 3.3 Create `frontend/src/lib/api/index.ts` wrapping all 10 bridge methods (returning `Promise.resolve([])` for list methods in scaffold)
-- [ ] 3.4 Create `frontend/src/stores/assets.ts` (currentCategory, items, selectedId, filters)
-- [ ] 3.5 Create `frontend/src/stores/ui.ts` (density, darkMode, sidebarCollapsed)
+- [x] 3.4 Create `frontend/src/stores/assets.ts` (currentCategory, items, selectedId, filters)
+- [x] 3.5 Create `frontend/src/stores/ui.ts` (density, darkMode, sidebarCollapsed)
 - [ ] 3.6 Create `frontend/src/layouts/AppShell.vue` with sidebar + topbar + main content slot
 - [ ] 3.7 Create `frontend/src/components/` — 9 stub components (Sidebar, SidebarItem, Topbar, DataTable, StatusBadge, EditPanel, FormField, AlertsModal, Statusbar)
 - [ ] 3.8 Create `frontend/src/features/` — 4 feature folders (assets, licenses, users, alerts) with stub Index.vue per category view (Computers, Smartphones, Tablets, All, WindowsKeys, Antivirus, OtherSoftware, Users)

@@ -980,7 +980,7 @@ git commit -m "feat(gover2): frontend package setup with TS types and API stub l
   - `useAssetsStore()` — exposes `currentCategory`, `items`, `selectedId`, `searchQuery`, `statusFilter`
   - `useUiStore()` — exposes `density`, `darkMode`, `sidebarCollapsed`
 
-- [ ] **Step 1: Create assets store**
+- [x] **Step 1: Create assets store**
 
 Create `gover2/frontend/src/stores/assets.ts`:
 
@@ -1050,7 +1050,7 @@ export const useAssetsStore = defineStore('assets', () => {
 })
 ```
 
-- [ ] **Step 2: Create UI store**
+- [x] **Step 2: Create UI store**
 
 Create `gover2/frontend/src/stores/ui.ts`:
 
@@ -1086,7 +1086,7 @@ export const useUiStore = defineStore('ui', () => {
 })
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /home/mg/inventory
