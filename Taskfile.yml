@@ -271,3 +271,62 @@ tasks:
       - rm -rf dist/ build/ .task/
       - find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
       - echo "Clean done."
+
+# ──────────────────────────────── gover2 ─────────────────────────────────────
+  gover:install:
+    desc: Download Go deps and install frontend packages for gover2
+    dir: gover2
+    cmds:
+      - go mod download
+      - pnpm install --prefix frontend
+
+  gover:dev:
+    desc: Launch gover2 in development mode (hot reload)
+    dir: gover2
+    cmds:
+      - wails dev
+
+  gover:build:
+    desc: Build the gover2 desktop binary via wails
+    dir: gover2
+    cmds:
+      - wails build
+
+  gover:test:
+    desc: Run Go and frontend tests for gover2
+    dir: gover2
+    cmds:
+      - go test ./...
+      - pnpm --prefix frontend run test
+
+  gover:lint:
+    desc: Lint Go and frontend code for gover2
+    dir: gover2
+    cmds:
+      - golangci-lint run ./...
+      - pnpm --prefix frontend run lint
+
+  gover:typecheck:
+    desc: Run vue-tsc type check for gover2 frontend
+    dir: gover2
+    cmds:
+      - pnpm --prefix frontend run typecheck
+
+  gover:clean:
+    desc: Remove gover2 build artifacts
+    dir: gover2
+    cmds:
+      - rm -rf build/
+      - pnpm --prefix frontend run clean
+
+  gover:package:deb:
+    desc: "Build gover2 .deb package (stub — packaging filled in Phase 5)"
+    dir: gover2
+    cmds:
+      - wails build -platform linux/amd64
+
+  gover:package:rpm:
+    desc: "Build gover2 .rpm package (stub — packaging filled in Phase 5)"
+    dir: gover2
+    cmds:
+      - wails build -platform linux/amd64
