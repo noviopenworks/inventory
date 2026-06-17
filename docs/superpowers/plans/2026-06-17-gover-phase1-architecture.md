@@ -66,7 +66,7 @@ No files are created. No other files are modified.
 > Full decisions: [`path/to/spec.md`](../path/to/spec.md)
 ```
 
-- [ ] **Step 1: Read the current file to confirm context and line numbers**
+- [x] **Step 1: Read the current file to confirm context and line numbers**
 
 Read `gover/ARCHITECTURE_NOTES.md` in full. Identify the sections that Phase 1 architecture resolves:
 - `## Candidate Runtime Boundaries` — resolved: Go/Vue boundary confirmed
@@ -76,7 +76,7 @@ Read `gover/ARCHITECTURE_NOTES.md` in full. Identify the sections that Phase 1 a
 
 Note the line numbers of each section header so the annotation insertion is precise.
 
-- [ ] **Step 2: Insert resolved annotation above `## Candidate Runtime Boundaries`**
+- [x] **Step 2: Insert resolved annotation above `## Candidate Runtime Boundaries`**
 
 Insert the following blockquote immediately after the `## Candidate Runtime Boundaries` heading line and before the first bullet:
 
@@ -85,7 +85,7 @@ Insert the following blockquote immediately after the `## Candidate Runtime Boun
 > Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
 ```
 
-- [ ] **Step 3: Insert resolved annotation above `## Candidate Go Areas`**
+- [x] **Step 3: Insert resolved annotation above `## Candidate Go Areas`**
 
 Insert the following blockquote immediately after the `## Candidate Go Areas` heading line and before the first bullet:
 
@@ -94,7 +94,7 @@ Insert the following blockquote immediately after the `## Candidate Go Areas` he
 > Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
 ```
 
-- [ ] **Step 4: Insert resolved annotation above `## Candidate Frontend Areas`**
+- [x] **Step 4: Insert resolved annotation above `## Candidate Frontend Areas`**
 
 Insert the following blockquote immediately after the `## Candidate Frontend Areas` heading line and before the first bullet:
 
@@ -103,7 +103,7 @@ Insert the following blockquote immediately after the `## Candidate Frontend Are
 > Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
 ```
 
-- [ ] **Step 5: Insert resolved annotation above `## Data Strategy Options To Evaluate`**
+- [x] **Step 5: Insert resolved annotation above `## Data Strategy Options To Evaluate`**
 
 Insert the following blockquote immediately after the `## Data Strategy Options To Evaluate` heading line and before the first numbered item:
 
@@ -112,7 +112,7 @@ Insert the following blockquote immediately after the `## Data Strategy Options 
 > Full decisions: [`openspec/changes/gover-phase1-architecture/specs/architecture/spec.md`](../openspec/changes/gover-phase1-architecture/specs/architecture/spec.md)
 ```
 
-- [ ] **Step 6: Verify the file reads correctly**
+- [x] **Step 6: Verify the file reads correctly**
 
 Read the modified `gover/ARCHITECTURE_NOTES.md` and confirm:
 - Four blockquotes are present, one per resolved section.
@@ -121,7 +121,7 @@ Read the modified `gover/ARCHITECTURE_NOTES.md` and confirm:
 - The change name in every blockquote is `gover-phase1-architecture`.
 - No existing content was removed or reordered.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add gover/ARCHITECTURE_NOTES.md
@@ -143,7 +143,7 @@ gover-phase1-architecture change. Links to the locked spec."
 - Consumes: git diff output against `bf8ad333e08fce05f6660502d12bcc6b8da57e62`
 - Produces: confirmation (or list of violations) that no Go, Vue, TypeScript, Python, or Wails application code was introduced
 
-- [ ] **Step 1: Collect the full diff against the base ref**
+- [x] **Step 1: Collect the full diff against the base ref**
 
 ```bash
 git diff bf8ad333e08fce05f6660502d12bcc6b8da57e62 --name-only
@@ -159,7 +159,7 @@ openspec/changes/gover-phase1-architecture/tasks.md
 ```
 (Other openspec change metadata files such as `.comet.yaml`, `proposal.md`, `design.md` are also acceptable.)
 
-- [ ] **Step 2: Check for prohibited file extensions**
+- [x] **Step 2: Check for prohibited file extensions**
 
 ```bash
 git diff bf8ad333e08fce05f6660502d12bcc6b8da57e62 --name-only | grep -E '\.(go|vue|ts|py|mod|sum|yaml|toml|html)$' | grep -v '^openspec/' | grep -v '^docs/'
@@ -172,7 +172,7 @@ Permitted exceptions (these extensions are allowed):
 - Any file under `docs/superpowers/` — these are planning documents.
 - `gover/ARCHITECTURE_NOTES.md` — planning document.
 
-- [ ] **Step 3: Check for application directories**
+- [x] **Step 3: Check for application directories**
 
 ```bash
 git diff bf8ad333e08fce05f6660502d12bcc6b8da57e62 --name-only | grep -E '^gover2/'
@@ -186,7 +186,7 @@ git diff bf8ad333e08fce05f6660502d12bcc6b8da57e62 --name-only | grep -E '^(app/|
 
 Expected output: empty. Python app directories must be untouched.
 
-- [ ] **Step 4: Record verification result**
+- [x] **Step 4: Record verification result**
 
 If all three checks above produced empty output, the diff is clean. No further action needed.
 
