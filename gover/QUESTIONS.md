@@ -36,13 +36,23 @@ These questions should be answered before creating the Wails project or writing 
 
 ## UI And UX
 
+> **Resolved** — all questions answered in `openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md`
+> (change: `gover-ui-spec`, 2026-06-17). See also `gover/UI_DESIGN_REFERENCE.html`.
+
 - Should the current tab model be preserved?
+  → *Resolved:* spec § Navigation Model — replaced with persistent left sidebar (200 px, dark bg)
 - Should the new UI use a sidebar, dashboard, command palette, or another navigation model?
+  → *Resolved:* spec § Navigation Model — sidebar chosen
 - Should the first screen be an overview dashboard or the asset table?
+  → *Resolved:* spec § First Screen — Computers table (dashboard deferred to Phase 4)
 - Should add/edit use modal dialogs, side panels, or full pages?
+  → *Resolved:* spec § Add / Edit UX Pattern — slide-in right panel (300 px)
 - How important is keyboard-first operation?
+  → *Resolved:* spec § Keyboard-First Operation — all PyQt6 shortcuts preserved, panel shortcuts added
 - Should the UI support compact and comfortable density modes?
+  → *Resolved:* spec § Density Modes — Comfortable 33 px default, Compact 24 px toggle
 - Should dark mode follow the system theme or remain a manual toggle?
+  → *Resolved:* spec § Dark Mode — manual toggle, Light default, system-follow deferred to Phase 4
 
 ## Backend And Desktop Integration
 
