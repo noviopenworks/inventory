@@ -1793,7 +1793,7 @@ git commit -m "feat(gover2): configure Tailwind CSS v3 with all 25 design tokens
 **Interfaces:**
 - Produces: `task gover:install`, `task gover:dev`, `task gover:build`, `task gover:test`, `task gover:lint`, `task gover:typecheck`, `task gover:clean`, `task gover:package:deb`, `task gover:package:rpm` — all runnable from repo root
 
-- [ ] **Step 1: Append gover: tasks to root Taskfile.yml**
+- [x] **Step 1: Append gover: tasks to root Taskfile.yml**
 
 Open `/home/mg/inventory/Taskfile.yml`. Append the following block after the last existing task (`clean:` around line 271), before the end of the file:
 
@@ -1859,7 +1859,7 @@ Open `/home/mg/inventory/Taskfile.yml`. Append the following block after the las
       - wails build -platform linux/amd64
 ```
 
-- [ ] **Step 2: Verify task list includes gover: tasks**
+- [x] **Step 2: Verify task list includes gover: tasks**
 
 ```bash
 cd /home/mg/inventory
@@ -1868,7 +1868,7 @@ task --list | grep gover
 
 Expected to show all 9 `gover:*` tasks. If Taskfile syntax is invalid (e.g. indentation error), `task --list` will print a parse error — fix the YAML indentation before continuing.
 
-- [ ] **Step 3: Verify gover:install runs**
+- [x] **Step 3: Verify gover:install runs**
 
 ```bash
 cd /home/mg/inventory
@@ -1877,7 +1877,7 @@ task gover:install
 
 Expected: `go mod download` completes, then `pnpm install --prefix frontend` installs packages in `gover2/frontend/node_modules/`. Exit 0.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /home/mg/inventory

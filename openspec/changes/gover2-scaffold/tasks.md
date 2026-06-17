@@ -45,9 +45,9 @@
 
 ## 5. Taskfile Commands
 
-- [ ] 5.1 Add 9 `gover:` tasks to root `Taskfile.yml` (from architecture spec §6)
-- [ ] 5.2 Verify `task gover:install` succeeds (downloads Go deps + pnpm install)
-- [ ] 5.3 Verify `task gover:build` exits 0 (wails build produces binary)
+- [x] 5.1 Add 9 `gover:` tasks to root `Taskfile.yml` (from architecture spec §6)
+- [x] 5.2 Verify `task gover:install` succeeds (downloads Go deps + pnpm install)
+- [x] 5.3 Verify `task gover:build` exits 0 (wails build produces binary)
 
 ## 6. TypeScript Verification
 
