@@ -32,7 +32,7 @@ base-ref: 5d93ada840ad4c35c1d44add95d41b3783fe2141
 **Interfaces:**
 - Produces: A complete spec that covers all 9 UI decisions documented in the design doc, including the Native Menu Bar section that Tasks 2 and 3 reference.
 
-- [ ] **Step 1.1: Verify the Native Menu Bar section exists**
+- [x] **Step 1.1: Verify the Native Menu Bar section exists**
 
 Open `openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md` and confirm the section heading `## Native Menu Bar` is present with the `wails/v2/pkg/menu` menu structure.
 
@@ -65,7 +65,7 @@ The topbar Export CSV button is a secondary in-app access point. `Ctrl+E` stays 
 Note for Phase 1: native menu callbacks must be registered in Go at app startup. Bridge method names for file dialog operations (`NewDatabase`, `OpenDatabase`, `ExportCSV`) should be defined in Phase 1 architecture.
 ```
 
-- [ ] **Step 1.2: Verify spec coverage against all QUESTIONS.md UI/UX items**
+- [x] **Step 1.2: Verify spec coverage against all QUESTIONS.md UI/UX items**
 
 Read `gover/QUESTIONS.md`, section `## UI And UX`. The 7 questions there are:
 
@@ -81,7 +81,7 @@ Confirm each spec section exists. If any is missing, add it following the existi
 
 Also confirm the `## "All" Overview Tab Scope` section exists (the implicit question resolved during design), and the `## Asset Categories` section covering the fixed-vs-configurable decision.
 
-- [ ] **Step 1.3: Check design token completeness**
+- [x] **Step 1.3: Check design token completeness**
 
 In `spec.md`, under `## Design Token Reference`, confirm these CSS custom properties are listed:
 
@@ -89,7 +89,7 @@ Light mode: `--sidebar-bg`, `--sidebar-active`, `--sidebar-text`, `--sidebar-tex
 
 If any token from `gover/UI_DESIGN_REFERENCE.html`'s `:root` block is absent from the spec, add it with the matching hex value.
 
-- [ ] **Step 1.4: Commit the finalized spec**
+- [x] **Step 1.4: Commit the finalized spec**
 
 ```bash
 git add openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md
@@ -109,7 +109,7 @@ Expected: 1 file changed.
 - Consumes: The finalized spec from Task 1 (section names must exist before being referenced).
 - Produces: `gover/QUESTIONS.md` with the UI/UX section marked resolved, each question pointing to the spec.
 
-- [ ] **Step 2.1: Add a resolution header to the UI/UX section**
+- [x] **Step 2.1: Add a resolution header to the UI/UX section**
 
 In `gover/QUESTIONS.md`, find the line:
 
@@ -126,7 +126,7 @@ Replace it with:
 > (change: `gover-ui-spec`, 2026-06-17). See also `gover/UI_DESIGN_REFERENCE.html`.
 ```
 
-- [ ] **Step 2.2: Annotate each UI/UX question with its spec reference**
+- [x] **Step 2.2: Annotate each UI/UX question with its spec reference**
 
 For each of the 7 questions below, add a one-line annotation directly after the question bullet. Use this exact format:
 
@@ -159,7 +159,7 @@ Change it to:
   → *Resolved:* spec § Navigation Model — replaced with persistent left sidebar (200 px, dark bg)
 ```
 
-- [ ] **Step 2.3: Commit the annotation**
+- [x] **Step 2.3: Commit the annotation**
 
 ```bash
 git add gover/QUESTIONS.md
@@ -191,7 +191,7 @@ All three new views are appended as sibling `<div class="shell">` blocks (or app
 
 **Important:** All colour values must exactly match the existing `:root` CSS variables already in the file — do not introduce new hex values for colours that already have a token.
 
-- [ ] **Step 3.1: Add a section separator comment style**
+- [x] **Step 3.1: Add a section separator comment style**
 
 Before adding new views, confirm the existing separator comment pattern used in the file (search for `═══`). New sections must use the same comment style for consistency.
 
@@ -202,7 +202,7 @@ The existing pattern is:
 ════════════════════════════════════════════════════════ -->
 ```
 
-- [ ] **Step 3.2: Add the Compact Density view**
+- [x] **Step 3.2: Add the Compact Density view**
 
 Find the closing `</div><!-- /shell -->` followed by the `</body>` tag. Insert the following block immediately before `</body>`:
 
@@ -290,7 +290,7 @@ Find the closing `</div><!-- /shell -->` followed by the `</body>` tag. Insert t
 
 Verify: rows must be visually shorter than the primary view. Table header row height 28 px, data rows 24 px (matching current PyQt6 default). All CSS classes (`sidebar`, `main`, `topbar`, `content`, `statusbar`, `sb-item`, `sb-rule`, `data-table`) must already exist in the file's `<style>` block — do not add new class definitions.
 
-- [ ] **Step 3.3: Add the Dark Mode skeleton view**
+- [x] **Step 3.3: Add the Dark Mode skeleton view**
 
 Append the following block immediately after the compact density block (still before `</body>`):
 
@@ -381,7 +381,7 @@ Verify: the dark shell must use a dark page background (`#0F172A`), sidebar must
 
 Note from design doc risk: "On Linux WSL, `system-ui` falls back to DejaVu or Noto — check both platforms when adding compact density to the HTML reference." The same applies here for dark mode. No action needed in the HTML file, but verify visually.
 
-- [ ] **Step 3.4: Add the Alerts Overlay view**
+- [x] **Step 3.4: Add the Alerts Overlay view**
 
 Append immediately after the dark mode block (still before `</body>`):
 
@@ -460,7 +460,7 @@ Append immediately after the dark mode block (still before `</body>`):
 
 Verify: expired rows must use `#FFF5F5` background and `var(--s-expired)` (`#DC2626`) accents. Expiring rows must use `#FFFBEB` background and `var(--s-expiring)` (`#D97706`) accents. The modal header must use `var(--th-bg)` (`#0E1520`) — the signature dark header matching the table header in the primary view.
 
-- [ ] **Step 3.5: Verify the HTML renders correctly in Chromium**
+- [x] **Step 3.5: Verify the HTML renders correctly in Chromium**
 
 Open the file in Chromium on WSL:
 
@@ -482,7 +482,7 @@ grep -c "</div>" /home/mg/inventory/gover/UI_DESIGN_REFERENCE.html
 # Note the count before and after edits — it should increase by the expected number of new divs
 ```
 
-- [ ] **Step 3.6: Commit the HTML changes**
+- [x] **Step 3.6: Commit the HTML changes**
 
 ```bash
 git add gover/UI_DESIGN_REFERENCE.html
@@ -502,7 +502,7 @@ Expected: 1 file changed, significant insertions.
 - Consumes: The finalized spec path (`openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md`) and HTML reference path (`gover/UI_DESIGN_REFERENCE.html`) from Tasks 1 and 3.
 - Produces: `gover/ARCHITECTURE_NOTES.md` with a "UI Strategy" section that links to both resolved documents, replacing or augmenting the existing "UI Strategy Options To Evaluate" prose.
 
-- [ ] **Step 4.1: Locate the UI Strategy section in ARCHITECTURE_NOTES.md**
+- [x] **Step 4.1: Locate the UI Strategy section in ARCHITECTURE_NOTES.md**
 
 Read `gover/ARCHITECTURE_NOTES.md`. Find the section heading:
 
@@ -512,7 +512,7 @@ Read `gover/ARCHITECTURE_NOTES.md`. Find the section heading:
 
 This section currently lists three options (Familiar table-first, Dashboard plus sidebar, Command-center) as unresolved candidates.
 
-- [ ] **Step 4.2: Add a resolution note above the options**
+- [x] **Step 4.2: Add a resolution note above the options**
 
 Insert the following block immediately after the `## UI Strategy Options To Evaluate` heading line (before the numbered list):
 
@@ -525,7 +525,7 @@ Insert the following block immediately after the `## UI Strategy Options To Eval
 
 ```
 
-- [ ] **Step 4.3: Commit the cross-reference update**
+- [x] **Step 4.3: Commit the cross-reference update**
 
 ```bash
 git add gover/ARCHITECTURE_NOTES.md
@@ -545,7 +545,7 @@ Expected: 1 file changed.
 - Consumes: All four committed files from Tasks 1–4.
 - Produces: Confirmed clean state — no application code in diff, all cross-references valid.
 
-- [ ] **Step 5.1: Verify no application code in the diff**
+- [x] **Step 5.1: Verify no application code in the diff**
 
 ```bash
 git diff 5d93ada840ad4c35c1d44add95d41b3783fe2141..HEAD --name-only
@@ -561,7 +561,7 @@ gover/ARCHITECTURE_NOTES.md
 
 If any `.py`, `.go`, `.ts`, `.vue`, or other source file appears, stop and investigate before proceeding.
 
-- [ ] **Step 5.2: Verify all internal links resolve**
+- [x] **Step 5.2: Verify all internal links resolve**
 
 Check each file reference added during the change:
 
@@ -581,7 +581,7 @@ grep -c "gover-ui-spec" /home/mg/inventory/gover/ARCHITECTURE_NOTES.md
 
 Expected: all `echo` lines print, `grep -c` returns ≥ 7 for QUESTIONS.md (one per UI/UX question) and ≥ 1 for ARCHITECTURE_NOTES.md.
 
-- [ ] **Step 5.3: Verify tasks.md items map to plan tasks**
+- [x] **Step 5.3: Verify tasks.md items map to plan tasks**
 
 Read `openspec/changes/gover-ui-spec/tasks.md`. Confirm each checkbox item has a corresponding task/step in this plan:
 
