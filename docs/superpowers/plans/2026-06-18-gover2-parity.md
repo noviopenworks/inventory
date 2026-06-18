@@ -1050,7 +1050,7 @@ Implements design doc "Alerts at App-Shell Level" (modal rendering half) and tas
 - Consumes: `Alert` type from `@/lib/api`.
 - Produces: props `{ open: boolean; alerts: Alert[] }`; emits `close`. Renders a table of `category, name, expiryDate, daysRemaining` with a severity-colored badge (`expired` → `bg-s-expired`, `expiring` → `bg-s-expiring`); empty `alerts` shows a "No alerts" message.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `gover2/frontend/src/components/AlertsModal.test.ts`:
 
@@ -1090,12 +1090,12 @@ describe('AlertsModal', () => {
 })
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/components/AlertsModal.test.ts`
 Expected: FAIL — modal still renders the placeholder text and accepts no `alerts` prop.
 
-- [ ] **Step 3: Rewrite `AlertsModal.vue`**
+- [x] **Step 3: Rewrite `AlertsModal.vue`**
 
 ```vue
 <template>
@@ -1151,12 +1151,12 @@ defineEmits<{ (e: 'close'): void }>()
 </script>
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/components/AlertsModal.test.ts`
 Expected: PASS (4 tests).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/components/AlertsModal.vue gover2/frontend/src/components/AlertsModal.test.ts

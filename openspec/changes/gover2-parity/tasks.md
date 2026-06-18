@@ -22,10 +22,10 @@
 
 ## 4. Frontend: alerts modal (asset-alerts)
 
-- [ ] 4.1 Populate `AlertsModal.vue` from `GetAlerts` (category, name, expiry date, days remaining, severity), with severity styling
+- [x] 4.1 Populate `AlertsModal.vue` from `GetAlerts` (category, name, expiry date, days remaining, severity), with severity styling
 - [ ] 4.2 Own the modal at app-shell level; auto-open on startup when `GetAlerts` returns a non-empty list
 - [ ] 4.3 Wire the ⚠ Alerts topbar action to reopen the modal
-- [ ] 4.4 Test: modal renders rows from a fixture; auto-open logic for empty vs non-empty
+- [x] 4.4 Test: modal renders rows from a fixture; auto-open logic for empty vs non-empty
 
 ## 5. Frontend: search/filter (asset-search)
 
