@@ -1,5 +1,5 @@
 workflow: full
-phase: verify
+phase: archive
 context_compression: off
 build_mode: subagent-driven-development
 build_pause: null
@@ -11,11 +11,11 @@ auto_transition: true
 base_ref: 285a3e7c5a629b40dc80f30b26032c39b273f490
 design_doc: docs/superpowers/specs/2026-06-18-gover2-crud-design.md
 plan: docs/superpowers/plans/2026-06-18-gover2-crud.md
-verify_result: pending
+verify_result: pass
 verification_report: docs/superpowers/reports/2026-06-18-gover2-crud-verify.md
-branch_status: pending
+branch_status: handled
 created_at: 2026-06-18
-verified_at: null
+verified_at: 2026-06-18
 archived: false
 handoff_context: openspec/changes/gover2-crud/.comet/handoff/design-context.json
 handoff_hash: a8dc9194dda259bf71054cf4f66dd3c5f37f053bf046b4334f13dc3e13368b94
