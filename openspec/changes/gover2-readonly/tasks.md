@@ -38,14 +38,14 @@
 
 ## 5. Vue Data Tables
 
-- [ ] 5.1 Update `src/lib/api/index.ts` to call real Wails-generated bridge bindings
-- [ ] 5.2 Implement `ComputersView.vue`: columns = [Name, Model, User, Status, Purchase Date, Warranty Expiry], loads via `api.listComputers()`
-- [ ] 5.3 Implement `SmartphonesView.vue`, `TabletsView.vue` (same columns as computers)
-- [ ] 5.4 Implement `WindowsKeysView.vue`: columns = [License Key, Computer, Status, Notes]
-- [ ] 5.5 Implement `AntivirusView.vue`: columns = [Name, License Key, Computer, Status, Expiry Date]
-- [ ] 5.6 Implement `OtherSoftwareView.vue`: same columns as Antivirus
-- [ ] 5.7 Implement `UsersView.vue`: columns = [Name, Surname, Status, Notes]
-- [ ] 5.8 Implement `AllAssetsView.vue`: union of computers + smartphones + tablets with Category column
+- [x] 5.1 Update `src/lib/api/index.ts` to call real Wails-generated bridge bindings
+- [x] 5.2 Implement `ComputersView.vue`: columns = [Name, Model, User, Status, Purchase Date, Warranty Expiry], loads via `api.listComputers()`
+- [x] 5.3 Implement `SmartphonesView.vue`, `TabletsView.vue` (same columns as computers)
+- [x] 5.4 Implement `WindowsKeysView.vue`: columns = [License Key, Computer, Status, Notes]
+- [x] 5.5 Implement `AntivirusView.vue`: columns = [Name, License Key, Computer, Status, Expiry Date]
+- [x] 5.6 Implement `OtherSoftwareView.vue`: same columns as Antivirus
+- [x] 5.7 Implement `UsersView.vue`: columns = [Name, Surname, Status, Notes]
+- [x] 5.8 Implement `AllAssetsView.vue`: union of computers + smartphones + tablets with Category column
 - [x] 5.9 Implement `DataTable.vue`: props = { columns: ColDef[], rows: Row[], loading: boolean }; renders table with header, rows, empty-state
 - [x] 5.10 Implement `StatusBadge.vue`: applies correct `text-s-*` + `bg-*` classes from Tailwind tokens per status value
 
@@ -57,7 +57,7 @@
 
 ## 7. TypeScript & Build Verification
 
-- [ ] 7.1 Run `pnpm --prefix frontend run typecheck` — exit 0, no errors
+- [x] 7.1 Run `pnpm --prefix frontend run typecheck` — exit 0, no errors
 - [ ] 7.2 Run `go build ./...` — exit 0, no import cycles
 - [ ] 7.3 Run `wails build` — exit 0, binary produced
 
