@@ -265,7 +265,7 @@ tasks:
 
 # ──────────────────────────────── clean ──────────────────────────────────────
   clean:
-    desc: Remove all build artefacts
+    desc: Remove build artefacts and tool caches
     prompt: "Remove dist/, build/, __pycache__ trees, and lint/test caches?"
     cmds:
       - rm -rf dist/ build/ .task/
