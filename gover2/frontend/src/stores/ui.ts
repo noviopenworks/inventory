@@ -7,6 +7,9 @@ export const useUiStore = defineStore('ui', () => {
   const density = ref<'comfortable' | 'compact'>('comfortable')
   const darkMode = ref(false)
   const sidebarCollapsed = ref(false)
+  // Bumped whenever the active database changes; used as a :key on <router-view>
+  // so the current view remounts and refetches rows from the new database.
+  const dbVersion = ref(0)
   const config = ref<AppConfig>({
     dbPath: '', density: 'comfortable', darkMode: false, expiryWarningDays: 30,
   })
@@ -40,6 +43,10 @@ export const useUiStore = defineStore('ui', () => {
     sidebarCollapsed.value = !sidebarCollapsed.value
   }
 
+  function bumpDbVersion() {
+    dbVersion.value++
+  }
+
   async function setDensity(d: 'comfortable' | 'compact') {
     density.value = d
     await persist()
@@ -49,10 +56,12 @@ export const useUiStore = defineStore('ui', () => {
     density,
     darkMode,
     sidebarCollapsed,
+    dbVersion,
     applyTheme,
     loadFromConfig,
     toggleDarkMode,
     toggleSidebar,
     setDensity,
+    bumpDbVersion,
   }
 })

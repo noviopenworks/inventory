@@ -49,4 +49,12 @@ describe('ui store', () => {
       expect.objectContaining({ density: 'comfortable' }),
     )
   })
+
+  it('bumpDbVersion increments the db version counter', () => {
+    const ui = useUiStore()
+    expect(ui.dbVersion).toBe(0)
+    ui.bumpDbVersion()
+    ui.bumpDbVersion()
+    expect(ui.dbVersion).toBe(2)
+  })
 })

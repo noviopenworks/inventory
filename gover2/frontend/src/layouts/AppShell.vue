@@ -44,7 +44,7 @@ const aboutOpen = ref(false)
 const licenseOpen = ref(false)
 
 onMounted(async () => {
-  await ui.loadFromConfig()
+  // Theme/density are loaded pre-mount in main.ts; here we only handle alerts.
   alerts.value = await getAlerts()
   if (alerts.value.length > 0) alertsOpen.value = true
 })
@@ -55,8 +55,9 @@ async function onOpenAlerts() {
 }
 
 async function onDbChanged() {
-  // DB switched: refetch alerts so they reflect the new database. Views refetch
-  // their own rows on mount/route entry, so nothing else is needed here.
+  // DB switched: remount the active view (via the dbVersion :key on <router-view>)
+  // so it refetches rows from the new database, and refresh alerts to match.
+  ui.bumpDbVersion()
   alerts.value = await getAlerts()
 }
 
