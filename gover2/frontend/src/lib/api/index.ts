@@ -15,25 +15,43 @@ function call<T>(method: string, ...args: unknown[]): Promise<T> {
 export type {
   Alert,
   Antivirus,
+  AntivirusInput,
   AppConfig,
   Computer,
+  ComputerInput,
+  DeviceDropdownItem,
+  DropdownItem,
   OtherSoftware,
+  OtherSoftwareInput,
   Smartphone,
+  SmartphoneInput,
   Tablet,
+  TabletInput,
   User,
+  UserInput,
   WindowsKey,
+  WindowsKeyInput,
 } from '@/lib/types'
 
 import type {
   Alert,
   Antivirus,
+  AntivirusInput,
   AppConfig,
   Computer,
+  ComputerInput,
+  DeviceDropdownItem,
+  DropdownItem,
   OtherSoftware,
+  OtherSoftwareInput,
   Smartphone,
+  SmartphoneInput,
   Tablet,
+  TabletInput,
   User,
+  UserInput,
   WindowsKey,
+  WindowsKeyInput,
 } from '@/lib/types'
 
 const defaultConfig: AppConfig = {
@@ -84,3 +102,80 @@ export const newDatabase = (path: string): Promise<void> =>
 
 export const exportCSV = (category: string, destPath: string): Promise<void> =>
   call<void>('ExportCSV', category, destPath)
+
+// --- CRUD: Computer ---
+export const addComputer = (data: ComputerInput): Promise<void> =>
+  call<void>('AddComputer', data)
+
+export const updateComputer = (id: number, data: ComputerInput): Promise<void> =>
+  call<void>('UpdateComputer', id, data)
+
+export const deleteComputer = (id: number): Promise<void> =>
+  call<void>('DeleteComputer', id)
+
+// --- CRUD: Smartphone ---
+export const addSmartphone = (data: SmartphoneInput): Promise<void> =>
+  call<void>('AddSmartphone', data)
+
+export const updateSmartphone = (id: number, data: SmartphoneInput): Promise<void> =>
+  call<void>('UpdateSmartphone', id, data)
+
+export const deleteSmartphone = (id: number): Promise<void> =>
+  call<void>('DeleteSmartphone', id)
+
+// --- CRUD: Tablet ---
+export const addTablet = (data: TabletInput): Promise<void> =>
+  call<void>('AddTablet', data)
+
+export const updateTablet = (id: number, data: TabletInput): Promise<void> =>
+  call<void>('UpdateTablet', id, data)
+
+export const deleteTablet = (id: number): Promise<void> =>
+  call<void>('DeleteTablet', id)
+
+// --- CRUD: WindowsKey ---
+export const addWindowsKey = (data: WindowsKeyInput): Promise<void> =>
+  call<void>('AddWindowsKey', data)
+
+export const updateWindowsKey = (id: number, data: WindowsKeyInput): Promise<void> =>
+  call<void>('UpdateWindowsKey', id, data)
+
+export const deleteWindowsKey = (id: number): Promise<void> =>
+  call<void>('DeleteWindowsKey', id)
+
+// --- CRUD: Antivirus ---
+export const addAntivirus = (data: AntivirusInput): Promise<void> =>
+  call<void>('AddAntivirus', data)
+
+export const updateAntivirus = (id: number, data: AntivirusInput): Promise<void> =>
+  call<void>('UpdateAntivirus', id, data)
+
+export const deleteAntivirus = (id: number): Promise<void> =>
+  call<void>('DeleteAntivirus', id)
+
+// --- CRUD: OtherSoftware ---
+export const addOtherSoftware = (data: OtherSoftwareInput): Promise<void> =>
+  call<void>('AddOtherSoftware', data)
+
+export const updateOtherSoftware = (id: number, data: OtherSoftwareInput): Promise<void> =>
+  call<void>('UpdateOtherSoftware', id, data)
+
+export const deleteOtherSoftware = (id: number): Promise<void> =>
+  call<void>('DeleteOtherSoftware', id)
+
+// --- CRUD: User ---
+export const addUser = (data: UserInput): Promise<void> =>
+  call<void>('AddUser', data)
+
+export const updateUser = (id: number, data: UserInput): Promise<void> =>
+  call<void>('UpdateUser', id, data)
+
+export const deleteUser = (id: number): Promise<void> =>
+  call<void>('DeleteUser', id)
+
+// --- Dropdown helpers ---
+export const listUsersForDropdown = (): Promise<DropdownItem[]> =>
+  call<DropdownItem[]>('ListUsersForDropdown').catch(() => [])
+
+export const listDevicesForDropdown = (): Promise<DeviceDropdownItem[]> =>
+  call<DeviceDropdownItem[]>('ListDevicesForDropdown').catch(() => [])
