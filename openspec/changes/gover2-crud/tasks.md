@@ -43,20 +43,20 @@
 
 ## 6. Frontend — EditPanel.vue
 
-- [ ] 6.1 Create `src/components/EditPanel.vue` with slide-in animation (300 px, right edge)
-- [ ] 6.2 Implement `FIELD_CONFIGS` map: fields per category with labels, types, required flags
-- [ ] 6.3 Implement user dropdown (blank + all users from `listUsersForDropdown`)
-- [ ] 6.4 Implement device dropdown (mixed, `"Name (Type)"` labels from `listDevicesForDropdown`)
-- [ ] 6.5 Implement status dropdown (device statuses vs user statuses)
-- [ ] 6.6 Implement date field with `YYYY-MM-DD` placeholder + save-time format validation
-- [ ] 6.7 Implement required-field validation (inline error message on Save)
-- [ ] 6.8 Implement Escape key → close panel
-- [ ] 6.9 Write `EditPanel.test.ts`: edit mode pre-fills fields; create mode fields empty; Cancel emits cancelled; Escape emits cancelled
+- [x] 6.1 Create `src/components/EditPanel.vue` with slide-in animation (300 px, right edge)
+- [x] 6.2 Implement `FIELD_CONFIGS` map: fields per category with labels, types, required flags
+- [x] 6.3 Implement user dropdown (blank + all users from `listUsersForDropdown`)
+- [x] 6.4 Implement device dropdown (mixed, `"Name (Type)"` labels from `listDevicesForDropdown`)
+- [x] 6.5 Implement status dropdown (device statuses vs user statuses)
+- [x] 6.6 Implement date field with `YYYY-MM-DD` placeholder + save-time format validation
+- [x] 6.7 Implement required-field validation (inline error message on Save)
+- [x] 6.8 Implement Escape key → close panel
+- [x] 6.9 Write `EditPanel.test.ts`: edit mode pre-fills fields; create mode fields empty; Cancel emits cancelled; Escape emits cancelled
 
 ## 7. Frontend — ConfirmDialog.vue
 
-- [ ] 7.1 Create `src/components/ConfirmDialog.vue` (centered overlay modal)
-- [ ] 7.2 Write `ConfirmDialog.test.ts`: confirm emits confirmed; cancel emits cancelled
+- [x] 7.1 Create `src/components/ConfirmDialog.vue` (centered overlay modal)
+- [x] 7.2 Write `ConfirmDialog.test.ts`: confirm emits confirmed; cancel emits cancelled
 
 ## 8. Frontend — Wire All 7 Views
 
