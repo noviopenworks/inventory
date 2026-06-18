@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { getConfig, setConfig } from '@/lib/api'
 import type { AppConfig } from '@/lib/api'
 
@@ -13,6 +13,8 @@ export const useUiStore = defineStore('ui', () => {
   const config = ref<AppConfig>({
     dbPath: '', density: 'comfortable', darkMode: false, expiryWarningDays: 30,
   })
+
+  const expiryWarningDays = computed(() => config.value.expiryWarningDays)
 
   function applyTheme() {
     const root = document.documentElement
@@ -57,6 +59,7 @@ export const useUiStore = defineStore('ui', () => {
     darkMode,
     sidebarCollapsed,
     dbVersion,
+    expiryWarningDays,
     applyTheme,
     loadFromConfig,
     toggleDarkMode,

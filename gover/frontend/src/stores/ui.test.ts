@@ -26,6 +26,7 @@ describe('ui store', () => {
     await ui.loadFromConfig()
     expect(ui.darkMode).toBe(true)
     expect(ui.density).toBe('compact')
+    expect(ui.expiryWarningDays).toBe(30)
     expect(document.documentElement.classList.contains('dark')).toBe(true)
   })
 
