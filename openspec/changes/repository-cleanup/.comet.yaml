@@ -1,5 +1,5 @@
 workflow: full
-phase: build
+phase: verify
 context_compression: off
 build_mode: executing-plans
 build_pause: null
@@ -19,3 +19,5 @@ verified_at: null
 archived: false
 handoff_context: openspec/changes/repository-cleanup/.comet/handoff/design-context.json
 handoff_hash: 0edcd91e39ff1cbf97cc6751a7c525b7782ff55102ea3dbdee9835c66db4e86d
+build_command: uv run pytest -q
+verify_command: uv run pytest -q
