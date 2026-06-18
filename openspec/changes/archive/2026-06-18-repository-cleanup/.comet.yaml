@@ -16,7 +16,7 @@ verification_report: docs/superpowers/reports/2026-06-18-repository-cleanup-veri
 branch_status: handled
 created_at: 2026-06-18
 verified_at: 2026-06-18
-archived: false
+archived: true
 handoff_context: openspec/changes/repository-cleanup/.comet/handoff/design-context.json
 handoff_hash: 0edcd91e39ff1cbf97cc6751a7c525b7782ff55102ea3dbdee9835c66db4e86d
 build_command: uv run pytest -q

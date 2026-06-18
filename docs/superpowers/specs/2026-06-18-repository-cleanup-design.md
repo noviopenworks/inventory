@@ -2,6 +2,8 @@
 comet_change: repository-cleanup
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-18-repository-cleanup
+status: final
 ---
 
 # Repository Cleanup Design

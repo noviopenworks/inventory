@@ -2,6 +2,7 @@
 change: repository-cleanup
 design-doc: docs/superpowers/specs/2026-06-18-repository-cleanup-design.md
 base-ref: 07cfbe8a610601dc417eee65b608402c729166f1
+archived-with: 2026-06-18-repository-cleanup
 ---
 
 # Repository Cleanup Implementation Plan
@@ -16,6 +17,7 @@ base-ref: 07cfbe8a610601dc417eee65b608402c729166f1
 
 **Tech Stack:** Python 3.14, PyQt6, uv, go-task, Ruff, mypy, pytest.
 
+archived-with: 2026-06-18-repository-cleanup
 ---
 
 ## File Structure
@@ -27,6 +29,7 @@ base-ref: 07cfbe8a610601dc417eee65b608402c729166f1
 - Do not modify: anything under `gover2/**` (including `gover2/frontend/*` dirty changes) or `.venv/`.
 - Do not commit changes unless the user explicitly requests it.
 
+archived-with: 2026-06-18-repository-cleanup
 ---
 
 ### Task 1: Repository Hygiene Audit And Cleanup
@@ -58,6 +61,7 @@ base-ref: 07cfbe8a610601dc417eee65b608402c729166f1
 
   Expected: `gover2/frontend` changes remain; no source diffs from artifact removal.
 
+archived-with: 2026-06-18-repository-cleanup
 ---
 
 ### Task 2: Verification Audit
@@ -69,6 +73,7 @@ base-ref: 07cfbe8a610601dc417eee65b608402c729166f1
 - [x] **Step 3: Run type-check** — Run: `task type:check` — Result: PASS (no issues in 13 source files)
 - [x] **Step 4: Run tests** — Run: `task test` — Result: PASS (175 passed in 2m53s)
 
+archived-with: 2026-06-18-repository-cleanup
 ---
 
 ### Task 3: Minimal Code Cleanup Fixes (only for Task 2 findings)
@@ -80,6 +85,7 @@ base-ref: 07cfbe8a610601dc417eee65b608402c729166f1
 - [x] **Step 3:** For each mypy finding, make the smallest type-safe edit. — N/A (type:check passed)
 - [x] **Step 4:** For each pytest failure, diagnose with `task test:verbose`. — N/A (tests passed)
 
+archived-with: 2026-06-18-repository-cleanup
 ---
 
 ### Task 4: Docs And Tooling Drift Cleanup
@@ -98,6 +104,7 @@ base-ref: 07cfbe8a610601dc417eee65b608402c729166f1
 
 - [x] **Step 3: Update `.gitignore`** only for a verified, uncovered generated artifact — N/A (all targets already covered).
 
+archived-with: 2026-06-18-repository-cleanup
 ---
 
 ### Task 5: Final Verification And Report
