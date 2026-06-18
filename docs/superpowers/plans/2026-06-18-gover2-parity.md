@@ -755,7 +755,7 @@ Implements design doc "Dark Mode — single source of truth on app start" and ta
 - Consumes: `useUiStore().loadFromConfig` (Task 4).
 - Produces: theme applied on mount. (AppShell gains more in Tasks 11–13; this step only adds the ui-store wiring.)
 
-- [ ] **Step 1: Add the onMounted hook to `AppShell.vue`**
+- [x] **Step 1: Add the onMounted hook to `AppShell.vue`**
 
 Replace the `<script setup>` block of `gover2/frontend/src/layouts/AppShell.vue`:
 
@@ -773,12 +773,12 @@ onMounted(async () => {
 })
 ```
 
-- [ ] **Step 2: Typecheck + full frontend test run**
+- [x] **Step 2: Typecheck + full frontend test run**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck && pnpm test`
 Expected: PASS.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/layouts/AppShell.vue

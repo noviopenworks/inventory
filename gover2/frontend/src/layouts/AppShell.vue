@@ -12,7 +12,15 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import Sidebar from '@/components/Sidebar.vue'
 import Topbar from '@/components/Topbar.vue'
 import Statusbar from '@/components/Statusbar.vue'
+import { useUiStore } from '@/stores/ui'
+
+const ui = useUiStore()
+
+onMounted(async () => {
+  await ui.loadFromConfig()
+})
 </script>
