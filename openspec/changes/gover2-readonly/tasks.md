@@ -7,10 +7,10 @@
 
 ## 2. Models Package
 
-- [ ] 2.1 Implement all 7 model structs with correct JSON tags in `internal/models/models.go`
-- [ ] 2.2 Implement `AppConfig` in `internal/config/config.go` with `Load() / Save()` using `$XDG_CONFIG_HOME`
-- [ ] 2.3 Write `internal/models/models_test.go`: JSON marshal/unmarshal round-trip for each struct
-- [ ] 2.4 Run `go test ./internal/models/...` — must pass
+- [x] 2.1 Implement all 7 model structs with correct JSON tags in `internal/models/models.go`
+- [x] 2.2 Implement `AppConfig` in `internal/config/config.go` with `Load() / Save()` using `$XDG_CONFIG_HOME`
+- [x] 2.3 Write `internal/models/models_test.go`: JSON marshal/unmarshal round-trip for each struct
+- [x] 2.4 Run `go test ./internal/models/...` — must pass
 
 ## 3. Services Package — List Operations
 

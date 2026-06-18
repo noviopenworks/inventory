@@ -264,7 +264,7 @@ git commit -m "feat(gover2): implement database.Open and InitSchema with WAL mod
   - `config.Load() (models.AppConfig, error)` — reads `$XDG_CONFIG_HOME/inventory/config.json`; returns defaults when file missing
   - `config.Save(cfg models.AppConfig) error` — writes atomically via temp file + rename
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 // gover2/internal/config/config_test.go
@@ -311,7 +311,7 @@ func TestSaveAndLoad_RoundTrip(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run from `gover2/`:
 ```bash
@@ -320,7 +320,7 @@ go test ./internal/config/...
 
 Expected: FAIL — stub `Load()` returns empty `DBPath`, not the saved value.
 
-- [ ] **Step 3: Implement config.go**
+- [x] **Step 3: Implement config.go**
 
 Replace the entire contents of `gover2/internal/config/config.go`:
 
@@ -389,7 +389,7 @@ func Save(cfg models.AppConfig) error {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run from `gover2/`:
 ```bash
@@ -398,7 +398,7 @@ go test ./internal/config/...
 
 Expected: `ok gover2/internal/config`
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gover2/internal/config/config.go gover2/internal/config/config_test.go
