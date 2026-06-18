@@ -31,4 +31,21 @@ describe('AlertsModal', () => {
     await wrapper.find('button').trigger('click')
     expect(wrapper.emitted('close')).toBeTruthy()
   })
+
+  it('shows expired/expiring summary counts and the warning window', () => {
+    const wrapper = mount(AlertsModal, {
+      props: { open: true, alerts, warningDays: 30 },
+    })
+    // 1 expired (Norton, severity: 'expired') + 1 expiring (Office, severity: 'expiring')
+    expect(wrapper.text()).toMatch(/1\s+expired/)
+    expect(wrapper.text()).toMatch(/1\s+expiring within 30 days/)
+  })
+
+  it('prettifies the severity badge labels', () => {
+    const wrapper = mount(AlertsModal, { props: { open: true, alerts } })
+    const cells = wrapper.findAll('tbody td:nth-child(5)')
+    expect(cells).toHaveLength(2)
+    expect(cells[0].text()).toBe('Expired')
+    expect(cells[1].text()).toBe('Expiring soon')
+  })
 })
