@@ -16,6 +16,6 @@ verification_report: docs/superpowers/reports/2026-06-18-gover2-parity-verify.md
 branch_status: handled
 created_at: 2026-06-18
 verified_at: 2026-06-18
-archived: false
+archived: true
 handoff_context: openspec/changes/gover2-parity/.comet/handoff/design-context.json
 handoff_hash: 9b7a3a210598c021fd022ffeab241f6cb878756c79d3e2def28bf05cc49f339d

@@ -2,6 +2,7 @@
 change: gover2-parity
 design-doc: docs/superpowers/specs/2026-06-18-gover2-parity-design.md
 base-ref: 2059dd97252d640743a44e967951fb2fa3124136
+archived-with: 2026-06-18-gover2-parity
 ---
 
 # gover2 Parity Implementation Plan
@@ -26,6 +27,7 @@ base-ref: 2059dd97252d640743a44e967951fb2fa3124136
 - Working directory for all Go commands: `/home/mg/inventory/gover2`. For all frontend commands: `/home/mg/inventory/gover2/frontend`.
 - Frontend commands: tests `pnpm test` (alias of `vitest run`); typecheck `pnpm run typecheck` (`vue-tsc --noEmit`).
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## File Structure
@@ -52,6 +54,7 @@ base-ref: 2059dd97252d640743a44e967951fb2fa3124136
 - Modify `lib/api/index.ts` — `exportCSV(category)` (drop `destPath`).
 - Create test files: `lib/filter.test.ts`, `stores/ui.test.ts`, `components/AlertsModal.test.ts`, `components/AboutModal.test.ts`, `components/LicenseModal.test.ts`; extend `components/DataTable.test.ts`.
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 1: Go CSV export — pure `BuildCSV` + `WriteCSV`
@@ -318,6 +321,7 @@ cd /home/mg/inventory && git add gover2/internal/services/export.go gover2/inter
 git commit -m "feat(gover2): add pure BuildCSV/WriteCSV services"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 2: Go bridge — reshape `ExportCSV(category)` with save dialog
@@ -448,6 +452,7 @@ cd /home/mg/inventory && git add gover2/internal/bridge/bridge.go gover2/interna
 git commit -m "feat(gover2): reshape ExportCSV to category-only with save dialog"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 3: Tailwind CSS-variable tokens + dark palette
@@ -578,6 +583,7 @@ cd /home/mg/inventory && git add gover2/frontend/tailwind.config.ts gover2/front
 git commit -m "feat(gover2): convert Tailwind tokens to CSS variables with dark palette"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 4: `stores/ui.ts` — load, toggle, persist, apply `.dark`
@@ -742,6 +748,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/stores/ui.ts gover2/fronten
 git commit -m "feat(gover2): ui store loads/persists theme + density and applies dark class"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 5: Call `loadFromConfig` on app startup
@@ -785,6 +792,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/layouts/AppShell.vue
 git commit -m "feat(gover2): apply persisted theme on app startup"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 6: `lib/filter.ts` — pure `matchesQuery`
@@ -871,6 +879,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/lib/filter.ts gover2/fronte
 git commit -m "feat(gover2): add pure matchesQuery filter helper"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 7: `stores/search.ts` + `lib/routeCategory.ts`
@@ -935,6 +944,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/stores/search.ts gover2/fro
 git commit -m "feat(gover2): add search store and route-to-category map"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 8: `DataTable.vue` — density + theme-aware zebra
@@ -1036,6 +1046,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/components/DataTable.vue go
 git commit -m "feat(gover2): density-aware cell padding and zebra rows in DataTable"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 9: `AlertsModal.vue` — render real alert rows
@@ -1163,6 +1174,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/components/AlertsModal.vue 
 git commit -m "feat(gover2): render real alert rows with severity badges"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 10: `AboutModal.vue` + `LicenseModal.vue`
@@ -1301,6 +1313,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/components/AboutModal.vue g
 git commit -m "feat(gover2): add About and License modals"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 11: api wrapper — `exportCSV(category)` signature change
@@ -1334,6 +1347,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/lib/api/index.ts
 git commit -m "feat(gover2): exportCSV api wrapper drops destPath"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 12: `Topbar.vue` — action row
@@ -1468,6 +1482,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/components/Topbar.vue
 git commit -m "feat(gover2): topbar action row with search, alerts, CSV, dark, overflow"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 13: `AppShell.vue` — own modals, auto-open alerts, clear search on navigation
@@ -1560,6 +1575,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/layouts/AppShell.vue
 git commit -m "feat(gover2): AppShell owns alerts/about/license modals, auto-opens alerts, clears search on nav"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 14: Wire search filtering into all 8 views
@@ -1646,6 +1662,7 @@ cd /home/mg/inventory && git add gover2/frontend/src/features
 git commit -m "feat(gover2): client-side search filtering across all views"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Task 15: Regenerate wailsjs bindings + full verification
@@ -1692,6 +1709,7 @@ cd /home/mg/inventory && git add gover2/frontend/wailsjs
 git commit -m "chore(gover2): regenerate wailsjs bindings for ExportCSV signature"
 ```
 
+archived-with: 2026-06-18-gover2-parity
 ---
 
 ## Self-Review

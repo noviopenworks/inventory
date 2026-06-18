@@ -2,6 +2,8 @@
 comet_change: gover2-parity
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-18-gover2-parity
+status: final
 ---
 
 # gover2-parity — Technical Design
