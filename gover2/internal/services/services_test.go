@@ -10,6 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"gover2/internal/database"
+	"gover2/internal/models"
 	"gover2/internal/services"
 )
 
@@ -147,4 +148,319 @@ func TestGetAlerts_AlreadyExpired(t *testing.T) {
 	require.NoError(t, err)
 	assert.Len(t, result, 1)
 	assert.Equal(t, "expired", result[0].Severity)
+}
+
+// ---------------------------------------------------------------------------
+// Write ops — Computers
+// ---------------------------------------------------------------------------
+
+func TestComputer_InsertUpdateDelete(t *testing.T) {
+	db := openTestDB(t)
+
+	// Insert
+	id, err := services.InsertComputer(db, models.ComputerInput{
+		Name:   "TestPC",
+		Model:  "Dell XPS",
+		Status: "active",
+	})
+	require.NoError(t, err)
+	assert.Greater(t, id, int64(0))
+
+	// Verify appears in list
+	list, err := services.ListComputers(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "TestPC", list[0].Name)
+
+	// Update
+	err = services.UpdateComputer(db, int(id), models.ComputerInput{
+		Name:   "UpdatedPC",
+		Model:  "HP EliteBook",
+		Status: "inactive",
+	})
+	require.NoError(t, err)
+
+	list, err = services.ListComputers(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "UpdatedPC", list[0].Name)
+	assert.Equal(t, "inactive", list[0].Status)
+
+	// Delete
+	err = services.DeleteComputer(db, int(id))
+	require.NoError(t, err)
+
+	list, err = services.ListComputers(db)
+	require.NoError(t, err)
+	assert.Empty(t, list)
+}
+
+// ---------------------------------------------------------------------------
+// Write ops — Smartphones
+// ---------------------------------------------------------------------------
+
+func TestSmartphone_InsertUpdateDelete(t *testing.T) {
+	db := openTestDB(t)
+
+	id, err := services.InsertSmartphone(db, models.SmartphoneInput{
+		Name:   "iPhone",
+		Model:  "15 Pro",
+		Status: "active",
+	})
+	require.NoError(t, err)
+	assert.Greater(t, id, int64(0))
+
+	list, err := services.ListSmartphones(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "iPhone", list[0].Name)
+
+	err = services.UpdateSmartphone(db, int(id), models.SmartphoneInput{
+		Name:   "Samsung",
+		Model:  "Galaxy S24",
+		Status: "inactive",
+	})
+	require.NoError(t, err)
+
+	list, err = services.ListSmartphones(db)
+	require.NoError(t, err)
+	assert.Equal(t, "Samsung", list[0].Name)
+
+	err = services.DeleteSmartphone(db, int(id))
+	require.NoError(t, err)
+
+	list, err = services.ListSmartphones(db)
+	require.NoError(t, err)
+	assert.Empty(t, list)
+}
+
+// ---------------------------------------------------------------------------
+// Write ops — Tablets
+// ---------------------------------------------------------------------------
+
+func TestTablet_InsertUpdateDelete(t *testing.T) {
+	db := openTestDB(t)
+
+	id, err := services.InsertTablet(db, models.TabletInput{
+		Name:   "iPad",
+		Model:  "Air 5",
+		Status: "active",
+	})
+	require.NoError(t, err)
+	assert.Greater(t, id, int64(0))
+
+	list, err := services.ListTablets(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "iPad", list[0].Name)
+
+	err = services.UpdateTablet(db, int(id), models.TabletInput{
+		Name:   "Samsung Tab",
+		Model:  "S9",
+		Status: "inactive",
+	})
+	require.NoError(t, err)
+
+	list, err = services.ListTablets(db)
+	require.NoError(t, err)
+	assert.Equal(t, "Samsung Tab", list[0].Name)
+
+	err = services.DeleteTablet(db, int(id))
+	require.NoError(t, err)
+
+	list, err = services.ListTablets(db)
+	require.NoError(t, err)
+	assert.Empty(t, list)
+}
+
+// ---------------------------------------------------------------------------
+// Write ops — Windows Keys
+// ---------------------------------------------------------------------------
+
+func TestWindowsKey_InsertUpdateDelete(t *testing.T) {
+	db := openTestDB(t)
+
+	id, err := services.InsertWindowsKey(db, models.WindowsKeyInput{
+		LicenseKey: "AAAAA-BBBBB-CCCCC",
+		Status:     "active",
+	})
+	require.NoError(t, err)
+	assert.Greater(t, id, int64(0))
+
+	list, err := services.ListWindowsKeys(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "AAAAA-BBBBB-CCCCC", list[0].LicenseKey)
+
+	err = services.UpdateWindowsKey(db, int(id), models.WindowsKeyInput{
+		LicenseKey: "DDDDD-EEEEE-FFFFF",
+		Status:     "inactive",
+	})
+	require.NoError(t, err)
+
+	list, err = services.ListWindowsKeys(db)
+	require.NoError(t, err)
+	assert.Equal(t, "DDDDD-EEEEE-FFFFF", list[0].LicenseKey)
+
+	err = services.DeleteWindowsKey(db, int(id))
+	require.NoError(t, err)
+
+	list, err = services.ListWindowsKeys(db)
+	require.NoError(t, err)
+	assert.Empty(t, list)
+}
+
+// ---------------------------------------------------------------------------
+// Write ops — Antivirus
+// ---------------------------------------------------------------------------
+
+func TestAntivirus_InsertUpdateDelete(t *testing.T) {
+	db := openTestDB(t)
+
+	id, err := services.InsertAntivirus(db, models.AntivirusInput{
+		Name:       "Kaspersky",
+		LicenseKey: "K-123",
+		Status:     "active",
+	})
+	require.NoError(t, err)
+	assert.Greater(t, id, int64(0))
+
+	list, err := services.ListAntivirus(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "Kaspersky", list[0].Name)
+
+	err = services.UpdateAntivirus(db, int(id), models.AntivirusInput{
+		Name:       "Norton",
+		LicenseKey: "N-456",
+		Status:     "inactive",
+	})
+	require.NoError(t, err)
+
+	list, err = services.ListAntivirus(db)
+	require.NoError(t, err)
+	assert.Equal(t, "Norton", list[0].Name)
+
+	err = services.DeleteAntivirus(db, int(id))
+	require.NoError(t, err)
+
+	list, err = services.ListAntivirus(db)
+	require.NoError(t, err)
+	assert.Empty(t, list)
+}
+
+// ---------------------------------------------------------------------------
+// Write ops — OtherSoftware
+// ---------------------------------------------------------------------------
+
+func TestOtherSoftware_InsertUpdateDelete(t *testing.T) {
+	db := openTestDB(t)
+
+	id, err := services.InsertOtherSoftware(db, models.OtherSoftwareInput{
+		Name:       "Slack",
+		LicenseKey: "SL-001",
+		Status:     "active",
+	})
+	require.NoError(t, err)
+	assert.Greater(t, id, int64(0))
+
+	list, err := services.ListOtherSoftware(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "Slack", list[0].Name)
+
+	err = services.UpdateOtherSoftware(db, int(id), models.OtherSoftwareInput{
+		Name:       "Teams",
+		LicenseKey: "TM-002",
+		Status:     "inactive",
+	})
+	require.NoError(t, err)
+
+	list, err = services.ListOtherSoftware(db)
+	require.NoError(t, err)
+	assert.Equal(t, "Teams", list[0].Name)
+
+	err = services.DeleteOtherSoftware(db, int(id))
+	require.NoError(t, err)
+
+	list, err = services.ListOtherSoftware(db)
+	require.NoError(t, err)
+	assert.Empty(t, list)
+}
+
+// ---------------------------------------------------------------------------
+// Write ops — Users
+// ---------------------------------------------------------------------------
+
+func TestUser_InsertUpdateDelete(t *testing.T) {
+	db := openTestDB(t)
+
+	id, err := services.InsertUser(db, models.UserInput{
+		Name:   "Alice",
+		Status: "active",
+	})
+	require.NoError(t, err)
+	assert.Greater(t, id, int64(0))
+
+	list, err := services.ListUsers(db)
+	require.NoError(t, err)
+	require.Len(t, list, 1)
+	assert.Equal(t, "Alice", list[0].Name)
+
+	err = services.UpdateUser(db, int(id), models.UserInput{
+		Name:   "Bob",
+		Status: "inactive",
+	})
+	require.NoError(t, err)
+
+	list, err = services.ListUsers(db)
+	require.NoError(t, err)
+	assert.Equal(t, "Bob", list[0].Name)
+
+	err = services.DeleteUser(db, int(id))
+	require.NoError(t, err)
+
+	list, err = services.ListUsers(db)
+	require.NoError(t, err)
+	assert.Empty(t, list)
+}
+
+// ---------------------------------------------------------------------------
+// Dropdown helpers
+// ---------------------------------------------------------------------------
+
+func TestListUsersForDropdown(t *testing.T) {
+	db := openTestDB(t)
+
+	_, err := db.Exec(`INSERT INTO users (name, status) VALUES (?, ?)`, "Alice", "active")
+	require.NoError(t, err)
+
+	items, err := services.ListUsersForDropdown(db)
+	require.NoError(t, err)
+	require.Len(t, items, 1)
+	assert.Equal(t, "Alice", items[0].Name)
+	assert.Greater(t, items[0].ID, 0)
+}
+
+func TestListDevicesForDropdown(t *testing.T) {
+	db := openTestDB(t)
+
+	_, err := db.Exec(`INSERT INTO computers (name, status) VALUES (?, ?)`, "PC1", "active")
+	require.NoError(t, err)
+	_, err = db.Exec(`INSERT INTO smartphones (name, status) VALUES (?, ?)`, "Phone1", "active")
+	require.NoError(t, err)
+	_, err = db.Exec(`INSERT INTO tablets (name, status) VALUES (?, ?)`, "Tablet1", "active")
+	require.NoError(t, err)
+
+	items, err := services.ListDevicesForDropdown(db)
+	require.NoError(t, err)
+	require.Len(t, items, 3)
+
+	// ordered by kind, name: computer < smartphone < tablet
+	assert.Equal(t, "computer", items[0].Kind)
+	assert.Equal(t, "PC1", items[0].Name)
+	assert.Equal(t, "smartphone", items[1].Kind)
+	assert.Equal(t, "Phone1", items[1].Name)
+	assert.Equal(t, "tablet", items[2].Kind)
+	assert.Equal(t, "Tablet1", items[2].Name)
 }
