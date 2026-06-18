@@ -4,6 +4,8 @@ A desktop GUI application for tracking IT assets — computers, smartphones, tab
 
 > **Note:** This project was mostly vibe-coded with GitHub Copilot as an AI pair programmer. It works, it has tests, and the code is reasonably clean — but don't expect every architectural decision to hold up to deep scrutiny.
 
+> **Rewrite in progress:** [`gover/`](gover/) is a Wails + Go + Vue + TypeScript rewrite of this app. Phases 0–4 (discovery, foundation, read-only prototype, CRUD, supporting features) are complete; packaging and polish remain. The PyQt6 app described below is the current stable release and the behavior reference for gover. See [`gover/README.md`](gover/README.md) for the rewrite.
+
 ---
 
 ## Features
@@ -113,6 +115,7 @@ db/
   config.py          # per-table column metadata and constants
   alerts.py          # expiry/warranty alert queries
 tests/               # pytest test suite
+gover/               # Wails + Go + Vue rewrite (in development; see gover/README.md)
 packaging/
   deb/               # Debian packaging templates
   rpm/               # RPM spec template

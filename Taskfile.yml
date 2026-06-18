@@ -273,61 +273,61 @@ tasks:
       - rm -rf .coverage .pytest_cache .mypy_cache .ruff_cache
       - echo "Clean done."
 
-# ──────────────────────────────── gover2 ─────────────────────────────────────
+  # ──────────────────────────────── gover ─────────────────────────────────────
   gover:install:
-    desc: Download Go deps and install frontend packages for gover2
-    dir: gover2
+    desc: Download Go deps and install frontend packages for gover
+    dir: gover
     cmds:
       - go mod download
       - pnpm install --prefix frontend
 
   gover:dev:
-    desc: Launch gover2 in development mode (hot reload)
-    dir: gover2
+    desc: Launch gover in development mode (hot reload)
+    dir: gover
     cmds:
       - wails dev
 
   gover:build:
-    desc: Build the gover2 desktop binary via wails
-    dir: gover2
+    desc: Build the gover desktop binary via wails
+    dir: gover
     cmds:
       - wails build
 
   gover:test:
-    desc: Run Go and frontend tests for gover2
-    dir: gover2
+    desc: Run Go and frontend tests for gover
+    dir: gover
     cmds:
       - go test ./...
       - pnpm --prefix frontend run test
 
   gover:lint:
-    desc: Lint Go and frontend code for gover2
-    dir: gover2
+    desc: Lint Go and frontend code for gover
+    dir: gover
     cmds:
       - golangci-lint run ./...
       - pnpm --prefix frontend run lint
 
   gover:typecheck:
-    desc: Run vue-tsc type check for gover2 frontend
-    dir: gover2
+    desc: Run vue-tsc type check for gover frontend
+    dir: gover
     cmds:
       - pnpm --prefix frontend run typecheck
 
   gover:clean:
-    desc: Remove gover2 build artifacts
-    dir: gover2
+    desc: Remove gover build artifacts
+    dir: gover
     cmds:
       - rm -rf build/
       - pnpm --prefix frontend run clean
 
   gover:package:deb:
-    desc: "Build gover2 .deb package (stub — packaging filled in Phase 5)"
-    dir: gover2
+    desc: "Build gover .deb package (stub — packaging filled in Phase 5)"
+    dir: gover
     cmds:
       - wails build -platform linux/amd64
 
   gover:package:rpm:
-    desc: "Build gover2 .rpm package (stub — packaging filled in Phase 5)"
-    dir: gover2
+    desc: "Build gover .rpm package (stub — packaging filled in Phase 5)"
+    dir: gover
     cmds:
       - wails build -platform linux/amd64

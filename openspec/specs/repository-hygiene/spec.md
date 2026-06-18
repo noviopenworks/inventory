@@ -11,7 +11,7 @@ A repository cleanup pass SHALL remove generated, git-ignored artifacts that are
 
 - **WHEN** a cleanup pass runs against a tree containing git-ignored generated artifacts (e.g. `.coverage`, `.pytest_cache/`, `.mypy_cache/`, `.ruff_cache/`, `.task/`, `__pycache__/`, `build/`, `dist/`, `inventory.db`)
 - **THEN** those artifacts are removed from the working tree
-- **AND** `.venv/` and everything under `gover2/**` remain untouched
+- **AND** `.venv/` and everything under `gover/**` remain untouched
 
 #### Scenario: Non-ignored path is not removed blindly
 
