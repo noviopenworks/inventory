@@ -1,14 +1,16 @@
 <template>
   <div class="p-4 text-text-primary">
     <h1 class="text-lg font-semibold mb-4">All Assets</h1>
-    <DataTable :columns="columns" :rows="rows" :loading="loading" />
+    <DataTable :columns="columns" :rows="filteredRows" :loading="loading" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import DataTable from '@/components/DataTable.vue'
 import { listComputers, listSmartphones, listTablets } from '@/lib/api'
+import { useSearchStore } from '@/stores/search'
+import { matchesQuery } from '@/lib/filter'
 
 const columns = [
   { key: 'category', label: 'Category' },
@@ -18,6 +20,10 @@ const columns = [
 ]
 
 const rows = ref<Record<string, unknown>[]>([])
+const search = useSearchStore()
+const filteredRows = computed(() =>
+  rows.value.filter((r) => matchesQuery(r, columns, search.query)),
+)
 const loading = ref(true)
 
 onMounted(async () => {

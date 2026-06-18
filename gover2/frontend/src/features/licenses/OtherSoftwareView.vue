@@ -9,7 +9,7 @@
     </div>
     <DataTable
       :columns="columns"
-      :rows="rows as Record<string, unknown>[]"
+      :rows="filteredRows"
       :loading="loading"
       @row-click="onRowClick"
       @delete="onDeleteClick"
@@ -34,12 +34,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import DataTable from '@/components/DataTable.vue'
 import EditPanel from '@/components/EditPanel.vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
 import { listOtherSoftware, deleteOtherSoftware, listUsersForDropdown, listDevicesForDropdown } from '@/lib/api'
 import type { OtherSoftware, DropdownItem, DeviceDropdownItem } from '@/lib/api'
+import { useSearchStore } from '@/stores/search'
+import { matchesQuery } from '@/lib/filter'
 
 const columns = [
   { key: 'name', label: 'Name' },
@@ -49,6 +51,10 @@ const columns = [
 ]
 
 const rows = ref<OtherSoftware[]>([])
+const search = useSearchStore()
+const filteredRows = computed(() =>
+  (rows.value as Record<string, unknown>[]).filter((r) => matchesQuery(r, columns, search.query)),
+)
 const loading = ref(true)
 
 const panelOpen = ref(false)

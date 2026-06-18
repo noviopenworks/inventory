@@ -1580,7 +1580,7 @@ Implements design doc "Search — each view computes `filteredRows`" and tasks.m
 - Consumes: `useSearchStore().query` (Task 7), `matchesQuery` (Task 6).
 - Produces: each view passes a `filteredRows` computed to `DataTable` instead of the raw `rows`.
 
-- [ ] **Step 1: Apply the same pattern to each view**
+- [x] **Step 1: Apply the same pattern to each view**
 
 For each view, in `<script setup>` add:
 
@@ -1629,17 +1629,17 @@ and change `<DataTable :columns="columns" :rows="rows" ... />` to `:rows="filter
 
 Apply the structurally identical change to `SmartphonesView.vue`, `TabletsView.vue`, `WindowsKeysView.vue`, `AntivirusView.vue`, `OtherSoftwareView.vue`, and `UsersView.vue`, using each view's own `rows` ref and `columns` array.
 
-- [ ] **Step 2: Typecheck**
+- [x] **Step 2: Typecheck**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck`
 Expected: PASS.
 
-- [ ] **Step 3: Full frontend test run**
+- [x] **Step 3: Full frontend test run**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test`
 Expected: PASS.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/features

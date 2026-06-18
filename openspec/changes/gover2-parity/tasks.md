@@ -31,7 +31,7 @@
 
 - [x] 5.1 Add a shared filter helper that matches a query against a row's visible display values
 - [x] 5.2 Wire the topbar search term to the active view; filter the 7 category views + AllAssets client-side, updating as the user types
-- [ ] 5.3 Test: filter helper matches/clears correctly
+- [x] 5.3 Test: filter helper matches/clears correctly
 
 ## 6. Frontend: database management (database-management) + dialogs
 
