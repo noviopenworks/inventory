@@ -37,9 +37,9 @@
 
 ## 5. Frontend — api/index.ts
 
-- [ ] 5.1 Add `addComputer`, `updateComputer`, `deleteComputer` to `src/lib/api/index.ts`
-- [ ] 5.2 Add same for Smartphone, Tablet, WindowsKey, Antivirus, OtherSoftware, User (6 × 3 = 18 functions)
-- [ ] 5.3 Add `listUsersForDropdown` and `listDevicesForDropdown`
+- [x] 5.1 Add `addComputer`, `updateComputer`, `deleteComputer` to `src/lib/api/index.ts`
+- [x] 5.2 Add same for Smartphone, Tablet, WindowsKey, Antivirus, OtherSoftware, User (6 × 3 = 18 functions)
+- [x] 5.3 Add `listUsersForDropdown` and `listDevicesForDropdown`
 
 ## 6. Frontend — EditPanel.vue
 
