@@ -15,10 +15,10 @@
 
 ## 3. Frontend: topbar action row
 
-- [ ] 3.1 Rework `Topbar.vue` into an action row: search box, ⚠ Alerts, ↓ CSV, 🌙 dark-mode toggle, ⋯ overflow menu
-- [ ] 3.2 Wire the 🌙 button to `stores/ui.ts`; reflect current theme state in the icon/label
+- [x] 3.1 Rework `Topbar.vue` into an action row: search box, ⚠ Alerts, ↓ CSV, 🌙 dark-mode toggle, ⋯ overflow menu
+- [x] 3.2 Wire the 🌙 button to `stores/ui.ts`; reflect current theme state in the icon/label
 - [x] 3.3 Wire the ↓ CSV action to call `exportCsv(activeCategory)` for the active route
-- [ ] 3.4 Overflow menu entries: New Database, Open Database, About, License
+- [x] 3.4 Overflow menu entries: New Database, Open Database, About, License
 
 ## 4. Frontend: alerts modal (asset-alerts)
 
@@ -35,7 +35,7 @@
 
 ## 6. Frontend: database management (database-management) + dialogs
 
-- [ ] 6.1 Wire New Database / Open Database overflow entries to `NewDatabase`/`OpenDatabase` bridge methods (native dialogs); refresh views after switch
+- [x] 6.1 Wire New Database / Open Database overflow entries to `NewDatabase`/`OpenDatabase` bridge methods (native dialogs); refresh views after switch
 - [x] 6.2 Add About and License modal components reachable from the overflow menu
 - [x] 6.3 Test: About/License modals open/close
 

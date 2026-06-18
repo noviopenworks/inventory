@@ -171,6 +171,41 @@ func (a *App) OpenDatabase(path string) error {
 	return a.NewDatabase(path)
 }
 
+// NewDatabaseDialog opens a native save-file dialog and creates a new database
+// at the chosen path. Returns nil if the user cancels. The dialog itself
+// requires a live Wails context and is exercised by the smoke test; the
+// underlying create logic lives in NewDatabase.
+func (a *App) NewDatabaseDialog() error {
+	path, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		DefaultFilename: "inventory.db",
+		Filters:         []runtime.FileFilter{{DisplayName: "SQLite database", Pattern: "*.db"}},
+	})
+	if err != nil {
+		return err
+	}
+	if path == "" {
+		return nil // user cancelled
+	}
+	return a.NewDatabase(path)
+}
+
+// OpenDatabaseDialog opens a native open-file dialog and opens the selected
+// database. Returns nil if the user cancels. The dialog itself requires a live
+// Wails context and is exercised by the smoke test; the underlying open logic
+// lives in OpenDatabase.
+func (a *App) OpenDatabaseDialog() error {
+	path, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
+		Filters: []runtime.FileFilter{{DisplayName: "SQLite database", Pattern: "*.db"}},
+	})
+	if err != nil {
+		return err
+	}
+	if path == "" {
+		return nil // user cancelled
+	}
+	return a.OpenDatabase(path)
+}
+
 func (a *App) ExportCSV(category string) error {
 	if a.db == nil {
 		return errNoDB

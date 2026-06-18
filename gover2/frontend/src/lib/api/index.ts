@@ -100,6 +100,12 @@ export const openDatabase = (path: string): Promise<void> =>
 export const newDatabase = (path: string): Promise<void> =>
   call<void>('NewDatabase', path)
 
+export const newDatabaseDialog = (): Promise<void> =>
+  call<void>('NewDatabaseDialog')
+
+export const openDatabaseDialog = (): Promise<void> =>
+  call<void>('OpenDatabaseDialog')
+
 export const exportCSV = (category: string): Promise<void> =>
   call<void>('ExportCSV', category)
 

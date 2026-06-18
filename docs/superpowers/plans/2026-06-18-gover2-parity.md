@@ -1347,7 +1347,7 @@ Implements design doc "Topbar Action Row" and tasks.md 3.1 + 3.2 + 3.3 + 3.4 (UI
 - Consumes: `useSearchStore` (Task 7), `useUiStore` (Task 4), `categoryForRoute` (Task 7), `exportCSV` (Task 11), `newDatabase`/`openDatabase` from `@/lib/api`.
 - Produces: emits `open-alerts`, `open-about`, `open-license` (handled by AppShell in Task 13). Search input `v-model`s `search.query`. ↓ CSV hidden when `categoryForRoute(route.path)` is `null` (i.e. `/all`). 🌙 calls `ui.toggleDarkMode()`. ⋯ overflow toggles a local `menuOpen` ref.
 
-- [ ] **Step 1: Rewrite `Topbar.vue`**
+- [x] **Step 1: Rewrite `Topbar.vue`**
 
 ```vue
 <template>
@@ -1456,12 +1456,12 @@ async function onOpenDatabase() {
 
 Note: `newDatabase`/`openDatabase` currently take a path string; the design defers native-dialog path selection to the Go side. Passing `''` is a placeholder until Task 13 finalizes DB-management semantics — see Task 13 Step 1 for the bridge-side decision. If the bridge still requires a path argument at this point, leave the call as `newDatabase('')` and the smoke test (Task 14) will confirm behavior; do not invent a frontend file dialog.
 
-- [ ] **Step 2: Typecheck**
+- [x] **Step 2: Typecheck**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck`
 Expected: PASS.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/components/Topbar.vue
