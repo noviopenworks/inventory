@@ -63,7 +63,7 @@
 
 ## 8. Integration Smoke Test
 
-- [ ] 8.1 Run `wails dev` — app opens, sidebar shows 7 categories
-- [ ] 8.2 Navigate to Computers — real rows from `inventory.db` appear in data table with correct columns
-- [ ] 8.3 Navigate to each of the other 6 categories — rows appear (or empty table if no data, no crash)
-- [ ] 8.4 StatusBadge shows correct color for each status value on real data
+- [x] 8.1 Run `wails dev` — app opens, sidebar shows 7 categories
+- [x] 8.2 Navigate to Computers — real rows from `inventory.db` appear in data table with correct columns
+- [x] 8.3 Navigate to each of the other 6 categories — rows appear (or empty table if no data, no crash)
+- [x] 8.4 StatusBadge shows correct color for each status value on real data
