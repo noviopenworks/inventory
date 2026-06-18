@@ -1,9 +1,9 @@
 ## 1. Database Package
 
-- [ ] 1.1 Implement `internal/database/database.go`: `Open(path string) (*sql.DB, error)` with WAL pragma
-- [ ] 1.2 Implement `InitSchema(db *sql.DB) error` — DDL verbatim from `db/schema.py` (7 tables + _meta, all IF NOT EXISTS)
-- [ ] 1.3 Write `internal/database/database_test.go`: open in-memory DB, verify schema initialises without error
-- [ ] 1.4 Run `go test ./internal/database/...` — must pass
+- [x] 1.1 Implement `internal/database/database.go`: `Open(path string) (*sql.DB, error)` with WAL pragma
+- [x] 1.2 Implement `InitSchema(db *sql.DB) error` — DDL verbatim from `db/schema.py` (7 tables + _meta, all IF NOT EXISTS)
+- [x] 1.3 Write `internal/database/database_test.go`: open in-memory DB, verify schema initialises without error
+- [x] 1.4 Run `go test ./internal/database/...` — must pass
 
 ## 2. Models Package
 

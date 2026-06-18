@@ -42,7 +42,7 @@ base-ref: ddc19f352f8a79cbc4233328594b7535ee82e8a6
   - `database.Open(path string) (*sql.DB, error)` — opens SQLite with WAL pragma; returns `(*sql.DB, nil)` on success
   - `database.InitSchema(db *sql.DB) error` — creates 8 tables (\_meta + 7 asset tables) with `IF NOT EXISTS`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 // gover2/internal/database/database_test.go
@@ -88,7 +88,7 @@ func TestInitSchema_Idempotent(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Add testify to go.mod**
+- [x] **Step 2: Add testify to go.mod**
 
 Run from `gover2/`:
 ```bash
@@ -97,7 +97,7 @@ go get github.com/stretchr/testify@v1.10.0
 
 Expected: `go.mod` and `go.sum` updated.
 
-- [ ] **Step 3: Run test to verify it fails**
+- [x] **Step 3: Run test to verify it fails**
 
 Run from `gover2/`:
 ```bash
@@ -106,7 +106,7 @@ go test ./internal/database/...
 
 Expected: FAIL — `Open` returns `nil, nil` so `NotNil(t, db)` fails.
 
-- [ ] **Step 4: Implement database.go**
+- [x] **Step 4: Implement database.go**
 
 Replace the entire contents of `gover2/internal/database/database.go`:
 
@@ -234,7 +234,7 @@ func InitSchema(db *sql.DB) error {
 }
 ```
 
-- [ ] **Step 5: Run test to verify it passes**
+- [x] **Step 5: Run test to verify it passes**
 
 Run from `gover2/`:
 ```bash
@@ -243,7 +243,7 @@ go test ./internal/database/...
 
 Expected: `ok gover2/internal/database`
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add gover2/internal/database/database.go gover2/internal/database/database_test.go gover2/go.mod gover2/go.sum
