@@ -60,13 +60,13 @@
 
 ## 8. Frontend — Wire All 7 Views
 
-- [ ] 8.1 Update `ComputersView.vue`: row click → edit panel; Add button → create panel; Delete → confirm → delete
-- [ ] 8.2 Update `SmartphonesView.vue` (same pattern)
-- [ ] 8.3 Update `TabletsView.vue` (same pattern)
-- [ ] 8.4 Update `WindowsKeysView.vue` (same pattern)
-- [ ] 8.5 Update `AntivirusView.vue` (same pattern)
-- [ ] 8.6 Update `OtherSoftwareView.vue` (same pattern)
-- [ ] 8.7 Update `UsersView.vue` (same pattern, user status options)
+- [x] 8.1 Update `ComputersView.vue`: row click → edit panel; Add button → create panel; Delete → confirm → delete
+- [x] 8.2 Update `SmartphonesView.vue` (same pattern)
+- [x] 8.3 Update `TabletsView.vue` (same pattern)
+- [x] 8.4 Update `WindowsKeysView.vue` (same pattern)
+- [x] 8.5 Update `AntivirusView.vue` (same pattern)
+- [x] 8.6 Update `OtherSoftwareView.vue` (same pattern)
+- [x] 8.7 Update `UsersView.vue` (same pattern, user status options)
 
 ## 9. Frontend Verification
 
