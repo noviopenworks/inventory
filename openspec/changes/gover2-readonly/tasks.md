@@ -25,16 +25,16 @@
 
 ## 4. Bridge Package — Real Methods
 
-- [ ] 4.1 Update `internal/bridge/bridge.go`: App struct holds `*sql.DB` and `*config.AppConfig`
-- [ ] 4.2 Implement real `ListComputers()` (and all 6 other List methods) delegating to services
-- [ ] 4.3 Implement `GetDatabasePath()` returning config.DBPath
-- [ ] 4.4 Implement `GetConfig()` and `SetConfig()` using config package
-- [ ] 4.5 Implement `NewDatabase(path string)` — updates config, re-opens DB
-- [ ] 4.6 Implement `OpenDatabase(path string)` — same as NewDatabase but validates file exists first
-- [ ] 4.7 Implement `ExportCSV(category, destPath string)` — stub returning nil for now (full implementation Phase 5)
-- [ ] 4.8 Update `app.go`/`main.go` to wire DB open → bridge init → wails.Run
-- [ ] 4.9 Write `internal/bridge/bridge_test.go`: bridge methods return correct data via test DB
-- [ ] 4.10 Run `go test -cover ./internal/bridge/...` — must hit ≥50% line coverage
+- [x] 4.1 Update `internal/bridge/bridge.go`: App struct holds `*sql.DB` and `*config.AppConfig`
+- [x] 4.2 Implement real `ListComputers()` (and all 6 other List methods) delegating to services
+- [x] 4.3 Implement `GetDatabasePath()` returning config.DBPath
+- [x] 4.4 Implement `GetConfig()` and `SetConfig()` using config package
+- [x] 4.5 Implement `NewDatabase(path string)` — updates config, re-opens DB
+- [x] 4.6 Implement `OpenDatabase(path string)` — same as NewDatabase but validates file exists first
+- [x] 4.7 Implement `ExportCSV(category, destPath string)` — stub returning nil for now (full implementation Phase 5)
+- [x] 4.8 Update `app.go`/`main.go` to wire DB open → bridge init → wails.Run
+- [x] 4.9 Write `internal/bridge/bridge_test.go`: bridge methods return correct data via test DB
+- [x] 4.10 Run `go test -cover ./internal/bridge/...` — must hit ≥50% line coverage
 
 ## 5. Vue Data Tables
 
