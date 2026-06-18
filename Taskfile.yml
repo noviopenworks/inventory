@@ -266,10 +266,11 @@ tasks:
 # ──────────────────────────────── clean ──────────────────────────────────────
   clean:
     desc: Remove all build artefacts
-    prompt: "Remove dist/, build/ and __pycache__ trees?"
+    prompt: "Remove dist/, build/, __pycache__ trees, and lint/test caches?"
     cmds:
       - rm -rf dist/ build/ .task/
       - find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+      - rm -rf .coverage .pytest_cache .mypy_cache .ruff_cache
       - echo "Clean done."
 
 # ──────────────────────────────── gover2 ─────────────────────────────────────
