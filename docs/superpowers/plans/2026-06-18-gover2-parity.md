@@ -1313,7 +1313,7 @@ Implements design doc "CSV Export — api" and tasks.md 3.3 (api half).
 **Interfaces:**
 - Produces: `export const exportCSV = (category: string): Promise<void>` — calls `call<void>('ExportCSV', category)` (drops `destPath`).
 
-- [ ] **Step 1: Update the wrapper**
+- [x] **Step 1: Update the wrapper**
 
 Replace lines 103-104 of `gover2/frontend/src/lib/api/index.ts`:
 
@@ -1322,12 +1322,12 @@ export const exportCSV = (category: string): Promise<void> =>
   call<void>('ExportCSV', category)
 ```
 
-- [ ] **Step 2: Typecheck**
+- [x] **Step 2: Typecheck**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck`
 Expected: PASS (no remaining 2-arg callers — the stub had none).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/lib/api/index.ts

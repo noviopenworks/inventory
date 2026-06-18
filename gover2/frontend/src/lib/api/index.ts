@@ -100,8 +100,8 @@ export const openDatabase = (path: string): Promise<void> =>
 export const newDatabase = (path: string): Promise<void> =>
   call<void>('NewDatabase', path)
 
-export const exportCSV = (category: string, destPath: string): Promise<void> =>
-  call<void>('ExportCSV', category, destPath)
+export const exportCSV = (category: string): Promise<void> =>
+  call<void>('ExportCSV', category)
 
 // --- CRUD: Computer ---
 export const addComputer = (data: ComputerInput): Promise<void> =>

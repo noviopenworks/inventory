@@ -17,7 +17,7 @@
 
 - [ ] 3.1 Rework `Topbar.vue` into an action row: search box, ⚠ Alerts, ↓ CSV, 🌙 dark-mode toggle, ⋯ overflow menu
 - [ ] 3.2 Wire the 🌙 button to `stores/ui.ts`; reflect current theme state in the icon/label
-- [ ] 3.3 Wire the ↓ CSV action to call `exportCsv(activeCategory)` for the active route
+- [x] 3.3 Wire the ↓ CSV action to call `exportCsv(activeCategory)` for the active route
 - [ ] 3.4 Overflow menu entries: New Database, Open Database, About, License
 
 ## 4. Frontend: alerts modal (asset-alerts)
