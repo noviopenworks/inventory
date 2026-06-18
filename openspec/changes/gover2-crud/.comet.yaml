@@ -1,5 +1,5 @@
 workflow: full
-phase: open
+phase: build
 context_compression: off
 build_mode: null
 build_pause: null
@@ -9,7 +9,7 @@ isolation: null
 verify_mode: null
 auto_transition: true
 base_ref: 285a3e7c5a629b40dc80f30b26032c39b273f490
-design_doc: null
+design_doc: docs/superpowers/specs/2026-06-18-gover2-crud-design.md
 plan: null
 verify_result: pending
 verification_report: null
@@ -17,3 +17,5 @@ branch_status: pending
 created_at: 2026-06-18
 verified_at: null
 archived: false
+handoff_context: openspec/changes/gover2-crud/.comet/handoff/design-context.json
+handoff_hash: a8dc9194dda259bf71054cf4f66dd3c5f37f053bf046b4334f13dc3e13368b94
