@@ -36,8 +36,8 @@
 ## 6. Frontend: database management (database-management) + dialogs
 
 - [ ] 6.1 Wire New Database / Open Database overflow entries to `NewDatabase`/`OpenDatabase` bridge methods (native dialogs); refresh views after switch
-- [ ] 6.2 Add About and License modal components reachable from the overflow menu
-- [ ] 6.3 Test: About/License modals open/close
+- [x] 6.2 Add About and License modal components reachable from the overflow menu
+- [x] 6.3 Test: About/License modals open/close
 
 ## 7. Integration & verification
 

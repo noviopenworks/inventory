@@ -1177,7 +1177,7 @@ Implements design doc "Topbar — ⋯ overflow: About/License open local modals"
 **Interfaces:**
 - Produces (each modal): prop `{ open: boolean }`; emits `close`. Renders static informational content; hidden when `open` is false.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `gover2/frontend/src/components/AboutModal.test.ts`:
 
@@ -1233,12 +1233,12 @@ describe('LicenseModal', () => {
 })
 ```
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/components/AboutModal.test.ts src/components/LicenseModal.test.ts`
 Expected: FAIL — components do not exist.
 
-- [ ] **Step 3: Create `AboutModal.vue`**
+- [x] **Step 3: Create `AboutModal.vue`**
 
 ```vue
 <template>
@@ -1263,7 +1263,7 @@ defineEmits<{ (e: 'close'): void }>()
 </script>
 ```
 
-- [ ] **Step 4: Create `LicenseModal.vue`**
+- [x] **Step 4: Create `LicenseModal.vue`**
 
 ```vue
 <template>
@@ -1289,12 +1289,12 @@ const licenseText = 'This software is distributed under the project license. See
 </script>
 ```
 
-- [ ] **Step 5: Run the tests to verify they pass**
+- [x] **Step 5: Run the tests to verify they pass**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/components/AboutModal.test.ts src/components/LicenseModal.test.ts`
 Expected: PASS (3 each).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/components/AboutModal.vue gover2/frontend/src/components/LicenseModal.vue gover2/frontend/src/components/AboutModal.test.ts gover2/frontend/src/components/LicenseModal.test.ts
