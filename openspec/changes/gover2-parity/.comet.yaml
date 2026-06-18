@@ -1,5 +1,5 @@
 workflow: full
-phase: open
+phase: build
 context_compression: off
 build_mode: null
 build_pause: null
@@ -9,7 +9,7 @@ isolation: null
 verify_mode: null
 auto_transition: true
 base_ref: e4c88153e6902493676dfa5e3c9a3c253820aa91
-design_doc: null
+design_doc: docs/superpowers/specs/2026-06-18-gover2-parity-design.md
 plan: null
 verify_result: pending
 verification_report: null
@@ -17,3 +17,5 @@ branch_status: pending
 created_at: 2026-06-18
 verified_at: null
 archived: false
+handoff_context: openspec/changes/gover2-parity/.comet/handoff/design-context.json
+handoff_hash: 9b7a3a210598c021fd022ffeab241f6cb878756c79d3e2def28bf05cc49f339d
