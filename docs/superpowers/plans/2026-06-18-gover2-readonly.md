@@ -1108,7 +1108,7 @@ git commit -m "feat(gover2): stateful bridge App with OnStartup DB wiring and al
 **Interfaces:**
 - Produces: `pnpm --prefix gover2/frontend run test` command works and runs `.test.ts` files
 
-- [ ] **Step 1: Add test dependencies**
+- [x] **Step 1: Add test dependencies**
 
 Run from `gover2/frontend/`:
 ```bash
@@ -1117,7 +1117,7 @@ pnpm add -D vitest@^2.0 @vue/test-utils@^2 jsdom@^25
 
 Expected: `pnpm-lock.yaml` updated; packages installed in `node_modules`.
 
-- [ ] **Step 2: Add test script to package.json**
+- [x] **Step 2: Add test script to package.json**
 
 In `gover2/frontend/package.json`, add `"test": "vitest run"` to the `scripts` section:
 
@@ -1155,7 +1155,7 @@ In `gover2/frontend/package.json`, add `"test": "vitest run"` to the `scripts` s
 }
 ```
 
-- [ ] **Step 3: Add test config to vite.config.ts**
+- [x] **Step 3: Add test config to vite.config.ts**
 
 Replace the entire contents of `gover2/frontend/vite.config.ts`:
 
@@ -1178,7 +1178,7 @@ export default defineConfig({
 })
 ```
 
-- [ ] **Step 4: Verify test infrastructure works (no test files yet = zero tests pass)**
+- [x] **Step 4: Verify test infrastructure works (no test files yet = zero tests pass)**
 
 Run from project root:
 ```bash
@@ -1187,7 +1187,7 @@ pnpm --prefix gover2/frontend run test
 
 Expected: `No test files found` or `0 tests` — exit 0. (Not a test failure.)
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gover2/frontend/package.json gover2/frontend/pnpm-lock.yaml gover2/frontend/vite.config.ts
@@ -1208,7 +1208,7 @@ git commit -m "chore(gover2): add vitest + @vue/test-utils + jsdom for frontend 
   - Renders `<th>` for each column, `<tr>` for each row, empty-state `<td>` when `rows.length === 0 && !loading`, loading row when `loading === true`
 - Note: All view files that currently pass `:items="[]"` will be updated in Task 7.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```ts
 // gover2/frontend/src/components/DataTable.test.ts
@@ -1266,7 +1266,7 @@ describe('DataTable', () => {
 })
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run from project root:
 ```bash
@@ -1275,7 +1275,7 @@ pnpm --prefix gover2/frontend run test
 
 Expected: FAIL — current `DataTable.vue` uses `:items` prop (not `columns`/`rows`/`loading`), `[data-testid]` selectors not present.
 
-- [ ] **Step 3: Implement DataTable.vue**
+- [x] **Step 3: Implement DataTable.vue**
 
 Replace the entire contents of `gover2/frontend/src/components/DataTable.vue`:
 
@@ -1339,7 +1339,7 @@ defineProps<{
 </script>
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run from project root:
 ```bash
@@ -1348,7 +1348,7 @@ pnpm --prefix gover2/frontend run test
 
 Expected: `5 tests pass` in DataTable.test.ts.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gover2/frontend/src/components/DataTable.vue gover2/frontend/src/components/DataTable.test.ts
@@ -1374,7 +1374,7 @@ git commit -m "feat(gover2): generic DataTable component with columns/rows/loadi
 - Consumes: `<DataTable :columns="ColDef[]" :rows="Record<string,unknown>[]" :loading="boolean" />` from Task 6; api functions from Task 8 (wired through `@/lib/api`)
 - Produces: each view loads data on `onMounted`, passes it to `<DataTable>`; `AllAssetsView` unions computers + smartphones + tablets with a `category` field
 
-- [ ] **Step 1: Write the StatusBadge test**
+- [x] **Step 1: Write the StatusBadge test**
 
 ```ts
 // gover2/frontend/src/components/StatusBadge.test.ts
@@ -1407,7 +1407,7 @@ describe('StatusBadge', () => {
 })
 ```
 
-- [ ] **Step 2: Run StatusBadge test to verify it passes (StatusBadge.vue already correct)**
+- [x] **Step 2: Run StatusBadge test to verify it passes (StatusBadge.vue already correct)**
 
 Run from project root:
 ```bash

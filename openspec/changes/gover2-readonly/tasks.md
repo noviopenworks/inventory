@@ -46,14 +46,14 @@
 - [ ] 5.6 Implement `OtherSoftwareView.vue`: same columns as Antivirus
 - [ ] 5.7 Implement `UsersView.vue`: columns = [Name, Surname, Status, Notes]
 - [ ] 5.8 Implement `AllAssetsView.vue`: union of computers + smartphones + tablets with Category column
-- [ ] 5.9 Implement `DataTable.vue`: props = { columns: ColDef[], rows: Row[], loading: boolean }; renders table with header, rows, empty-state
-- [ ] 5.10 Implement `StatusBadge.vue`: applies correct `text-s-*` + `bg-*` classes from Tailwind tokens per status value
+- [x] 5.9 Implement `DataTable.vue`: props = { columns: ColDef[], rows: Row[], loading: boolean }; renders table with header, rows, empty-state
+- [x] 5.10 Implement `StatusBadge.vue`: applies correct `text-s-*` + `bg-*` classes from Tailwind tokens per status value
 
 ## 6. Frontend Tests
 
-- [ ] 6.1 Write `DataTable.test.ts`: renders columns, renders 3 fixture rows, shows empty-state div when rows=[]
-- [ ] 6.2 Write `StatusBadge.test.ts`: each status value → correct CSS class applied
-- [ ] 6.3 Run `pnpm --prefix frontend run test` — all tests pass
+- [x] 6.1 Write `DataTable.test.ts`: renders columns, renders 3 fixture rows, shows empty-state div when rows=[]
+- [x] 6.2 Write `StatusBadge.test.ts`: each status value → correct CSS class applied
+- [x] 6.3 Run `pnpm --prefix frontend run test` — all tests pass
 
 ## 7. TypeScript & Build Verification
 
