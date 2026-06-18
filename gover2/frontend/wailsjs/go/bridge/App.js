@@ -6,6 +6,10 @@ export function ExportCSV(arg1, arg2) {
   return window['go']['bridge']['App']['ExportCSV'](arg1, arg2);
 }
 
+export function GetAlerts() {
+  return window['go']['bridge']['App']['GetAlerts']();
+}
+
 export function GetConfig() {
   return window['go']['bridge']['App']['GetConfig']();
 }

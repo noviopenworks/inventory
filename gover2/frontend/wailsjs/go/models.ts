@@ -1,5 +1,27 @@
 export namespace models {
 
+	export class Alert {
+	    category: string;
+	    id: number;
+	    name: string;
+	    expiryDate: string;
+	    daysRemaining: number;
+	    severity: string;
+
+	    static createFrom(source: any = {}) {
+	        return new Alert(source);
+	    }
+
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.category = source["category"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.expiryDate = source["expiryDate"];
+	        this.daysRemaining = source["daysRemaining"];
+	        this.severity = source["severity"];
+	    }
+	}
 	export class Antivirus {
 	    id: number;
 	    name: string;

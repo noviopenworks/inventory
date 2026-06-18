@@ -4,6 +4,8 @@ import {models} from '../models';
 
 export function ExportCSV(arg1:string,arg2:string):Promise<void>;
 
+export function GetAlerts():Promise<Array<models.Alert>>;
+
 export function GetConfig():Promise<models.AppConfig>;
 
 export function GetDatabasePath():Promise<string>;
