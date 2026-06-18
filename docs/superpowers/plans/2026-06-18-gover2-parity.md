@@ -798,7 +798,7 @@ Implements design doc "Search — `lib/filter.ts`" and tasks.md 5.1 + 5.3.
 **Interfaces:**
 - Produces: `export function matchesQuery(row: Record<string, unknown>, columns: { key: string }[], query: string): boolean` — empty/whitespace query → `true`; otherwise case-insensitive substring match against any column's displayed value (`row[col.key] ?? ''`).
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `gover2/frontend/src/lib/filter.test.ts`:
 
@@ -835,12 +835,12 @@ describe('matchesQuery', () => {
 })
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/lib/filter.test.ts`
 Expected: FAIL — cannot resolve `./filter`.
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `gover2/frontend/src/lib/filter.ts`:
 
@@ -859,12 +859,12 @@ export function matchesQuery(
 }
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/lib/filter.test.ts`
 Expected: PASS (5 tests).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/lib/filter.ts gover2/frontend/src/lib/filter.test.ts
