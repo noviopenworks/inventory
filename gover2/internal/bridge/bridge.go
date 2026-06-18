@@ -173,5 +173,205 @@ func (a *App) ExportCSV(category string, destPath string) error {
 	return nil // Phase 5
 }
 
+// ---------------------------------------------------------------------------
+// Computer write methods
+// ---------------------------------------------------------------------------
+
+func (a *App) AddComputer(data models.ComputerInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	_, err := services.InsertComputer(a.db, data)
+	return err
+}
+
+func (a *App) UpdateComputer(id int, data models.ComputerInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.UpdateComputer(a.db, id, data)
+}
+
+func (a *App) DeleteComputer(id int) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.DeleteComputer(a.db, id)
+}
+
+// ---------------------------------------------------------------------------
+// Smartphone write methods
+// ---------------------------------------------------------------------------
+
+func (a *App) AddSmartphone(data models.SmartphoneInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	_, err := services.InsertSmartphone(a.db, data)
+	return err
+}
+
+func (a *App) UpdateSmartphone(id int, data models.SmartphoneInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.UpdateSmartphone(a.db, id, data)
+}
+
+func (a *App) DeleteSmartphone(id int) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.DeleteSmartphone(a.db, id)
+}
+
+// ---------------------------------------------------------------------------
+// Tablet write methods
+// ---------------------------------------------------------------------------
+
+func (a *App) AddTablet(data models.TabletInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	_, err := services.InsertTablet(a.db, data)
+	return err
+}
+
+func (a *App) UpdateTablet(id int, data models.TabletInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.UpdateTablet(a.db, id, data)
+}
+
+func (a *App) DeleteTablet(id int) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.DeleteTablet(a.db, id)
+}
+
+// ---------------------------------------------------------------------------
+// WindowsKey write methods
+// ---------------------------------------------------------------------------
+
+func (a *App) AddWindowsKey(data models.WindowsKeyInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	_, err := services.InsertWindowsKey(a.db, data)
+	return err
+}
+
+func (a *App) UpdateWindowsKey(id int, data models.WindowsKeyInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.UpdateWindowsKey(a.db, id, data)
+}
+
+func (a *App) DeleteWindowsKey(id int) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.DeleteWindowsKey(a.db, id)
+}
+
+// ---------------------------------------------------------------------------
+// Antivirus write methods
+// ---------------------------------------------------------------------------
+
+func (a *App) AddAntivirus(data models.AntivirusInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	_, err := services.InsertAntivirus(a.db, data)
+	return err
+}
+
+func (a *App) UpdateAntivirus(id int, data models.AntivirusInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.UpdateAntivirus(a.db, id, data)
+}
+
+func (a *App) DeleteAntivirus(id int) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.DeleteAntivirus(a.db, id)
+}
+
+// ---------------------------------------------------------------------------
+// OtherSoftware write methods
+// ---------------------------------------------------------------------------
+
+func (a *App) AddOtherSoftware(data models.OtherSoftwareInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	_, err := services.InsertOtherSoftware(a.db, data)
+	return err
+}
+
+func (a *App) UpdateOtherSoftware(id int, data models.OtherSoftwareInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.UpdateOtherSoftware(a.db, id, data)
+}
+
+func (a *App) DeleteOtherSoftware(id int) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.DeleteOtherSoftware(a.db, id)
+}
+
+// ---------------------------------------------------------------------------
+// User write methods
+// ---------------------------------------------------------------------------
+
+func (a *App) AddUser(data models.UserInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	_, err := services.InsertUser(a.db, data)
+	return err
+}
+
+func (a *App) UpdateUser(id int, data models.UserInput) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.UpdateUser(a.db, id, data)
+}
+
+func (a *App) DeleteUser(id int) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return services.DeleteUser(a.db, id)
+}
+
+// ---------------------------------------------------------------------------
+// Dropdown helpers
+// ---------------------------------------------------------------------------
+
+func (a *App) ListUsersForDropdown() ([]models.DropdownItem, error) {
+	if a.db == nil {
+		return nil, errNoDB
+	}
+	return services.ListUsersForDropdown(a.db)
+}
+
+func (a *App) ListDevicesForDropdown() ([]models.DeviceDropdownItem, error) {
+	if a.db == nil {
+		return nil, errNoDB
+	}
+	return services.ListDevicesForDropdown(a.db)
+}
+
 var _ = backup.BackupDB
 var _ = database.Open // keeps modernc.org/sqlite in go.mod
