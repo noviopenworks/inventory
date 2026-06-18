@@ -68,7 +68,7 @@
               <option v-for="u in props.users" :key="u.id" :value="u.id">{{ u.name }}</option>
             </select>
 
-            <!-- Device select (for antivirus / othersoftware) -->
+            <!-- Device select (for antivirus / othersoftware — all device kinds) -->
             <select
               v-else-if="field.type === 'select-device'"
               v-model="form['_deviceSelect']"
@@ -82,6 +82,23 @@
                 :value="`${d.kind}:${d.id}`"
               >
                 {{ d.name }} ({{ d.kind }})
+              </option>
+            </select>
+
+            <!-- Computer-only select (for windowskeys) -->
+            <select
+              v-else-if="field.type === 'select-computer'"
+              v-model="form['_computerSelect']"
+              :data-testid="`field-${field.key}`"
+              class="w-full text-sm border border-border rounded px-2 py-1 bg-surface text-text-primary focus:outline-none focus:border-accent"
+            >
+              <option value="">— none —</option>
+              <option
+                v-for="d in computerDevices"
+                :key="d.id"
+                :value="`computer:${d.id}`"
+              >
+                {{ d.name }}
               </option>
             </select>
 
@@ -127,7 +144,7 @@ import {
 interface FieldConfig {
   key: string
   label: string
-  type: 'text' | 'textarea' | 'select-status' | 'select-user' | 'select-device' | 'date'
+  type: 'text' | 'textarea' | 'select-status' | 'select-user' | 'select-device' | 'select-computer' | 'date'
   required?: boolean
 }
 
@@ -161,7 +178,7 @@ const FIELD_CONFIGS: Record<string, FieldConfig[]> = {
   ],
   windowskeys: [
     { key: 'licenseKey', label: 'License Key', type: 'text', required: true },
-    { key: 'computerId', label: 'Computer ID', type: 'text' },
+    { key: '_computerSelect', label: 'Computer', type: 'select-computer' },
     { key: 'status', label: 'Status', type: 'select-status' },
     { key: 'notes', label: 'Notes', type: 'textarea' },
   ],
@@ -226,6 +243,7 @@ const emit = defineEmits<{ saved: []; cancelled: [] }>()
 const currentFields = computed<FieldConfig[]>(() => FIELD_CONFIGS[props.category] ?? [])
 const currentStatuses = computed<string[]>(() => STATUS_MAP[props.category] ?? [])
 const categoryLabel = computed(() => CATEGORY_LABELS[props.category] ?? props.category)
+const computerDevices = computed(() => props.devices.filter(d => d.kind === 'computer'))
 
 /** Derive initial _deviceSelect value from antivirus/othersoftware row FKs */
 function deriveDeviceSelect(row: Record<string, unknown> | null): string {
@@ -236,12 +254,20 @@ function deriveDeviceSelect(row: Record<string, unknown> | null): string {
   return ''
 }
 
+/** Derive initial _computerSelect value from windowskeys row FK */
+function deriveComputerSelect(row: Record<string, unknown> | null): string {
+  if (!row || row.computerId == null) return ''
+  return `computer:${row.computerId}`
+}
+
 function initForm(): Record<string, unknown> {
   const base: Record<string, unknown> = {}
   const fields = FIELD_CONFIGS[props.category] ?? []
   for (const field of fields) {
     if (field.key === '_deviceSelect') {
       base['_deviceSelect'] = deriveDeviceSelect(props.row)
+    } else if (field.key === '_computerSelect') {
+      base['_computerSelect'] = deriveComputerSelect(props.row)
     } else {
       base[field.key] = props.row != null ? (props.row[field.key] ?? '') : ''
     }
@@ -332,9 +358,11 @@ function buildPayload(): unknown {
   }
 
   if (cat === 'windowskeys') {
+    const computerSel = String(form['_computerSelect'] ?? '')
+    const computerId = computerSel ? Number(computerSel.split(':')[1]) : null
     return {
       licenseKey: String(form['licenseKey'] ?? ''),
-      computerId: nullOrNum(form['computerId']),
+      computerId: isNaN(computerId as number) ? null : computerId,
       status: String(form['status'] ?? ''),
       notes: nullOrStr(form['notes']),
     }

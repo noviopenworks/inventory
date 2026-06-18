@@ -363,14 +363,22 @@ func (a *App) ListUsersForDropdown() ([]models.DropdownItem, error) {
 	if a.db == nil {
 		return nil, errNoDB
 	}
-	return services.ListUsersForDropdown(a.db)
+	out, err := services.ListUsersForDropdown(a.db)
+	if out == nil {
+		out = []models.DropdownItem{}
+	}
+	return out, err
 }
 
 func (a *App) ListDevicesForDropdown() ([]models.DeviceDropdownItem, error) {
 	if a.db == nil {
 		return nil, errNoDB
 	}
-	return services.ListDevicesForDropdown(a.db)
+	out, err := services.ListDevicesForDropdown(a.db)
+	if out == nil {
+		out = []models.DeviceDropdownItem{}
+	}
+	return out, err
 }
 
 var _ = backup.BackupDB
