@@ -24,7 +24,9 @@ silent data gaps.
   expiry/warranty column.
 - Add the `status != 'Retired'` filter that PyQt6 applies.
 - Preserve the current single-method API; severity (`expired` vs `expiring`)
-  stays computed from `days_remaining` sign.
+  is computed from a local ISO-date string comparison against today
+  (`a.ExpiryDate < today`), not `days_remaining` sign — see the Approach
+  section for the TZ-safety rationale.
 - Surface a summary line in `AlertsModal.vue` matching PyQt6's "X expired · Y
   expiring within N days" header.
 - Prettify the severity badge label (`expired` → `Expired`, `expiring` →
@@ -94,8 +96,19 @@ WHERE  <dateCol> IS NOT NULL
 
 Join with `UNION ALL`; terminate with `ORDER BY days_remaining ASC` so the most
 overdue row appears first. Pass the threshold as a parameter once per source
-(N placeholders for N sources). After scanning, set `Severity` in Go:
-`daysRemaining < 0 → "expired"`, otherwise `"expiring"`.
+(N placeholders for N sources).
+
+**Severity classification (TZ-safe):** after scanning, compute
+`today := time.Now().Format("2006-01-02")` **once** outside the loop, then
+inside the loop set `Severity` via lexicographic compare on the ISO date
+strings: `a.ExpiryDate < today → "expired"`, otherwise `"expiring"`. This
+matches the Python reference (`db/alerts.py` uses
+`date.today().isoformat()`). The original draft used `daysRemaining < 0`,
+but `julianday('now')` evaluates in **UTC** while Go's `time.Now()` is local,
+so near UTC midnight in non-UTC zones the truncation produces `0` instead of
+`-1` and mis-classifies. String-date comparison in a single (local) frame is
+deterministic. `days_remaining` is still computed and surfaced for display
+and ordering — only the severity branch moved.
 
 `strings.Join` builds the query; `db.Query(query, params...)` runs it. Returns
 `[]models.Alert` (`nil` → `[]models.Alert{}` is the bridge's job, not the
