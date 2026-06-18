@@ -14,14 +14,14 @@
 
 ## 3. Services Package — List Operations
 
-- [ ] 3.1 Implement `ListComputers(db *sql.DB) ([]models.Computer, error)` in `internal/services/`
-- [ ] 3.2 Implement `ListSmartphones`, `ListTablets` (same pattern as computers)
-- [ ] 3.3 Implement `ListWindowsKeys(db *sql.DB) ([]models.WindowsKey, error)`
-- [ ] 3.4 Implement `ListAntivirus`, `ListOtherSoftware` (same pattern)
-- [ ] 3.5 Implement `ListUsers(db *sql.DB) ([]models.User, error)`
-- [ ] 3.6 Implement `GetAlerts(db *sql.DB) ([]models.Alert, error)` — expiry within 30 days from antivirus + other_software
-- [ ] 3.7 Write table-driven tests for all 7 List functions using in-memory SQLite with fixture data
-- [ ] 3.8 Run `go test -cover ./internal/services/...` — must hit ≥70% line coverage
+- [x] 3.1 Implement `ListComputers(db *sql.DB) ([]models.Computer, error)` in `internal/services/`
+- [x] 3.2 Implement `ListSmartphones`, `ListTablets` (same pattern as computers)
+- [x] 3.3 Implement `ListWindowsKeys(db *sql.DB) ([]models.WindowsKey, error)`
+- [x] 3.4 Implement `ListAntivirus`, `ListOtherSoftware` (same pattern)
+- [x] 3.5 Implement `ListUsers(db *sql.DB) ([]models.User, error)`
+- [x] 3.6 Implement `GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error)` — expiry within warningDays from antivirus + other_software
+- [x] 3.7 Write table-driven tests for all 7 List functions using in-memory SQLite with fixture data
+- [x] 3.8 Run `go test -cover ./internal/services/...` — must hit ≥70% line coverage
 
 ## 4. Bridge Package — Real Methods
 

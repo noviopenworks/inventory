@@ -425,7 +425,7 @@ git commit -m "feat(gover2): implement config Load/Save with XDG path and atomic
   - `services.ListUsers(db *sql.DB) ([]models.User, error)`
   - `services.GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error)`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 // gover2/internal/services/services_test.go
@@ -555,7 +555,7 @@ func TestGetAlerts_Expired(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run from `gover2/`:
 ```bash
@@ -564,7 +564,7 @@ go test ./internal/services/...
 
 Expected: FAIL — stubs return empty slices, `TestListComputers` fails on `Len(t, rows, 2)`.
 
-- [ ] **Step 3: Implement services.go**
+- [x] **Step 3: Implement services.go**
 
 Replace the entire contents of `gover2/internal/services/services.go`:
 
@@ -737,7 +737,7 @@ func GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error) {
 
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run from `gover2/`:
 ```bash
@@ -746,7 +746,7 @@ go test -cover ./internal/services/...
 
 Expected: `ok gover2/internal/services` with coverage >= 70%.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add gover2/internal/services/services.go gover2/internal/services/services_test.go
