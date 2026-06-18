@@ -2,7 +2,7 @@ package services
 
 import (
 	"database/sql"
-	"time"
+	"fmt"
 
 	"gover2/internal/models"
 )
@@ -153,18 +153,18 @@ func ListUsers(db *sql.DB) ([]models.User, error) {
 	return out, rows.Err()
 }
 
-func GetAlerts(db *sql.DB) ([]models.Alert, error) {
-	threshold := time.Now().AddDate(0, 0, 30).Format("2006-01-02")
+func GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error) {
+	threshold := fmt.Sprintf("+%d days", warningDays)
 	query := `
-		SELECT 'antivirus' as category, id, COALESCE(name, '') as name, expiry_date,
-		       CAST(julianday(expiry_date) - julianday('now') AS INTEGER) as days_remaining
+		SELECT 'antivirus' AS category, id, COALESCE(name, '') AS name, expiry_date,
+		       CAST(julianday(expiry_date) - julianday('now') AS INTEGER) AS days_remaining
 		FROM antivirus
-		WHERE expiry_date IS NOT NULL AND expiry_date <= ?
+		WHERE expiry_date IS NOT NULL AND date(expiry_date) <= date('now', ?)
 		UNION ALL
 		SELECT 'other_software', id, COALESCE(name, ''), expiry_date,
 		       CAST(julianday(expiry_date) - julianday('now') AS INTEGER)
 		FROM other_software
-		WHERE expiry_date IS NOT NULL AND expiry_date <= ?
+		WHERE expiry_date IS NOT NULL AND date(expiry_date) <= date('now', ?)
 		ORDER BY expiry_date`
 	rows, err := db.Query(query, threshold, threshold)
 	if err != nil {
@@ -174,17 +174,13 @@ func GetAlerts(db *sql.DB) ([]models.Alert, error) {
 	var out []models.Alert
 	for rows.Next() {
 		var a models.Alert
-		var daysRemaining int
-		if err := rows.Scan(&a.Category, &a.ID, &a.Name, &a.ExpiryDate, &daysRemaining); err != nil {
+		if err := rows.Scan(&a.Category, &a.ID, &a.Name, &a.ExpiryDate, &a.DaysRemaining); err != nil {
 			return nil, err
 		}
-		a.DaysRemaining = daysRemaining
-		if daysRemaining < 0 {
-			a.Severity = "critical"
-		} else if daysRemaining <= 7 {
-			a.Severity = "high"
+		if a.DaysRemaining < 0 {
+			a.Severity = "expired"
 		} else {
-			a.Severity = "warning"
+			a.Severity = "expiring"
 		}
 		out = append(out, a)
 	}

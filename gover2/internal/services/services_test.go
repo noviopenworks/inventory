@@ -111,38 +111,40 @@ func TestGetAlerts_ExpiringWithin30Days(t *testing.T) {
 	_, err := db.Exec(`INSERT INTO antivirus (name, status, expiry_date) VALUES (?, ?, ?)`, "AVG", "Active", expiring)
 	require.NoError(t, err)
 
-	result, err := services.GetAlerts(db)
+	result, err := services.GetAlerts(db, 30)
 	require.NoError(t, err)
 	assert.Len(t, result, 1)
+	assert.Equal(t, "expiring", result[0].Severity)
 }
 
 func TestGetAlerts_NotExpiringSoon(t *testing.T) {
 	db := openTestDB(t)
-	// expiry in 45 days — should NOT appear
+	// expiry in 45 days — should NOT appear with 30-day window
 	notExpiring := time.Now().AddDate(0, 0, 45).Format("2006-01-02")
 	_, err := db.Exec(`INSERT INTO antivirus (name, status, expiry_date) VALUES (?, ?, ?)`, "AVG", "Active", notExpiring)
 	require.NoError(t, err)
 
-	result, err := services.GetAlerts(db)
+	result, err := services.GetAlerts(db, 30)
 	require.NoError(t, err)
 	assert.Empty(t, result)
 
-	// Also test other_software
+	// Also test other_software expiring soon
 	expiringSoon := fmt.Sprintf("%s", time.Now().AddDate(0, 0, 10).Format("2006-01-02"))
 	_, err = db.Exec(`INSERT INTO other_software (name, status, expiry_date) VALUES (?, ?, ?)`, "Slack", "Active", expiringSoon)
 	require.NoError(t, err)
-	result, err = services.GetAlerts(db)
+	result, err = services.GetAlerts(db, 30)
 	require.NoError(t, err)
 	assert.Len(t, result, 1)
 }
 
 func TestGetAlerts_AlreadyExpired(t *testing.T) {
 	db := openTestDB(t)
-	// expired yesterday — should appear (expired = also ≤30 days from now in the past)
+	// expired yesterday — should appear with severity "expired"
 	expired := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
 	_, err := db.Exec(`INSERT INTO antivirus (name, status, expiry_date) VALUES (?, ?, ?)`, "AVG", "Active", expired)
 	require.NoError(t, err)
-	result, err := services.GetAlerts(db)
+	result, err := services.GetAlerts(db, 30)
 	require.NoError(t, err)
 	assert.Len(t, result, 1)
+	assert.Equal(t, "expired", result[0].Severity)
 }
