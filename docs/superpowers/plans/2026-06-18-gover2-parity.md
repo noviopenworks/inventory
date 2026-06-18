@@ -887,7 +887,7 @@ Implements design doc "Search — `stores/search.ts`" and "Topbar — `routeCate
   - `export const routeCategory: Record<string, string>` mapping `/computers→computers`, `/smartphones→smartphones`, `/tablets→tablets`, `/windows-keys→windowskeys`, `/antivirus→antivirus`, `/other-software→othersoftware`, `/users→users`.
   - `export function categoryForRoute(path: string): string | null` — returns the category or `null` (e.g. `/all`).
 
-- [ ] **Step 1: Create `stores/search.ts`**
+- [x] **Step 1: Create `stores/search.ts`**
 
 ```ts
 import { defineStore } from 'pinia'
@@ -905,7 +905,7 @@ export const useSearchStore = defineStore('search', () => {
 })
 ```
 
-- [ ] **Step 2: Create `lib/routeCategory.ts`**
+- [x] **Step 2: Create `lib/routeCategory.ts`**
 
 ```ts
 export const routeCategory: Record<string, string> = {
@@ -923,12 +923,12 @@ export function categoryForRoute(path: string): string | null {
 }
 ```
 
-- [ ] **Step 3: Typecheck**
+- [x] **Step 3: Typecheck**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck`
 Expected: PASS.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/stores/search.ts gover2/frontend/src/lib/routeCategory.ts
