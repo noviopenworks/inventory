@@ -461,7 +461,7 @@ Implements design doc "Dark Mode — CSS-variable tokens" and tasks.md 2.2 (toke
 **Interfaces:**
 - Produces: themeable Tailwind tokens resolve to `var(--c-*)`; `:root` holds light values, `.dark` holds dark values; `darkMode: 'class'` enabled. Token **names** unchanged so no component edits are required. New token `row-alt` → `var(--c-row-alt)` for zebra (consumed by Task 8).
 
-- [ ] **Step 1: Enable class dark mode and convert tokens in `tailwind.config.ts`**
+- [x] **Step 1: Enable class dark mode and convert tokens in `tailwind.config.ts`**
 
 Set `darkMode: 'class'` at config top level and change the themeable color values to variable references. Sidebar palette and the semantic status colors (`s-*`) stay as literal hex (theme-agnostic per the design doc). Replace the `colors` block and add `darkMode`:
 
@@ -526,7 +526,7 @@ export default {
 
 (Note: `accent` is added because `ComputersView.vue` already uses `bg-accent`; it was previously missing. Keeping it constant.)
 
-- [ ] **Step 2: Define the variable sets in `style.css`**
+- [x] **Step 2: Define the variable sets in `style.css`**
 
 Replace the whole file:
 
@@ -566,12 +566,12 @@ Replace the whole file:
 }
 ```
 
-- [ ] **Step 3: Typecheck (config compiles)**
+- [x] **Step 3: Typecheck (config compiles)**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck`
 Expected: PASS (no type errors in `tailwind.config.ts`).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/tailwind.config.ts gover2/frontend/src/style.css
