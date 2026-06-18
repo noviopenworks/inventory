@@ -32,8 +32,8 @@
 
 ## 4. Go Build Verification
 
-- [ ] 4.1 Run `go build ./...` — exit 0
-- [ ] 4.2 Run `wails build` — exit 0, binary produced, wailsjs regenerated
+- [x] 4.1 Run `go build ./...` — exit 0
+- [x] 4.2 Run `wails build` — exit 0, binary produced, wailsjs regenerated
 
 ## 5. Frontend — api/index.ts
 
@@ -70,8 +70,8 @@
 
 ## 9. Frontend Verification
 
-- [ ] 9.1 Run `pnpm run typecheck` — exit 0
-- [ ] 9.2 Run `pnpm run test` — all tests pass
+- [x] 9.1 Run `pnpm run typecheck` — exit 0
+- [x] 9.2 Run `pnpm run test` — all tests pass
 
 ## 10. Integration Smoke Test
 
