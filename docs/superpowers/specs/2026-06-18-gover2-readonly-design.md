@@ -2,6 +2,8 @@
 comet_change: gover2-readonly
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-18-gover2-readonly
+status: final
 ---
 
 # Technical Design: gover2-readonly

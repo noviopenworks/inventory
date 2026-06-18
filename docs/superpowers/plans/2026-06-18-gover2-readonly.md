@@ -2,6 +2,7 @@
 change: gover2-readonly
 design-doc: docs/superpowers/specs/2026-06-18-gover2-readonly-design.md
 base-ref: ddc19f352f8a79cbc4233328594b7535ee82e8a6
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 # gover2-readonly Implementation Plan
@@ -29,6 +30,7 @@ base-ref: ddc19f352f8a79cbc4233328594b7535ee82e8a6
 - Severity logic for alerts: `daysRemaining < 0` → `"expired"`, otherwise `"expiring"`
 - ExportCSV stub keeps returning `nil` — Phase 5 implements real export
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 1: Database Package — Open + InitSchema
@@ -250,6 +252,7 @@ git add gover2/internal/database/database.go gover2/internal/database/database_t
 git commit -m "feat(gover2): implement database.Open and InitSchema with WAL mode"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 2: Config Package — Load and Save
@@ -405,6 +408,7 @@ git add gover2/internal/config/config.go gover2/internal/config/config_test.go
 git commit -m "feat(gover2): implement config Load/Save with XDG path and atomic write"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 3: Services Package — All 7 List Functions + GetAlerts
@@ -753,6 +757,7 @@ git add gover2/internal/services/services.go gover2/internal/services/services_t
 git commit -m "feat(gover2): implement all 7 List service functions and GetAlerts"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 4: Bridge Package — Stateful App + All Methods
@@ -1097,6 +1102,7 @@ git add gover2/internal/bridge/bridge.go gover2/internal/bridge/bridge_test.go g
 git commit -m "feat(gover2): stateful bridge App with OnStartup DB wiring and all List methods"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 5: Setup Frontend Test Infrastructure
@@ -1194,6 +1200,7 @@ git add gover2/frontend/package.json gover2/frontend/pnpm-lock.yaml gover2/front
 git commit -m "chore(gover2): add vitest + @vue/test-utils + jsdom for frontend testing"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 6: DataTable.vue — Generic Column/Row Component + Tests
@@ -1355,6 +1362,7 @@ git add gover2/frontend/src/components/DataTable.vue gover2/frontend/src/compone
 git commit -m "feat(gover2): generic DataTable component with columns/rows/loading props"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 7: StatusBadge Test + All 8 Feature Views
@@ -1751,6 +1759,7 @@ git add \
 git commit -m "feat(gover2): wire all 8 feature views to DataTable with real api calls"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 8: api/index.ts — Replace Stubs with Real Wails Bindings
@@ -1870,6 +1879,7 @@ git add gover2/frontend/src/lib/api/index.ts
 git commit -m "feat(gover2): replace api stubs with real Wails bridge bindings"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 9: Build Verification + wailsjs Regeneration
@@ -1970,6 +1980,7 @@ git add \
 git commit -m "chore(gover2): regenerate wailsjs bindings after adding GetAlerts to bridge"
 ```
 
+archived-with: 2026-06-18-gover2-readonly
 ---
 
 ### Task 10: Integration Smoke Test

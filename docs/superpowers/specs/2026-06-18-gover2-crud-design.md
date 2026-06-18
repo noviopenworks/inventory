@@ -2,6 +2,8 @@
 comet_change: gover2-crud
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-06-18-gover2-crud
+status: final
 ---
 
 # gover2-crud — Technical Design
