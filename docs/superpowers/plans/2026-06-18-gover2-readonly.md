@@ -6,7 +6,7 @@ base-ref: ddc19f352f8a79cbc4233328594b7535ee82e8a6
 
 # gover2-readonly Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Replace every stub in the gover2 Wails v2 + Vue 3 desktop app with real implementations that open `inventory.db` (the Python app's SQLite file) and display all 7 asset categories in read-only data tables.
 
@@ -767,7 +767,7 @@ git commit -m "feat(gover2): implement all 7 List service functions and GetAlert
 - Consumes: `database.Open`, `database.InitSchema` (Task 1); `config.Load`, `config.Save` (Task 2); all `services.List*` and `services.GetAlerts` (Task 3)
 - Produces: all bridge methods used by the frontend; `App.startup(ctx context.Context)` wired to Wails `OnStartup`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 // gover2/internal/bridge/bridge_test.go
@@ -848,7 +848,7 @@ func TestBridge_OpenDatabase_FileNotFound(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run from `gover2/`:
 ```bash
@@ -857,7 +857,7 @@ go test ./internal/bridge/...
 
 Expected: FAIL — `App{}` has no `db` field, `ListComputers` does not return `"no database open"` error.
 
-- [ ] **Step 3: Implement bridge.go**
+- [x] **Step 3: Implement bridge.go**
 
 Replace the entire contents of `gover2/internal/bridge/bridge.go`:
 
@@ -1008,7 +1008,7 @@ func (a *App) ExportCSV(category string, destPath string) error {
 }
 ```
 
-- [ ] **Step 4: Update app.go to export startup**
+- [x] **Step 4: Update app.go to export startup**
 
 Replace the entire contents of `gover2/app.go`:
 
@@ -1031,7 +1031,7 @@ func startup(app *bridge.App) func(ctx context.Context) {
 }
 ```
 
-- [ ] **Step 5: Update main.go to wire OnStartup**
+- [x] **Step 5: Update main.go to wire OnStartup**
 
 Replace the entire contents of `gover2/main.go`:
 
@@ -1072,7 +1072,7 @@ func main() {
 }
 ```
 
-- [ ] **Step 6: Run test to verify it passes**
+- [x] **Step 6: Run test to verify it passes**
 
 Run from `gover2/`:
 ```bash
@@ -1081,7 +1081,7 @@ go test -cover ./internal/bridge/...
 
 Expected: `ok gover2/internal/bridge` with coverage >= 50%.
 
-- [ ] **Step 7: Verify all Go packages compile**
+- [x] **Step 7: Verify all Go packages compile**
 
 Run from `gover2/`:
 ```bash
@@ -1090,7 +1090,7 @@ go build ./...
 
 Expected: exit 0, no errors.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add gover2/internal/bridge/bridge.go gover2/internal/bridge/bridge_test.go gover2/app.go gover2/main.go
@@ -1978,7 +1978,7 @@ git commit -m "chore(gover2): regenerate wailsjs bindings after adding GetAlerts
 
 **Goal:** Confirm the compiled app opens `inventory.db`, displays real data in all 7 views, and handles the empty/no-DB state gracefully.
 
-- [ ] **Step 1: Launch the app in dev mode**
+- [x] **Step 1: Launch the app in dev mode**
 
 Run from `gover2/`:
 ```bash
@@ -1987,25 +1987,25 @@ wails dev
 
 Expected: App window opens. Browser console shows no errors. Sidebar displays 7 category links.
 
-- [ ] **Step 2: Verify Computers view**
+- [x] **Step 2: Verify Computers view**
 
 Click "Computers" in the sidebar.
 
 Expected: Table renders with columns Name / Model / User / Status / Purchase Date / Warranty Expiry. Rows match data in `inventory.db`. StatusBadge shows correct color per status value.
 
-- [ ] **Step 3: Verify remaining 6 views**
+- [x] **Step 3: Verify remaining 6 views**
 
 Navigate to Smartphones, Tablets, Windows Keys, Antivirus, Other Software, Users in turn.
 
 Expected for each: rows appear (or empty-state "No items to display." if no data — no crash). Columns match the column definitions from Task 7.
 
-- [ ] **Step 4: Verify All Assets view**
+- [x] **Step 4: Verify All Assets view**
 
 Click "All Assets" in the sidebar.
 
 Expected: Category column shows "Computer" / "Smartphone" / "Tablet" values. All three asset types appear as a flat list.
 
-- [ ] **Step 5: Verify no-DB fallback**
+- [x] **Step 5: Verify no-DB fallback**
 
 Temporarily rename `~/.local/share/inventory/inventory.db` and restart `wails dev`.
 
@@ -2013,7 +2013,7 @@ Expected: All views show empty-state "No items to display." — no crash, no err
 
 Restore the file after verifying.
 
-- [ ] **Step 6: Final build**
+- [x] **Step 6: Final build**
 
 Run from `gover2/`:
 ```bash
@@ -2022,7 +2022,7 @@ wails build
 
 Expected: exit 0; `gover2/build/bin/gover2` binary produced.
 
-- [ ] **Step 7: Commit if any files changed**
+- [x] **Step 7: Commit if any files changed**
 
 ```bash
 git status
