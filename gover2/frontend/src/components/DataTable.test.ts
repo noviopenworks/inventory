@@ -1,5 +1,7 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { setActivePinia, createPinia } from 'pinia'
+import { useUiStore } from '@/stores/ui'
 import DataTable from './DataTable.vue'
 
 const columns = [
@@ -15,6 +17,8 @@ const rows = [
 ]
 
 describe('DataTable', () => {
+  beforeEach(() => setActivePinia(createPinia()))
+
   it('renders column headers', () => {
     const wrapper = mount(DataTable, { props: { columns, rows: [], loading: false } })
     const headers = wrapper.findAll('th')
@@ -59,5 +63,29 @@ describe('DataTable', () => {
     await deleteButtons[0].trigger('click')
     expect(wrapper.emitted('delete')).toBeTruthy()
     expect(wrapper.emitted('delete')![0][0]).toEqual(rows[0])
+  })
+})
+
+describe('DataTable density + zebra', () => {
+  beforeEach(() => setActivePinia(createPinia()))
+
+  it('uses py-2 cells in comfortable density', () => {
+    const wrapper = mount(DataTable, { props: { columns, rows, loading: false } })
+    const cell = wrapper.find('tbody td')
+    expect(cell.classes()).toContain('py-2')
+  })
+
+  it('uses py-1 cells in compact density', () => {
+    const ui = useUiStore()
+    ui.density = 'compact'
+    const wrapper = mount(DataTable, { props: { columns, rows, loading: false } })
+    const cell = wrapper.find('tbody td')
+    expect(cell.classes()).toContain('py-1')
+  })
+
+  it('applies an alternating-row background class', () => {
+    const wrapper = mount(DataTable, { props: { columns, rows, loading: false } })
+    const bodyRows = wrapper.findAll('tbody tr')
+    expect(bodyRows[0].classes()).toContain('even:bg-row-alt')
   })
 })

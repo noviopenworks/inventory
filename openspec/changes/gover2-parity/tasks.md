@@ -10,8 +10,8 @@
 
 - [x] 2.1 Finish `stores/ui.ts`: load `darkMode`/`density` from `GetConfig` on startup; `toggleDarkMode` and density setters persist via `SetConfig`
 - [x] 2.2 Apply dark mode via a root class on AppShell/`<html>`; audit components for hardcoded colors and migrate to Tailwind semantic tokens
-- [ ] 2.3 Apply density + theme-aware alternating row colors in `DataTable.vue`
-- [ ] 2.4 Tests: ui store persistence/toggle; DataTable density class rendering
+- [x] 2.3 Apply density + theme-aware alternating row colors in `DataTable.vue`
+- [x] 2.4 Tests: ui store persistence/toggle; DataTable density class rendering
 
 ## 3. Frontend: topbar action row
 

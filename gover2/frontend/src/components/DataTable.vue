@@ -28,17 +28,17 @@
           v-else
           v-for="(row, i) in rows"
           :key="i"
-          class="border-t border-border hover:bg-sidebar/10 cursor-pointer"
+          class="border-t border-border even:bg-row-alt hover:bg-sidebar/10 cursor-pointer"
           @click="$emit('row-click', row)"
         >
           <td
             v-for="col in columns"
             :key="col.key"
-            class="px-4 py-2 text-text-primary"
+            :class="['px-4', cellPad, 'text-text-primary']"
           >
             {{ row[col.key] ?? '' }}
           </td>
-          <td class="px-4 py-2" @click.stop>
+          <td :class="['px-4', cellPad]" @click.stop>
             <button
               class="px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 rounded"
               @click="$emit('delete', row)"
@@ -53,6 +53,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useUiStore } from '@/stores/ui'
+
 defineProps<{
   columns: { key: string; label: string }[]
   rows: Record<string, unknown>[]
@@ -63,4 +66,7 @@ defineEmits<{
   'row-click': [row: Record<string, unknown>]
   'delete': [row: Record<string, unknown>]
 }>()
+
+const ui = useUiStore()
+const cellPad = computed(() => (ui.density === 'compact' ? 'py-1' : 'py-2'))
 </script>

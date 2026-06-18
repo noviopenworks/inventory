@@ -949,7 +949,7 @@ Implements design doc "Density + Zebra" and tasks.md 2.3 + 2.4 (DataTable half).
 - Consumes: `useUiStore().density` (Task 4); `row-alt` token (Task 3).
 - Produces: cell vertical padding `py-2` (comfortable) / `py-1` (compact); alternating row backgrounds via `even:bg-row-alt`. Existing props/emits unchanged.
 
-- [ ] **Step 1: Add failing tests for density + zebra**
+- [x] **Step 1: Add failing tests for density + zebra**
 
 Append to `gover2/frontend/src/components/DataTable.test.ts` (it already imports `mount`, `describe`, `it`, `expect`). Add Pinia setup and two tests:
 
@@ -984,12 +984,12 @@ describe('DataTable density + zebra', () => {
 
 Add `beforeEach` to the top import: `import { describe, it, expect, beforeEach } from 'vitest'`.
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/components/DataTable.test.ts`
 Expected: FAIL — cells have no `py-1`/`even:bg-row-alt` and the store import is unused by the component yet.
 
-- [ ] **Step 3: Update `DataTable.vue`**
+- [x] **Step 3: Update `DataTable.vue`**
 
 Add the ui store and a density-padding computed, apply the zebra class on body rows, and use the padding class on cells. Replace `<script setup>`:
 
@@ -1019,17 +1019,17 @@ In the template:
 
 (Header cells and the loading/empty cells keep `py-2`.)
 
-- [ ] **Step 4: Run the tests to verify they pass**
+- [x] **Step 4: Run the tests to verify they pass**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/components/DataTable.test.ts`
 Expected: PASS (existing 6 + new 3).
 
-- [ ] **Step 5: Typecheck**
+- [x] **Step 5: Typecheck**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck`
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/components/DataTable.vue gover2/frontend/src/components/DataTable.test.ts
