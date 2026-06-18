@@ -58,8 +58,8 @@ export function DeleteWindowsKey(arg1) {
   return window['go']['bridge']['App']['DeleteWindowsKey'](arg1);
 }
 
-export function ExportCSV(arg1, arg2) {
-  return window['go']['bridge']['App']['ExportCSV'](arg1, arg2);
+export function ExportCSV(arg1) {
+  return window['go']['bridge']['App']['ExportCSV'](arg1);
 }
 
 export function GetAlerts() {
@@ -114,8 +114,16 @@ export function NewDatabase(arg1) {
   return window['go']['bridge']['App']['NewDatabase'](arg1);
 }
 
+export function NewDatabaseDialog() {
+  return window['go']['bridge']['App']['NewDatabaseDialog']();
+}
+
 export function OpenDatabase(arg1) {
   return window['go']['bridge']['App']['OpenDatabase'](arg1);
+}
+
+export function OpenDatabaseDialog() {
+  return window['go']['bridge']['App']['OpenDatabaseDialog']();
 }
 
 export function SetConfig(arg1) {

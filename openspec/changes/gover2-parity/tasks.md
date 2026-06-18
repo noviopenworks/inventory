@@ -41,6 +41,6 @@
 
 ## 7. Integration & verification
 
-- [ ] 7.1 Regenerate wailsjs bindings (`wails build`) after the `ExportCSV` signature change; `go build ./...` and `pnpm run typecheck` clean
-- [ ] 7.2 All Go tests + frontend tests pass; coverage targets met (services ≥70%, bridge ≥50%)
+- [x] 7.1 Regenerate wailsjs bindings (`wails build`) after the `ExportCSV` signature change; `go build ./...` and `pnpm run typecheck` clean
+- [x] 7.2 All Go tests + frontend tests pass; coverage targets met (services ≥70%, bridge ≥50%)
 - [ ] 7.3 Smoke test: startup alerts, CSV export, dark-mode persistence across restart, search, New/Open DB, About/License

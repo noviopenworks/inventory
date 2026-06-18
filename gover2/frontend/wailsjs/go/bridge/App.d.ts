@@ -30,7 +30,7 @@ export function DeleteUser(arg1:number):Promise<void>;
 
 export function DeleteWindowsKey(arg1:number):Promise<void>;
 
-export function ExportCSV(arg1:string,arg2:string):Promise<void>;
+export function ExportCSV(arg1:string):Promise<void>;
 
 export function GetAlerts():Promise<Array<models.Alert>>;
 
@@ -58,7 +58,11 @@ export function ListWindowsKeys():Promise<Array<models.WindowsKey>>;
 
 export function NewDatabase(arg1:string):Promise<void>;
 
+export function NewDatabaseDialog():Promise<void>;
+
 export function OpenDatabase(arg1:string):Promise<void>;
+
+export function OpenDatabaseDialog():Promise<void>;
 
 export function SetConfig(arg1:models.AppConfig):Promise<void>;
 
