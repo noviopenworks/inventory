@@ -58,8 +58,8 @@
 ## 7. TypeScript & Build Verification
 
 - [x] 7.1 Run `pnpm --prefix frontend run typecheck` — exit 0, no errors
-- [ ] 7.2 Run `go build ./...` — exit 0, no import cycles
-- [ ] 7.3 Run `wails build` — exit 0, binary produced
+- [x] 7.2 Run `go build ./...` — exit 0, no import cycles
+- [x] 7.3 Run `wails build` — exit 0, binary produced
 
 ## 8. Integration Smoke Test
 

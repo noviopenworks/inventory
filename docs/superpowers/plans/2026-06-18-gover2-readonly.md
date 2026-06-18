@@ -1880,7 +1880,7 @@ git commit -m "feat(gover2): replace api stubs with real Wails bridge bindings"
 **Interfaces:**
 - After this task: `App.d.ts` includes `GetAlerts`; `models.ts` includes `Alert` class; `api/index.ts` can import `GetAlerts` from the generated bindings
 
-- [ ] **Step 1: Run go build to check for import cycles**
+- [x] **Step 1: Run go build to check for import cycles**
 
 Run from `gover2/`:
 ```bash
@@ -1889,7 +1889,7 @@ go build ./...
 
 Expected: exit 0.
 
-- [ ] **Step 2: Run all Go tests**
+- [x] **Step 2: Run all Go tests**
 
 Run from `gover2/`:
 ```bash
@@ -1898,7 +1898,7 @@ go test -cover ./...
 
 Expected: all packages pass; `internal/database` >= 70%, `internal/services` >= 70%, `internal/bridge` >= 50%.
 
-- [ ] **Step 3: Run wails build to regenerate wailsjs bindings**
+- [x] **Step 3: Run wails build to regenerate wailsjs bindings**
 
 Run from `gover2/`:
 ```bash
@@ -1907,7 +1907,7 @@ wails build
 
 Expected: exit 0; binary produced at `gover2/build/bin/gover2`; `wailsjs/go/bridge/App.d.ts` now includes `GetAlerts`.
 
-- [ ] **Step 4: Update api/index.ts to import GetAlerts from generated bindings**
+- [x] **Step 4: Update api/index.ts to import GetAlerts from generated bindings**
 
 Now that `wails build` has regenerated `wailsjs/go/bridge/App.d.ts` with `GetAlerts`, replace the `getAlerts` function in `gover2/frontend/src/lib/api/index.ts`:
 
@@ -1941,7 +1941,7 @@ export const getAlerts = (): Promise<models.Alert[]> =>
 
 And remove the `import type { Alert } from '@/lib/types'` line (now using `models.Alert`).
 
-- [ ] **Step 5: Run typecheck again**
+- [x] **Step 5: Run typecheck again**
 
 Run from project root:
 ```bash
@@ -1950,7 +1950,7 @@ pnpm --prefix gover2/frontend run typecheck
 
 Expected: exit 0.
 
-- [ ] **Step 6: Run all frontend tests**
+- [x] **Step 6: Run all frontend tests**
 
 Run from project root:
 ```bash
@@ -1959,7 +1959,7 @@ pnpm --prefix gover2/frontend run test
 
 Expected: all 13 tests pass.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add \
