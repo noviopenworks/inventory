@@ -598,7 +598,7 @@ Implements design doc "Dark Mode — `stores/ui.ts`" and tasks.md 2.1 + 2.4 (ui-
   - `setDensity(d)` — sets `density`, persists via `setConfig`.
   - `persist()` — internal: `setConfig({ ...currentConfig, density, darkMode })`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `gover2/frontend/src/stores/ui.test.ts`:
 
@@ -657,12 +657,12 @@ describe('ui store', () => {
 })
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/stores/ui.test.ts`
 Expected: FAIL — `loadFromConfig` / `applyTheme` not exported.
 
-- [ ] **Step 3: Rewrite `stores/ui.ts`**
+- [x] **Step 3: Rewrite `stores/ui.ts`**
 
 ```ts
 import { defineStore } from 'pinia'
@@ -725,17 +725,17 @@ export const useUiStore = defineStore('ui', () => {
 })
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm test src/stores/ui.test.ts`
 Expected: PASS (3 tests).
 
-- [ ] **Step 5: Typecheck**
+- [x] **Step 5: Typecheck**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck`
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/stores/ui.ts gover2/frontend/src/stores/ui.test.ts
