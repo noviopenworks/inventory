@@ -1481,7 +1481,7 @@ Implements design doc "Alerts at App-Shell Level" + "Topbar overflow About/Licen
 - Consumes: `getAlerts` from `@/lib/api`; `AlertsModal`/`AboutModal`/`LicenseModal` (Tasks 9–10); `useUiStore` (already wired in Task 5); `useSearchStore` (Task 7); Topbar emits `open-alerts`/`open-about`/`open-license`/`db-changed` (Task 12).
 - Produces: AppShell holds `alertsOpen`/`aboutOpen`/`licenseOpen` refs and `alerts` list; auto-opens alerts on startup when `getAlerts()` non-empty; ⚠ action re-fetches + opens; clears search on route change.
 
-- [ ] **Step 1: Rewrite `AppShell.vue`**
+- [x] **Step 1: Rewrite `AppShell.vue`**
 
 ```vue
 <template>
@@ -1548,12 +1548,12 @@ watch(() => route.path, () => search.clear())
 </script>
 ```
 
-- [ ] **Step 2: Typecheck + full frontend test run**
+- [x] **Step 2: Typecheck + full frontend test run**
 
 Run: `cd /home/mg/inventory/gover2/frontend && pnpm run typecheck && pnpm test`
 Expected: PASS.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/frontend/src/layouts/AppShell.vue

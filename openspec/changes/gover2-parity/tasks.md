@@ -23,14 +23,14 @@
 ## 4. Frontend: alerts modal (asset-alerts)
 
 - [x] 4.1 Populate `AlertsModal.vue` from `GetAlerts` (category, name, expiry date, days remaining, severity), with severity styling
-- [ ] 4.2 Own the modal at app-shell level; auto-open on startup when `GetAlerts` returns a non-empty list
-- [ ] 4.3 Wire the ⚠ Alerts topbar action to reopen the modal
+- [x] 4.2 Own the modal at app-shell level; auto-open on startup when `GetAlerts` returns a non-empty list
+- [x] 4.3 Wire the ⚠ Alerts topbar action to reopen the modal
 - [x] 4.4 Test: modal renders rows from a fixture; auto-open logic for empty vs non-empty
 
 ## 5. Frontend: search/filter (asset-search)
 
 - [x] 5.1 Add a shared filter helper that matches a query against a row's visible display values
-- [ ] 5.2 Wire the topbar search term to the active view; filter the 7 category views + AllAssets client-side, updating as the user types
+- [x] 5.2 Wire the topbar search term to the active view; filter the 7 category views + AllAssets client-side, updating as the user types
 - [ ] 5.3 Test: filter helper matches/clears correctly
 
 ## 6. Frontend: database management (database-management) + dialogs
