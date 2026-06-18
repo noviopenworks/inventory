@@ -9,6 +9,7 @@ import (
 	"gover2/internal/bridge"
 	"gover2/internal/database"
 	"gover2/internal/models"
+	"gover2/internal/services"
 )
 
 func newBridgeWithDB(t *testing.T) *bridge.App {
@@ -453,4 +454,30 @@ func TestListDevicesForDropdown(t *testing.T) {
 	assert.True(t, kinds["computer"])
 	assert.True(t, kinds["smartphone"])
 	assert.True(t, kinds["tablet"])
+}
+
+// ---------------------------------------------------------------------------
+// ExportCSV tests
+// ---------------------------------------------------------------------------
+
+func TestExportCSV_NoDB(t *testing.T) {
+	app := bridge.NewApp()
+	err := app.ExportCSV("computers")
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "no database")
+}
+
+func TestExportCSV_BuildRows_Computers(t *testing.T) {
+	db, err := database.Open(":memory:")
+	require.NoError(t, err)
+	require.NoError(t, database.InitSchema(db))
+	t.Cleanup(func() { db.Close() })
+
+	_, err = services.InsertComputer(db, models.ComputerInput{Name: "PC1", Model: "Dell", Status: "active"})
+	require.NoError(t, err)
+
+	rows, err := services.BuildCSV(db, "computers")
+	require.NoError(t, err)
+	require.Len(t, rows, 2)
+	assert.Equal(t, "PC1", rows[1][0])
 }

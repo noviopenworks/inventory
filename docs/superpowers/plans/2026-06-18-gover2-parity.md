@@ -332,7 +332,7 @@ Implements design doc "CSV Export — Go-driven" (bridge half) and tasks.md 1.2 
 - Consumes: `services.BuildCSV`, `services.WriteCSV` (Task 1); `runtime.SaveFileDialog` from `github.com/wailsapp/wails/v2/pkg/runtime`.
 - Produces: `func (a *App) ExportCSV(category string) error` — nil-db guard, builds rows, opens save dialog, returns nil on cancel, writes file otherwise.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Append to `gover2/internal/bridge/bridge_test.go`:
 
@@ -377,12 +377,12 @@ func TestExportCSV_BuildRows_Computers(t *testing.T) {
 
 Add `"gover2/internal/services"` to the test imports.
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run: `cd /home/mg/inventory/gover2 && go test ./internal/bridge/ -run 'ExportCSV' -v`
 Expected: FAIL — `app.ExportCSV` still has 2-arg signature (`too many arguments`) / compile error.
 
-- [ ] **Step 3: Update the bridge import block**
+- [x] **Step 3: Update the bridge import block**
 
 In `gover2/internal/bridge/bridge.go`, add the runtime import to the block at lines 3-15:
 
@@ -404,7 +404,7 @@ import (
 )
 ```
 
-- [ ] **Step 4: Replace the `ExportCSV` stub**
+- [x] **Step 4: Replace the `ExportCSV` stub**
 
 Replace lines 172-174:
 
@@ -431,17 +431,17 @@ func (a *App) ExportCSV(category string) error {
 }
 ```
 
-- [ ] **Step 5: Run the tests to verify they pass**
+- [x] **Step 5: Run the tests to verify they pass**
 
 Run: `cd /home/mg/inventory/gover2 && go test ./internal/bridge/ -run 'ExportCSV' -v`
 Expected: PASS.
 
-- [ ] **Step 6: Build + full Go test + coverage**
+- [x] **Step 6: Build + full Go test + coverage**
 
 Run: `cd /home/mg/inventory/gover2 && go build ./... && go test ./... -cover`
 Expected: PASS; bridge ≥ 50%, services ≥ 70%.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/internal/bridge/bridge.go gover2/internal/bridge/bridge_test.go

@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/wailsapp/wails/v2/pkg/runtime"
+
 	"gover2/internal/backup"
 	"gover2/internal/config"
 	"gover2/internal/database"
@@ -169,8 +171,25 @@ func (a *App) OpenDatabase(path string) error {
 	return a.NewDatabase(path)
 }
 
-func (a *App) ExportCSV(category string, destPath string) error {
-	return nil // Phase 5
+func (a *App) ExportCSV(category string) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	rows, err := services.BuildCSV(a.db, category)
+	if err != nil {
+		return err
+	}
+	path, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		DefaultFilename: category + ".csv",
+		Filters:         []runtime.FileFilter{{DisplayName: "CSV", Pattern: "*.csv"}},
+	})
+	if err != nil {
+		return err
+	}
+	if path == "" {
+		return nil // user cancelled
+	}
+	return services.WriteCSV(path, rows)
 }
 
 // ---------------------------------------------------------------------------
