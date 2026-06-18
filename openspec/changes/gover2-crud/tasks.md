@@ -75,7 +75,7 @@
 
 ## 10. Integration Smoke Test
 
-- [ ] 10.1 Add a new Computer record — appears in table
-- [ ] 10.2 Edit an existing record — changes reflected in table
-- [ ] 10.3 Delete a record — row removed
-- [ ] 10.4 Cancel edit — no data changed, panel closes
+- [x] 10.1 Add a new Computer record — appears in table
+- [x] 10.2 Edit an existing record — changes reflected in table
+- [x] 10.3 Delete a record — row removed
+- [x] 10.4 Cancel edit — no data changed, panel closes
