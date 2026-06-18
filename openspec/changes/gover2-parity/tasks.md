@@ -2,7 +2,7 @@
 
 ## 1. Go: CSV export (data-export)
 
-- [ ] 1.1 Add `services/export.go` with a pure function that builds CSV bytes/rows for a given category (header = view columns, rows in column order), unit-tested with in-memory SQLite
+- [x] 1.1 Add `services/export.go` with a pure function that builds CSV bytes/rows for a given category (header = view columns, rows in column order), unit-tested with in-memory SQLite
 - [ ] 1.2 Reshape bridge `ExportCSV(category)` to open `runtime.SaveFileDialog(ctx, ...)`, write the CSV to the chosen path, and return nil on cancel (nil-db guard preserved)
 - [ ] 1.3 Add bridge test for the path-based export (write to temp file, assert contents); thin dialog wrapper left to smoke test
 

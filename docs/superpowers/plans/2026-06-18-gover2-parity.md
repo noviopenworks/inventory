@@ -73,7 +73,7 @@ Implements design doc "CSV Export — Go-driven" (the pure, testable half) and t
     - `antivirus` / `othersoftware`: `["Name","License Key","Status","Expiry Date"]`
     - `users`: `["Name","Surname","Status"]`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `gover2/internal/services/export_test.go`:
 
@@ -181,12 +181,12 @@ func TestWriteCSV_RoundTrip(t *testing.T) {
 
 (Delete the placeholder `newDB`/first import block — only the second full version remains.)
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `cd /home/mg/inventory/gover2 && go test ./internal/services/ -run 'BuildCSV|WriteCSV' -v`
 Expected: FAIL — `undefined: services.BuildCSV` / `services.WriteCSV`.
 
-- [ ] **Step 3: Write the minimal implementation**
+- [x] **Step 3: Write the minimal implementation**
 
 Create `gover2/internal/services/export.go`. Use the existing `List*` services and dereference nullable string pointers with a tiny helper:
 
@@ -301,17 +301,17 @@ func WriteCSV(path string, rows [][]string) error {
 }
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `cd /home/mg/inventory/gover2 && go test ./internal/services/ -run 'BuildCSV|WriteCSV' -v`
 Expected: PASS (all 5 tests).
 
-- [ ] **Step 5: Verify package + coverage still green**
+- [x] **Step 5: Verify package + coverage still green**
 
 Run: `cd /home/mg/inventory/gover2 && go test ./internal/services/ -cover`
 Expected: PASS, coverage ≥ 70%.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd /home/mg/inventory && git add gover2/internal/services/export.go gover2/internal/services/export_test.go
