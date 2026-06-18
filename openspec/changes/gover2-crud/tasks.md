@@ -1,34 +1,34 @@
 ## 1. Models — Input Structs + Dropdown Types
 
-- [ ] 1.1 Add `ComputerInput`, `SmartphoneInput`, `TabletInput` structs to `internal/models/models.go`
-- [ ] 1.2 Add `WindowsKeyInput`, `AntivirusInput`, `OtherSoftwareInput`, `UserInput` structs
-- [ ] 1.3 Add `DropdownItem` and `DeviceDropdownItem` structs
+- [x] 1.1 Add `ComputerInput`, `SmartphoneInput`, `TabletInput` structs to `internal/models/models.go`
+- [x] 1.2 Add `WindowsKeyInput`, `AntivirusInput`, `OtherSoftwareInput`, `UserInput` structs
+- [x] 1.3 Add `DropdownItem` and `DeviceDropdownItem` structs
 
 ## 2. Services — Write Operations
 
-- [ ] 2.1 Implement `InsertComputer`, `UpdateComputer`, `DeleteComputer` in `internal/services/`
-- [ ] 2.2 Implement `InsertSmartphone`, `UpdateSmartphone`, `DeleteSmartphone`
-- [ ] 2.3 Implement `InsertTablet`, `UpdateTablet`, `DeleteTablet`
-- [ ] 2.4 Implement `InsertWindowsKey`, `UpdateWindowsKey`, `DeleteWindowsKey`
-- [ ] 2.5 Implement `InsertAntivirus`, `UpdateAntivirus`, `DeleteAntivirus`
-- [ ] 2.6 Implement `InsertOtherSoftware`, `UpdateOtherSoftware`, `DeleteOtherSoftware`
-- [ ] 2.7 Implement `InsertUser`, `UpdateUser`, `DeleteUser`
-- [ ] 2.8 Implement `ListUsersForDropdown` and `ListDevicesForDropdown`
-- [ ] 2.9 Write table-driven tests: insert→list, update→verify field, delete→list empty (all 7 categories)
-- [ ] 2.10 Run `go test -cover ./internal/services/...` — must stay ≥ 70%
+- [x] 2.1 Implement `InsertComputer`, `UpdateComputer`, `DeleteComputer` in `internal/services/`
+- [x] 2.2 Implement `InsertSmartphone`, `UpdateSmartphone`, `DeleteSmartphone`
+- [x] 2.3 Implement `InsertTablet`, `UpdateTablet`, `DeleteTablet`
+- [x] 2.4 Implement `InsertWindowsKey`, `UpdateWindowsKey`, `DeleteWindowsKey`
+- [x] 2.5 Implement `InsertAntivirus`, `UpdateAntivirus`, `DeleteAntivirus`
+- [x] 2.6 Implement `InsertOtherSoftware`, `UpdateOtherSoftware`, `DeleteOtherSoftware`
+- [x] 2.7 Implement `InsertUser`, `UpdateUser`, `DeleteUser`
+- [x] 2.8 Implement `ListUsersForDropdown` and `ListDevicesForDropdown`
+- [x] 2.9 Write table-driven tests: insert→list, update→verify field, delete→list empty (all 7 categories)
+- [x] 2.10 Run `go test -cover ./internal/services/...` — must stay ≥ 70%
 
 ## 3. Bridge — Write Bridge Methods
 
-- [ ] 3.1 Add `AddComputer`, `UpdateComputer`, `DeleteComputer` to `internal/bridge/bridge.go`
-- [ ] 3.2 Add `AddSmartphone`, `UpdateSmartphone`, `DeleteSmartphone`
-- [ ] 3.3 Add `AddTablet`, `UpdateTablet`, `DeleteTablet`
-- [ ] 3.4 Add `AddWindowsKey`, `UpdateWindowsKey`, `DeleteWindowsKey`
-- [ ] 3.5 Add `AddAntivirus`, `UpdateAntivirus`, `DeleteAntivirus`
-- [ ] 3.6 Add `AddOtherSoftware`, `UpdateOtherSoftware`, `DeleteOtherSoftware`
-- [ ] 3.7 Add `AddUser`, `UpdateUser`, `DeleteUser`
-- [ ] 3.8 Add `ListUsersForDropdown` and `ListDevicesForDropdown` bridge methods
-- [ ] 3.9 Write bridge tests: round-trip Add→List, Delete removes record, nil-db guard
-- [ ] 3.10 Run `go test -cover ./internal/bridge/...` — must stay ≥ 50%
+- [x] 3.1 Add `AddComputer`, `UpdateComputer`, `DeleteComputer` to `internal/bridge/bridge.go`
+- [x] 3.2 Add `AddSmartphone`, `UpdateSmartphone`, `DeleteSmartphone`
+- [x] 3.3 Add `AddTablet`, `UpdateTablet`, `DeleteTablet`
+- [x] 3.4 Add `AddWindowsKey`, `UpdateWindowsKey`, `DeleteWindowsKey`
+- [x] 3.5 Add `AddAntivirus`, `UpdateAntivirus`, `DeleteAntivirus`
+- [x] 3.6 Add `AddOtherSoftware`, `UpdateOtherSoftware`, `DeleteOtherSoftware`
+- [x] 3.7 Add `AddUser`, `UpdateUser`, `DeleteUser`
+- [x] 3.8 Add `ListUsersForDropdown` and `ListDevicesForDropdown` bridge methods
+- [x] 3.9 Write bridge tests: round-trip Add→List, Delete removes record, nil-db guard
+- [x] 3.10 Run `go test -cover ./internal/bridge/...` — must stay ≥ 50%
 
 ## 4. Go Build Verification
 
