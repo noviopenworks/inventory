@@ -106,6 +106,7 @@ import (
 	"database/sql"
 	"fmt"
 	"strings"
+	"time"
 
 	"gover/internal/models"
 )
@@ -154,13 +155,14 @@ func GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error) {
 	}
 	defer rows.Close()
 
+	today := time.Now().Format("2006-01-02")
 	var out []models.Alert
 	for rows.Next() {
 		var a models.Alert
 		if err := rows.Scan(&a.Category, &a.ID, &a.Name, &a.ExpiryDate, &a.DaysRemaining); err != nil {
 			return nil, err
 		}
-		if a.DaysRemaining < 0 {
+		if a.ExpiryDate < today {
 			a.Severity = "expired"
 		} else {
 			a.Severity = "expiring"
@@ -170,6 +172,19 @@ func GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error) {
 	return out, rows.Err()
 }
 ```
+
+> **TZ-safety note (deviation from original draft):** Severity is classified with
+> an ISO date-string comparison (`a.ExpiryDate < today`, where `today` is
+> `time.Now().Format("2006-01-02")` in local time), **not** with
+> `a.DaysRemaining < 0`. The original draft's julianday arithmetic broke near
+> UTC midnight in non-UTC timezones: `julianday('now')` is UTC while Go's
+> `time.Now()` is local, so for a row dated "yesterday" the integer truncation
+> of `julianday(yesterday) - julianday('now')` could yield `0` instead of `-1`,
+> misclassifying an expired item as `expiring`. The Python reference
+> (`db/alerts.py`) uses ISO date-string comparison (`exp_col < today`) for the
+> same reason. `days_remaining` is still computed and surfaced (for display
+> sorting and the frontend badge); only the severity branch is changed.
+> `today` is computed once outside the loop.
 
 - [ ] **Step 1.4: Run the full services test suite — confirm everything passes**
 

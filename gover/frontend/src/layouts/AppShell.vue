@@ -14,7 +14,12 @@
       <Statusbar />
     </div>
 
-    <AlertsModal :open="alertsOpen" :alerts="alerts" @close="alertsOpen = false" />
+    <AlertsModal
+      :open="alertsOpen"
+      :alerts="alerts"
+      :warning-days="ui.expiryWarningDays"
+      @close="alertsOpen = false"
+    />
     <AboutModal :open="aboutOpen" @close="aboutOpen = false" />
     <LicenseModal :open="licenseOpen" @close="licenseOpen = false" />
   </div>
