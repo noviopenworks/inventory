@@ -1,0 +1,147 @@
+{
+  "/home/mg/inventory/main.py": {
+    "mtime": 1781388476.612332,
+    "ast_hash": "b12c1e6befeace84ce3ca5c063203ce2",
+    "semantic_hash": "b12c1e6befeace84ce3ca5c063203ce2"
+  },
+  "/home/mg/inventory/app/dialogs.py": {
+    "mtime": 1773926672.0,
+    "ast_hash": "253b0c0119d5e4d83cd0f70775bb8191",
+    "semantic_hash": "253b0c0119d5e4d83cd0f70775bb8191"
+  },
+  "/home/mg/inventory/app/main_window.py": {
+    "mtime": 1773937954.0,
+    "ast_hash": "d97d4ea33fbb35f4e8fa88ac18313864",
+    "semantic_hash": "d97d4ea33fbb35f4e8fa88ac18313864"
+  },
+  "/home/mg/inventory/app/_version.py": {
+    "mtime": 1773952940.0,
+    "ast_hash": "66811df65037adb977c66b84edd3d587",
+    "semantic_hash": "66811df65037adb977c66b84edd3d587"
+  },
+  "/home/mg/inventory/app/models.py": {
+    "mtime": 1773236801.0,
+    "ast_hash": "5c05163843689be343173634fcb0d2b9",
+    "semantic_hash": "5c05163843689be343173634fcb0d2b9"
+  },
+  "/home/mg/inventory/app/__init__.py": {
+    "mtime": 1772578848.0,
+    "ast_hash": "087bb9eca146bce8046123fa2d42ed5a",
+    "semantic_hash": "087bb9eca146bce8046123fa2d42ed5a"
+  },
+  "/home/mg/inventory/app/style.py": {
+    "mtime": 1773937954.0,
+    "ast_hash": "2d0428333f19ed1d9e71972e18ae435a",
+    "semantic_hash": "2d0428333f19ed1d9e71972e18ae435a"
+  },
+  "/home/mg/inventory/tests/test_window.py": {
+    "mtime": 1772616762.0,
+    "ast_hash": "ddcbb3a49e2a01a05df21aa96ddbd6eb",
+    "semantic_hash": "ddcbb3a49e2a01a05df21aa96ddbd6eb"
+  },
+  "/home/mg/inventory/tests/test_main_window.py": {
+    "mtime": 1772616762.0,
+    "ast_hash": "4a15e7550a150830797a2d0995394fb6",
+    "semantic_hash": "4a15e7550a150830797a2d0995394fb6"
+  },
+  "/home/mg/inventory/tests/test_db_crud.py": {
+    "mtime": 1772616762.0,
+    "ast_hash": "c623a17a7df8d2e74f4f599f76620dd3",
+    "semantic_hash": "c623a17a7df8d2e74f4f599f76620dd3"
+  },
+  "/home/mg/inventory/tests/test_models.py": {
+    "mtime": 1772818397.0,
+    "ast_hash": "46d4f79666c739439f92079d21e8afa1",
+    "semantic_hash": "46d4f79666c739439f92079d21e8afa1"
+  },
+  "/home/mg/inventory/tests/helpers.py": {
+    "mtime": 1772616762.0,
+    "ast_hash": "383b3c85427950c0b879f8560a7a9a8e",
+    "semantic_hash": "383b3c85427950c0b879f8560a7a9a8e"
+  },
+  "/home/mg/inventory/tests/test_db_alerts.py": {
+    "mtime": 1772614495.0,
+    "ast_hash": "4d27e57424ebd4a70ab242a20046ec91",
+    "semantic_hash": "4d27e57424ebd4a70ab242a20046ec91"
+  },
+  "/home/mg/inventory/tests/__init__.py": {
+    "mtime": 1772545087.0,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/home/mg/inventory/tests/test_dialogs.py": {
+    "mtime": 1772616762.0,
+    "ast_hash": "18c95081b84d0b5b9426a990e82a49bd",
+    "semantic_hash": "18c95081b84d0b5b9426a990e82a49bd"
+  },
+  "/home/mg/inventory/tests/test_db_schema.py": {
+    "mtime": 1772616762.0,
+    "ast_hash": "067f5aaa430cbb7c711d7282b0ccf4a5",
+    "semantic_hash": "067f5aaa430cbb7c711d7282b0ccf4a5"
+  },
+  "/home/mg/inventory/tests/test_db_queries.py": {
+    "mtime": 1772616762.0,
+    "ast_hash": "550b452fa992c52d8a5c3cd6c3e17a95",
+    "semantic_hash": "550b452fa992c52d8a5c3cd6c3e17a95"
+  },
+  "/home/mg/inventory/tests/conftest.py": {
+    "mtime": 1772818398.0,
+    "ast_hash": "57ad8e3edc11e8f174979fe36bfb47c2",
+    "semantic_hash": "57ad8e3edc11e8f174979fe36bfb47c2"
+  },
+  "/home/mg/inventory/db/queries.py": {
+    "mtime": 1773926679.0,
+    "ast_hash": "9a3721a82684f7fe5c8899cc88f00e56",
+    "semantic_hash": "9a3721a82684f7fe5c8899cc88f00e56"
+  },
+  "/home/mg/inventory/db/connection.py": {
+    "mtime": 1772578635.0,
+    "ast_hash": "83814e4b7d71f431fc7f4189b8444e76",
+    "semantic_hash": "83814e4b7d71f431fc7f4189b8444e76"
+  },
+  "/home/mg/inventory/db/schema.py": {
+    "mtime": 1772578848.0,
+    "ast_hash": "914135cc8abb852475faa9769e39d86a",
+    "semantic_hash": "914135cc8abb852475faa9769e39d86a"
+  },
+  "/home/mg/inventory/db/__init__.py": {
+    "mtime": 1773939915.0,
+    "ast_hash": "c0921a53b901ba76626e68e1c54831a3",
+    "semantic_hash": "c0921a53b901ba76626e68e1c54831a3"
+  },
+  "/home/mg/inventory/db/alerts.py": {
+    "mtime": 1772578635.0,
+    "ast_hash": "7d857d2f7317f13aa38a4f9e37660893",
+    "semantic_hash": "7d857d2f7317f13aa38a4f9e37660893"
+  },
+  "/home/mg/inventory/db/config.py": {
+    "mtime": 1773939915.0,
+    "ast_hash": "b9fcc1f2aec03fae0252291ba53595d9",
+    "semantic_hash": "b9fcc1f2aec03fae0252291ba53595d9"
+  },
+  "/home/mg/inventory/.pre-commit-config.yaml": {
+    "mtime": 1772616713.0,
+    "ast_hash": "14e60b495c207e838f6c7a8ebb5167d7",
+    "semantic_hash": "14e60b495c207e838f6c7a8ebb5167d7"
+  },
+  "/home/mg/inventory/Taskfile.yml": {
+    "mtime": 1773939915.0,
+    "ast_hash": "13b3c564958268af6a561c6bab93e196",
+    "semantic_hash": "13b3c564958268af6a561c6bab93e196"
+  },
+  "/home/mg/inventory/README.md": {
+    "mtime": 1773953709.0,
+    "ast_hash": "e9bf1c21c6fcf77a5aa6eeb43488614d",
+    "semantic_hash": "e9bf1c21c6fcf77a5aa6eeb43488614d"
+  },
+  "/home/mg/inventory/.github/workflows/ci.yml": {
+    "mtime": 1773939915.0,
+    "ast_hash": "8b889e3cf7dc129680114212a7e90814",
+    "semantic_hash": "8b889e3cf7dc129680114212a7e90814"
+  },
+  "/home/mg/inventory/.github/workflows/release.yml": {
+    "mtime": 1773952897.0,
+    "ast_hash": "56a172d3b78f7caade0ddf13521b5dd9",
+    "semantic_hash": "56a172d3b78f7caade0ddf13521b5dd9"
+  }
+}

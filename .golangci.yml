@@ -1,0 +1,22 @@
+version: "2"
+
+run:
+  build-tags:
+    - webkit2_41
+
+linters:
+  enable:
+    - errorlint
+    - revive
+    - gocritic
+    - misspell
+    - unconvert
+    - gocyclo
+  settings:
+    gocyclo:
+      min-complexity: 15
+
+issues:
+  # Report every finding (defaults cap duplicates at 3 / 50).
+  max-same-issues: 0
+  max-issues-per-linter: 0

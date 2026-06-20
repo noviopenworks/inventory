@@ -1,0 +1,14 @@
+{
+  "change": "gover-phase1-architecture",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "9ffe5a99d6fd93c29651726eda93e507afa9eb8a9eb726940734b55adba09e4a",
+  "files": [
+    { "path": "openspec/changes/gover-phase1-architecture/proposal.md", "sha256": "bfd7f928851b210c26fc7a13ae81b96ee9e046c671165b3d7fae0f752745b9e4" },
+    { "path": "openspec/changes/gover-phase1-architecture/design.md", "sha256": "2d224b4acff42783b70e95be9642a638adaed32cd33cfcb3ddcb945bce7c4cf7" },
+    { "path": "openspec/changes/gover-phase1-architecture/tasks.md", "sha256": "75f883fec6a8a22924661e90cfceaccd30279a6223edc8b99cc7acb11ecf7031" },
+    { "path": "openspec/changes/gover-phase1-architecture/specs/architecture/spec.md", "sha256": "6411e27b3bb678ec2b93cf4d5533c5b15ba8722b2b9cba11537845cec192be68" }
+  ]
+}

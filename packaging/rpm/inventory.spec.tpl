@@ -6,12 +6,13 @@ Summary:        IT Asset Inventory Manager
 License:        GPL-3.0-or-later
 BuildArch:      __RPM_ARCH__
 
-Requires:       glib2, mesa-libGL
+Requires:       webkit2gtk4.1, gtk3
 
 %description
-A PyQt6-based GUI tool to track computers, phones, tablets,
+A desktop GUI tool to track computers, phones, tablets,
 software licences, Windows keys, antivirus and subscriptions.
-Uses a local SQLite database; no server required.
+Built with Go, Wails and Vue; uses a local SQLite database,
+no server required.
 
 %install
 install -D -m 0755 %{_sourcedir}/inventory \

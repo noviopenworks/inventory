@@ -1,0 +1,20 @@
+{
+  "name": "inventory",
+  "outputfilename": "inventory",
+  "frontend:install": "pnpm install",
+  "frontend:build": "pnpm run build",
+  "frontend:dev:watcher": "pnpm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "frontend:dir": "frontend",
+  "info": {
+    "productName": "Inventory",
+    "productVersion": "1.0.0",
+    "companyName": "",
+    "copyright": "",
+    "comments": ""
+  },
+  "bindings": {
+    "ts_generation_dir": "frontend/wailsjs"
+  },
+  "build:tags": "webkit2_41"
+}

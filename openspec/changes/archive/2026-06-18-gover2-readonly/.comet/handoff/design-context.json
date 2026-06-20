@@ -1,0 +1,13 @@
+{
+  "change": "gover2-readonly",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "7469218f6ac88e6ec991822c8aeab41f21eab0695b79b8e8757fb7ec09a829ab",
+  "files": [
+    { "path": "openspec/changes/gover2-readonly/proposal.md", "sha256": "903fa07256c16fc51dc3ba760d8ded79cf339955e0776761792d59b9f1a93069" },
+    { "path": "openspec/changes/gover2-readonly/design.md", "sha256": "4f4490c8d6684e23cd3457c299d30b5ab3a5767b2c1c340038d35eb2274e783f" },
+    { "path": "openspec/changes/gover2-readonly/tasks.md", "sha256": "e8627388bf1b24c07a1ec61a839e9e999951e40f769019b7f084baf1260564cf" }
+  ]
+}

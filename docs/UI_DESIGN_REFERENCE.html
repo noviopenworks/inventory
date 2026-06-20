@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Asset Inventory — UI Design Reference</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Structural */
+      --sidebar-bg:      #0E1520;
+      --sidebar-hover:   #131E2E;
+      --sidebar-active:  #182337;
+      --sidebar-border:  #141D2B;
+      --sidebar-text:    #6B82A0;
+      --sidebar-text-hi: #DDE8F5;
+      --sidebar-accent:  #2563EB;
+      --sidebar-w:       200px;
+      --topbar-h:        48px;
+
+      /* Page */
+      --page:     #EEF1F7;
+      --surface:  #FFFFFF;
+      --border:   #DDE1EC;
+      --border-light: #EAECF4;
+
+      /* Text */
+      --text:     #0F172A;
+      --text-2:   #64748B;
+      --text-3:   #94A3B8;
+
+      /* Status */
+      --s-active:   #2563EB;
+      --s-repair:   #EA580C;
+      --s-spare:    #7C3AED;
+      --s-retired:  #9CA3AF;
+      --s-missing:  #1E293B;
+      --s-expiring: #D97706;
+      --s-expired:  #DC2626;
+
+      /* Accent */
+      --accent:   #2563EB;
+      --accent-d: #1D4ED8;
+
+      /* Table header — the signature */
+      --th-bg:    #0E1520;
+      --th-text:  #8FA5BF;
+
+      /* Typography */
+      --ui:   -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono: 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--ui);
+      font-size: 13px;
+      color: var(--text);
+      background: var(--page);
+      overflow: hidden;
+    }
+
+    /* ── Layout shell ──────────────────────────────────────────── */
+    .shell {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ───────────────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--sidebar-border);
+      overflow: hidden;
+    }
+
+    .sidebar-head {
+      height: var(--topbar-h);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--sidebar-border);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .logo-mark {
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-size: 11px;
+      font-weight: 650;
+      color: #C8D8EE;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 8px 0;
+    }
+
+    .sidebar-section {
+      margin-bottom: 4px;
+    }
+
+    .section-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2D3F58;
+      padding: 8px 14px 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 14px;
+      cursor: pointer;
+      color: var(--sidebar-text);
+      font-size: 12.5px;
+      font-weight: 450;
+      border-left: 2px solid transparent;
+      user-select: none;
+      transition: background 60ms, color 60ms;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover {
+      background: var(--sidebar-hover);
+      color: #A8BDD6;
+    }
+
+    .nav-item.is-active {
+      background: var(--sidebar-active);
+      color: var(--sidebar-text-hi);
+      border-left-color: var(--sidebar-accent);
+    }
+
+    .nav-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.65;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-item.is-active .nav-icon {
+      opacity: 1;
+      color: var(--sidebar-accent);
+    }
+
+    .nav-count {
+      margin-left: auto;
+      font-size: 10.5px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: #2D3F58;
+    }
+
+    .nav-item.is-active .nav-count {
+      color: #4B7CC8;
+    }
+
+    .sidebar-rule {
+      height: 1px;
+      background: #141D2B;
+      margin: 6px 14px;
+    }
+
+    .sidebar-foot {
+      border-top: 1px solid var(--sidebar-border);
+      padding: 10px 14px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-version {
+      font-size: 10px;
+      color: #2D3F58;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Main area ─────────────────────────────────────────────── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    /* ── Topbar ────────────────────────────────────────────────── */
+    .topbar {
+      height: var(--topbar-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--page);
+      border: 1px solid var(--border);
+      height: 30px;
+      padding: 0 9px;
+      gap: 6px;
+      flex: 1;
+      max-width: 340px;
+    }
+
+    .search-wrap svg { color: var(--text-3); flex-shrink: 0; }
+
+    .search-input {
+      border: none;
+      background: transparent;
+      font-family: var(--ui);
+      font-size: 12.5px;
+      color: var(--text);
+      outline: none;
+      width: 100%;
+    }
+
+    .search-input::placeholder { color: var(--text-3); }
+
+    .topbar-gap { flex: 1; }
+
+    .tbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 30px;
+      padding: 0 10px;
+      font-family: var(--ui);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      transition: background 60ms, color 60ms;
+      white-space: nowrap;
+    }
+
+    .tbtn:hover { background: var(--page); color: var(--text); }
+
+    .tbtn-alert {
+      border-color: #FECACA;
+      background: #FFF5F5;
+      color: #B91C1C;
+    }
+
+    .tbtn-alert:hover { background: #FEE2E2; }
+
+    .alert-pip {
+      background: #DC2626;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 1px 4px 2px;
+      min-width: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Content ───────────────────────────────────────────────── */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .content-bar {
+      padding: 14px 18px 10px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .content-heading { font-size: 15px; font-weight: 650; letter-spacing: -0.01em; }
+    .content-sub { font-size: 11.5px; color: var(--text-2); margin-top: 1px; }
+
+    .content-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 28px;
+      padding: 0 10px;
+      font-family: var(--ui);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      transition: background 60ms;
+    }
+
+    .btn:hover { background: var(--page); }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-d); border-color: var(--accent-d); }
+
+    /* ── Table+panel area ──────────────────────────────────────── */
+    .workspace {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .table-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      flex: 1;
+      overflow: auto;
+      margin: 0 18px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── Data table ────────────────────────────────────────────── */
+    .dtable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    .dtable thead {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    /* Signature: dark header that merges with sidebar */
+    .dtable th {
+      background: var(--th-bg);
+      color: var(--th-text);
+      font-weight: 500;
+      font-size: 10.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 9px 11px;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--sidebar-border);
+      user-select: none;
+    }
+
+    .dtable th.col-strip { width: 3px; padding: 0; }
+
+    .dtable td {
+      padding: 7px 11px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .dtable td.col-strip {
+      padding: 0;
+      width: 3px;
+      min-width: 3px;
+    }
+
+    /* Signature: 3px status strip per row */
+    .strip {
+      display: block;
+      width: 3px;
+      min-height: 33px;
+    }
+
+    .dtable tbody tr { cursor: pointer; transition: background 50ms; }
+    .dtable tbody tr:hover { background: #EFF4FE; }
+    .dtable tbody tr.is-selected { background: #E8F0FE; }
+    .dtable tbody tr.is-expiring { background: #FFFBEB; }
+    .dtable tbody tr.is-expiring:hover { background: #FEF3C7; }
+    .dtable tbody tr.is-expired { background: #FFF5F5; }
+    .dtable tbody tr.is-expired:hover { background: #FEE2E2; }
+
+    /* Data cell variants */
+    .c-id   { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+    .c-mono { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; }
+    .c-date { font-family: var(--mono); font-size: 11.5px; color: var(--text-2); }
+    .c-date.is-warn   { color: var(--s-expiring); font-weight: 600; }
+    .c-date.is-danger { color: var(--s-expired); font-weight: 600; }
+
+    .c-name { font-weight: 500; }
+    .c-muted { color: var(--text-3); }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 1px 7px 2px;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: 2px;
+    }
+
+    .dot { width: 5px; height: 5px; border-radius: 50%; }
+
+    .b-active   { background:#EFF6FF; color:#1D4ED8; }
+    .b-active .dot   { background: #2563EB; }
+    .b-repair   { background:#FFF7ED; color:#C2410C; }
+    .b-repair .dot   { background: #EA580C; }
+    .b-spare    { background:#F5F3FF; color:#6D28D9; }
+    .b-spare .dot    { background: #7C3AED; }
+    .b-retired  { background:#F9FAFB; color:#6B7280; border:1px solid #E5E7EB; }
+    .b-retired .dot  { background: #9CA3AF; }
+    .b-missing  { background:#1E293B; color:#94A3B8; }
+    .b-missing .dot  { background: #475569; }
+
+    /* ── Edit panel ────────────────────────────────────────────── */
+    .edit-panel {
+      width: 300px;
+      min-width: 300px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .ep-head {
+      height: var(--topbar-h);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .ep-title { font-size: 13px; font-weight: 600; flex: 1; }
+
+    .ep-close {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-2);
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .ep-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+    }
+
+    .fg { margin-bottom: 12px; }
+
+    .fl {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 4px;
+    }
+
+    .fi {
+      width: 100%;
+      height: 29px;
+      border: 1px solid var(--border);
+      padding: 0 8px;
+      font-family: var(--ui);
+      font-size: 12.5px;
+      color: var(--text);
+      background: var(--surface);
+      outline: none;
+      border-radius: 0;
+      transition: border-color 80ms, box-shadow 80ms;
+    }
+
+    .fi:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.12);
+    }
+
+    .fi-ta {
+      height: 54px;
+      padding-top: 6px;
+      resize: none;
+    }
+
+    .ep-foot {
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── Statusbar ─────────────────────────────────────────────── */
+    .statusbar {
+      height: 24px;
+      background: #F5F7FB;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .sb-item {
+      font-size: 11px;
+      color: var(--text-3);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .sb-item strong { font-weight: 600; color: var(--text-2); }
+    .sb-rule { width: 1px; height: 12px; background: var(--border); }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ═══════════════════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════════════════ -->
+  <nav class="sidebar">
+    <div class="sidebar-head">
+      <div class="logo">
+        <div class="logo-mark">IT</div>
+        <span class="logo-text">Inventory</span>
+      </div>
+    </div>
+
+    <div class="sidebar-body">
+
+      <div class="sidebar-section">
+        <div class="section-label">Overview</div>
+        <div class="nav-item">
+          <span class="nav-icon">
+            <!-- Grid icon -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="1" y="1" width="4.5" height="4.5"/>
+              <rect x="7.5" y="1" width="4.5" height="4.5"/>
+              <rect x="1" y="7.5" width="4.5" height="4.5"/>
+              <rect x="7.5" y="7.5" width="4.5" height="4.5"/>
+            </svg>
+          </span>
+          All Assets
+          <span class="nav-count">52</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Hardware</div>
+
+        <div class="nav-item is-active">
+          <span class="nav-icon">
+            <!-- Laptop -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="1" y="2" width="11" height="7.5"/>
+              <path d="M4.5 11.5h4"/><path d="M6.5 9.5v2"/>
+            </svg>
+          </span>
+          Computers
+          <span class="nav-count">18</span>
+        </div>
+
+        <div class="nav-item">
+          <span class="nav-icon">
+            <!-- Phone -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3.5" y="1" width="6" height="11"/>
+              <circle cx="6.5" cy="10" r="0.7" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          Smartphones
+          <span class="nav-count">12</span>
+        </div>
+
+        <div class="nav-item">
+          <span class="nav-icon">
+            <!-- Tablet -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="1" y="2.5" width="11" height="8"/>
+              <circle cx="6.5" cy="9.8" r="0.6" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          Tablets
+          <span class="nav-count">8</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Licenses</div>
+
+        <div class="nav-item">
+          <span class="nav-icon">
+            <!-- Key -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="4.5" cy="7" r="3"/>
+              <path d="M7 7h5M10 5v2"/>
+            </svg>
+          </span>
+          Windows Keys
+          <span class="nav-count">15</span>
+        </div>
+
+        <div class="nav-item">
+          <span class="nav-icon">
+            <!-- Shield -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M6.5 1L1.5 3.5v4C1.5 10 6.5 12 6.5 12s5-2 5-4.5v-4L6.5 1z"/>
+            </svg>
+          </span>
+          Antivirus
+          <span class="nav-count">9</span>
+        </div>
+
+        <div class="nav-item">
+          <span class="nav-icon">
+            <!-- Document -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="1.5" width="9" height="10"/>
+              <path d="M4 5h5M4 7h5M4 9h3"/>
+            </svg>
+          </span>
+          Other Software
+          <span class="nav-count">—</span>
+        </div>
+      </div>
+
+      <div class="sidebar-rule"></div>
+
+      <div class="sidebar-section">
+        <div class="nav-item">
+          <span class="nav-icon">
+            <!-- Person -->
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="6.5" cy="4.5" r="2.5"/>
+              <path d="M1 12c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/>
+            </svg>
+          </span>
+          Users
+          <span class="nav-count">14</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sidebar-foot">
+      <div class="sidebar-version">v2.0.0-dev · inventory.db</div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN
+  ════════════════════════════════════════════════════════ -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="search-wrap">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="5" cy="5" r="4"/>
+          <path d="M8.5 8.5L11 11"/>
+        </svg>
+        <input class="search-input" type="text" placeholder="Search across all fields…" />
+      </div>
+      <div class="topbar-gap"></div>
+
+      <button class="tbtn">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5.5 1v6M3 4l2.5 3 2.5-3"/><path d="M1 9v1a.5.5 0 00.5.5h9A.5.5 0 0011 10V9"/>
+        </svg>
+        Export CSV
+      </button>
+
+      <button class="tbtn tbtn-alert">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5.5 1L.5 10h10L5.5 1z"/>
+          <path d="M5.5 5v2.5"/>
+          <circle cx="5.5" cy="9" r=".5" fill="currentColor" stroke="none"/>
+        </svg>
+        Alerts
+        <span class="alert-pip">3</span>
+      </button>
+
+      <button class="tbtn">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="5.5" cy="5.5" r="4.5"/>
+          <path d="M5.5 2.5v3l2 2"/>
+        </svg>
+        Dark mode
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <div class="content-bar">
+        <div>
+          <div class="content-heading">Computers</div>
+          <div class="content-sub">18 records</div>
+        </div>
+        <div class="content-actions">
+          <button class="btn" disabled>Edit</button>
+          <button class="btn" disabled>Delete</button>
+          <button class="btn btn-primary">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5.5 1v9M1 5.5h9"/>
+            </svg>
+            Add Computer
+          </button>
+        </div>
+      </div>
+
+      <div class="workspace">
+
+        <!-- Table -->
+        <div class="table-area">
+          <div class="table-scroll">
+            <table class="dtable">
+              <thead>
+                <tr>
+                  <th class="col-strip"></th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Model</th>
+                  <th>User</th>
+                  <th>Status</th>
+                  <th>Purchase</th>
+                  <th>Warranty Expiry</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- Row 1 — selected, active -->
+                <tr class="is-selected">
+                  <td class="col-strip"><span class="strip" style="background:#2563EB"></span></td>
+                  <td class="c-id">001</td>
+                  <td class="c-name">WKSTN-MGLOW</td>
+                  <td>MacBook Pro 16"</td>
+                  <td>Głowacki, M.</td>
+                  <td><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date">2023-04-12</td>
+                  <td class="c-date">2026-04-12</td>
+                  <td>Main dev machine</td>
+                </tr>
+
+                <!-- Row 2 — expiring soon -->
+                <tr class="is-expiring">
+                  <td class="col-strip"><span class="strip" style="background:#D97706"></span></td>
+                  <td class="c-id">002</td>
+                  <td class="c-name">WKSTN-KKOWAL</td>
+                  <td>ThinkPad T14s Gen 3</td>
+                  <td>Kowalski, K.</td>
+                  <td><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date">2021-09-15</td>
+                  <td class="c-date is-warn">2026-07-05</td>
+                  <td></td>
+                </tr>
+
+                <!-- Row 3 — expired + in repair -->
+                <tr class="is-expired">
+                  <td class="col-strip"><span class="strip" style="background:#DC2626"></span></td>
+                  <td class="c-id">003</td>
+                  <td class="c-name">WKSTN-JNOWAK</td>
+                  <td>Dell XPS 15 9500</td>
+                  <td>Nowak, J.</td>
+                  <td><span class="badge b-repair"><span class="dot"></span>In Repair</span></td>
+                  <td class="c-date">2020-02-28</td>
+                  <td class="c-date is-danger">2025-02-28</td>
+                  <td>Screen replacement</td>
+                </tr>
+
+                <!-- Row 4 — active -->
+                <tr>
+                  <td class="col-strip"><span class="strip" style="background:#2563EB"></span></td>
+                  <td class="c-id">004</td>
+                  <td class="c-name">WKSTN-AWISN</td>
+                  <td>MacBook Air M2</td>
+                  <td>Wiśniewski, A.</td>
+                  <td><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date">2023-11-20</td>
+                  <td class="c-date">2026-11-20</td>
+                  <td></td>
+                </tr>
+
+                <!-- Row 5 — spare -->
+                <tr>
+                  <td class="col-strip"><span class="strip" style="background:#7C3AED"></span></td>
+                  <td class="c-id">005</td>
+                  <td class="c-name">WKSTN-SPARE1</td>
+                  <td>Lenovo ThinkCentre M720</td>
+                  <td class="c-muted">—</td>
+                  <td><span class="badge b-spare"><span class="dot"></span>Spare</span></td>
+                  <td class="c-date">2019-06-01</td>
+                  <td class="c-date">2022-06-01</td>
+                  <td>IT closet B, shelf 3</td>
+                </tr>
+
+                <!-- Row 6 — active -->
+                <tr>
+                  <td class="col-strip"><span class="strip" style="background:#2563EB"></span></td>
+                  <td class="c-id">006</td>
+                  <td class="c-name">WKSTN-PBARAN</td>
+                  <td>HP EliteBook 840 G9</td>
+                  <td>Baran, P.</td>
+                  <td><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date">2022-08-14</td>
+                  <td class="c-date">2025-08-14</td>
+                  <td></td>
+                </tr>
+
+                <!-- Row 7 — retired -->
+                <tr>
+                  <td class="col-strip"><span class="strip" style="background:#9CA3AF"></span></td>
+                  <td class="c-id">007</td>
+                  <td class="c-name c-muted">WKSTN-OLD-01</td>
+                  <td class="c-muted">Dell OptiPlex 3060</td>
+                  <td class="c-muted">—</td>
+                  <td><span class="badge b-retired"><span class="dot"></span>Retired</span></td>
+                  <td class="c-date">2018-03-05</td>
+                  <td class="c-date">2021-03-05</td>
+                  <td class="c-muted">Decommissioned 2024-11</td>
+                </tr>
+
+                <!-- Row 8 — active -->
+                <tr>
+                  <td class="col-strip"><span class="strip" style="background:#2563EB"></span></td>
+                  <td class="c-id">008</td>
+                  <td class="c-name">WKSTN-MWOJC</td>
+                  <td>MacBook Pro 14"</td>
+                  <td>Wójcik, M.</td>
+                  <td><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date">2024-01-08</td>
+                  <td class="c-date">2027-01-08</td>
+                  <td></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Edit panel — visible on row selection -->
+        <div class="edit-panel">
+          <div class="ep-head">
+            <span class="ep-title">Edit Computer</span>
+            <span class="ep-close">×</span>
+          </div>
+          <div class="ep-body">
+            <div class="fg">
+              <label class="fl">Name</label>
+              <input class="fi" type="text" value="WKSTN-MGLOW" />
+            </div>
+            <div class="fg">
+              <label class="fl">Model</label>
+              <input class="fi" type="text" value='MacBook Pro 16"' />
+            </div>
+            <div class="fg">
+              <label class="fl">Assigned User</label>
+              <select class="fi" style="appearance:none">
+                <option selected>Głowacki, M.</option>
+                <option>Kowalski, K.</option>
+                <option>Nowak, J.</option>
+                <option>Wiśniewski, A.</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="fl">Status</label>
+              <select class="fi" style="appearance:none">
+                <option selected>Active</option>
+                <option>In Repair</option>
+                <option>Spare</option>
+                <option>Retired</option>
+                <option>Missing</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="fl">Purchase Date</label>
+              <input class="fi" type="date" value="2023-04-12" />
+            </div>
+            <div class="fg">
+              <label class="fl">Warranty Expiry</label>
+              <input class="fi" type="date" value="2026-04-12" />
+            </div>
+            <div class="fg">
+              <label class="fl">Notes</label>
+              <textarea class="fi fi-ta">Main dev machine</textarea>
+            </div>
+          </div>
+          <div class="ep-foot">
+            <button class="btn btn-primary" style="flex:1">Save</button>
+            <button class="btn">Cancel</button>
+            <button class="btn" style="color:#DC2626;border-color:#FECACA">Delete</button>
+          </div>
+        </div>
+
+      </div><!-- /workspace -->
+
+    </div><!-- /content -->
+
+    <!-- Statusbar -->
+    <div class="statusbar">
+      <span class="sb-item"><strong>18</strong> computers</span>
+      <div class="sb-rule"></div>
+      <span class="sb-item">sorted by <strong>id</strong> desc</span>
+      <div class="sb-rule"></div>
+      <span class="sb-item"><strong>2</strong> expiring within 30 days</span>
+      <div class="sb-rule"></div>
+      <span class="sb-item">DB: <strong>/home/mg/inventory.db</strong></span>
+    </div>
+
+  </div><!-- /main -->
+
+</div><!-- /shell -->
+
+<!-- ═══════════════════════════════════════════════════════
+     VIEW: COMPACT DENSITY (24 px rows)
+════════════════════════════════════════════════════════ -->
+<p style="font-family:var(--ui);font-size:11px;color:var(--text-2);padding:8px 16px;background:var(--page);border-top:1px solid var(--border);margin-top:24px;">
+  VIEW: Compact density — 24 px row height (matches current PyQt6 app)
+</p>
+<div class="shell" style="height:320px;margin-top:0;">
+  <nav class="sidebar">
+    <div class="sidebar-head">
+      <div class="logo">
+        <div class="logo-mark">IT</div>
+        <span class="logo-text">Inventory</span>
+      </div>
+    </div>
+    <div class="sidebar-body">
+      <div class="sidebar-section">
+        <div class="section-label">Hardware</div>
+        <div class="nav-item is-active">Computers <span class="nav-count">18</span></div>
+        <div class="nav-item">Smartphones <span class="nav-count">9</span></div>
+        <div class="nav-item">Tablets <span class="nav-count">5</span></div>
+      </div>
+    </div>
+    <div class="sidebar-foot"><div class="sidebar-version">v2.0.0-dev · inventory.db</div></div>
+  </nav>
+  <div class="main">
+    <div class="topbar">
+      <div class="search-wrap"><input class="search-input" type="text" placeholder="Search computers…" /></div>
+      <div class="topbar-gap"></div>
+      <button class="tbtn">Export CSV</button>
+      <button class="tbtn tbtn-alert">Alerts <span class="alert-pip">2</span></button>
+    </div>
+    <div class="content">
+      <div class="content-bar">
+        <div><div class="content-heading">Computers</div><div class="content-sub">18 records · compact</div></div>
+        <div class="content-actions"><button class="btn btn-primary">+ Add Computer</button></div>
+      </div>
+      <div class="workspace">
+        <div class="table-area">
+          <div class="table-scroll">
+            <table class="dtable">
+              <thead><tr>
+                <th class="col-strip"></th>
+                <th>ID</th><th>Name</th><th>Model</th><th>User</th><th>Status</th><th>Warranty</th>
+              </tr></thead>
+              <tbody>
+                <tr style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#2563EB;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-001</td>
+                  <td class="c-name" style="padding:3px 11px;">WKSTN-MGLOW</td>
+                  <td style="padding:3px 11px;">MacBook Pro 16"</td>
+                  <td style="padding:3px 11px;">Głowacki, M.</td>
+                  <td style="padding:3px 11px;"><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date" style="padding:3px 11px;">2026-04-12</td>
+                </tr>
+                <tr class="is-expiring" style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#D97706;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-002</td>
+                  <td class="c-name" style="padding:3px 11px;">LAPTOP-SALES</td>
+                  <td style="padding:3px 11px;">Dell XPS 15</td>
+                  <td style="padding:3px 11px;">Nowak, A.</td>
+                  <td style="padding:3px 11px;"><span class="badge b-active"><span class="dot"></span>Active</span></td>
+                  <td class="c-date is-warn" style="padding:3px 11px;">2026-07-03</td>
+                </tr>
+                <tr style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#7C3AED;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-003</td>
+                  <td class="c-name" style="padding:3px 11px;">SPARE-01</td>
+                  <td style="padding:3px 11px;">Lenovo ThinkPad</td>
+                  <td style="padding:3px 11px; color:var(--text-3);">—</td>
+                  <td style="padding:3px 11px;"><span class="badge b-spare"><span class="dot"></span>Spare</span></td>
+                  <td class="c-date" style="padding:3px 11px;">2027-01-15</td>
+                </tr>
+                <tr style="height:24px;">
+                  <td class="col-strip"><span class="strip" style="background:#9CA3AF;min-height:24px;"></span></td>
+                  <td class="c-id" style="padding:3px 11px;">C-004</td>
+                  <td class="c-name c-muted" style="padding:3px 11px;">OLD-MGMT-01</td>
+                  <td style="padding:3px 11px; color:var(--text-3);">HP EliteBook</td>
+                  <td style="padding:3px 11px; color:var(--text-3);">—</td>
+                  <td style="padding:3px 11px;"><span class="badge b-retired"><span class="dot"></span>Retired</span></td>
+                  <td class="c-date" style="padding:3px 11px;">2023-06-01</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statusbar">
+      <span class="sb-item"><strong>18</strong> computers</span>
+      <div class="sb-rule"></div>
+      <span class="sb-item">density: <strong>compact</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     VIEW: DARK MODE SKELETON
+════════════════════════════════════════════════════════ -->
+<p style="font-family:var(--ui);font-size:11px;color:var(--text-2);padding:8px 16px;background:var(--page);border-top:1px solid var(--border);margin-top:24px;">
+  VIEW: Dark mode — manual toggle, Light default. System-follow deferred to Phase 4.
+</p>
+<div class="shell" style="height:320px;margin-top:0;background:#0F172A;">
+  <nav class="sidebar" style="background:#060D18;border-right-color:#0A1120;">
+    <div class="sidebar-head">
+      <div class="logo">
+        <div class="logo-mark">IT</div>
+        <span class="logo-text" style="color:#DDE8F5;">Inventory</span>
+      </div>
+    </div>
+    <div class="sidebar-body">
+      <div class="sidebar-section">
+        <div class="section-label" style="color:#3A4F6A;">Hardware</div>
+        <div class="nav-item is-active" style="background:#182337;border-left-color:#2563EB;color:#DDE8F5;">Computers <span class="nav-count" style="color:#4A6480;">18</span></div>
+        <div class="nav-item" style="color:#6B82A0;">Smartphones <span class="nav-count">9</span></div>
+        <div class="nav-item" style="color:#6B82A0;">Tablets <span class="nav-count">5</span></div>
+      </div>
+    </div>
+    <div class="sidebar-foot"><div class="sidebar-version" style="color:#3A4F6A;">v2.0.0-dev · inventory.db</div></div>
+  </nav>
+  <div class="main" style="background:#0F172A;">
+    <div class="topbar" style="background:#1E293B;border-bottom-color:#0A1120;">
+      <div class="search-wrap" style="background:#0F172A;border-color:#334155;">
+        <input class="search-input" type="text" placeholder="Search computers…" style="color:#DDE8F5;" />
+      </div>
+      <div class="topbar-gap"></div>
+      <button class="tbtn" style="background:transparent;color:#94A3B8;border-color:#334155;">Export CSV</button>
+      <button class="tbtn" style="background:transparent;color:#94A3B8;border-color:#334155;position:relative;">Alerts<span class="alert-pip" style="background:#DC2626;">2</span></button>
+      <button class="tbtn" style="background:transparent;color:#F1C40F;border-color:#334155;font-size:16px;line-height:1;" title="Switch to Light mode">☀</button>
+    </div>
+    <div class="content">
+      <div class="content-bar">
+        <div><div class="content-heading" style="color:#DDE8F5;">Computers</div><div class="content-sub">18 records</div></div>
+        <div class="content-actions"><button class="btn btn-primary">+ Add Computer</button></div>
+      </div>
+      <div class="workspace">
+        <div class="table-area">
+          <div class="table-scroll" style="border-color:#1E293B;">
+            <table class="dtable">
+              <thead><tr>
+                <th class="col-strip" style="background:#060D18;"></th>
+                <th style="background:#060D18;color:#4A6480;">ID</th>
+                <th style="background:#060D18;color:#4A6480;">Name</th>
+                <th style="background:#060D18;color:#4A6480;">Model</th>
+                <th style="background:#060D18;color:#4A6480;">User</th>
+                <th style="background:#060D18;color:#4A6480;">Status</th>
+                <th style="background:#060D18;color:#4A6480;">Warranty</th>
+              </tr></thead>
+              <tbody>
+                <tr style="background:#1A2947;border-bottom:1px solid #1E293B;">
+                  <td class="col-strip"><span class="strip" style="background:#2563EB;"></span></td>
+                  <td class="c-id" style="color:#94A3B8;">C-001</td>
+                  <td style="font-weight:500;color:#DDE8F5;">WKSTN-MGLOW</td>
+                  <td style="color:#64748B;">MacBook Pro 16"</td>
+                  <td style="color:#64748B;">Głowacki, M.</td>
+                  <td><span style="background:rgba(37,99,235,.2);color:#60A5FA;font-size:11px;padding:1px 7px 2px;border-radius:2px;">● Active</span></td>
+                  <td class="c-date" style="color:#64748B;">2026-04-12</td>
+                </tr>
+                <tr style="background:#1C1A10;border-bottom:1px solid #1E293B;">
+                  <td class="col-strip"><span class="strip" style="background:#D97706;"></span></td>
+                  <td class="c-id" style="color:#94A3B8;">C-002</td>
+                  <td style="font-weight:500;color:#DDE8F5;">LAPTOP-SALES</td>
+                  <td style="color:#64748B;">Dell XPS 15</td>
+                  <td style="color:#64748B;">Nowak, A.</td>
+                  <td><span style="background:rgba(217,119,6,.2);color:#FBBF24;font-size:11px;padding:1px 7px 2px;border-radius:2px;">● Expiring</span></td>
+                  <td class="c-date" style="color:#D97706;">2026-07-03</td>
+                </tr>
+                <tr style="background:#0F172A;border-bottom:1px solid #1E293B;">
+                  <td class="col-strip"><span class="strip" style="background:#7C3AED;"></span></td>
+                  <td class="c-id" style="color:#94A3B8;">C-003</td>
+                  <td style="font-weight:500;color:#DDE8F5;">SPARE-01</td>
+                  <td style="color:#64748B;">Lenovo ThinkPad</td>
+                  <td style="color:#64748B;">—</td>
+                  <td><span style="background:rgba(124,58,237,.2);color:#A78BFA;font-size:11px;padding:1px 7px 2px;border-radius:2px;">● Spare</span></td>
+                  <td class="c-date" style="color:#64748B;">2027-01-15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statusbar" style="background:#1E293B;border-top-color:#0A1120;">
+      <span class="sb-item" style="color:#64748B;"><strong style="color:#94A3B8;">18</strong> computers</span>
+      <div class="sb-rule" style="background:#334155;"></div>
+      <span class="sb-item" style="color:#64748B;">dark mode <strong style="color:#94A3B8;">on</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     VIEW: ALERTS OVERLAY (F5 / Alerts button)
+════════════════════════════════════════════════════════ -->
+<p style="font-family:var(--ui);font-size:11px;color:var(--text-2);padding:8px 16px;background:var(--page);border-top:1px solid var(--border);margin-top:24px;">
+  VIEW: Alerts overlay — triggered by F5 or Alerts button. Shows warranty/expiry alerts. Closes on Esc or click-outside.
+</p>
+<div style="position:relative;height:420px;background:var(--page);overflow:hidden;margin-top:0;border-top:1px solid var(--border);">
+  <!-- Dimmed shell behind overlay -->
+  <div class="shell" style="height:420px;opacity:.35;pointer-events:none;">
+    <nav class="sidebar">
+      <div class="sidebar-head"><div class="logo"><div class="logo-mark">IT</div><span class="logo-text">Inventory</span></div></div>
+    </nav>
+    <div class="main">
+      <div class="topbar"></div>
+    </div>
+  </div>
+  <!-- Overlay backdrop -->
+  <div style="position:absolute;inset:0;background:rgba(15,23,42,.45);z-index:10;"></div>
+  <!-- Alerts modal panel -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;background:var(--surface);border:1px solid var(--border);width:640px;max-height:320px;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(15,23,42,.18);">
+    <!-- Modal header — uses signature dark bg matching table header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--th-bg);">
+      <span style="font-size:13px;font-weight:600;color:#DDE8F5;letter-spacing:.02em;">ALERTS — Expiring &amp; Expired</span>
+      <button style="background:none;border:none;cursor:pointer;color:#6B82A0;font-size:16px;line-height:1;padding:2px 6px;" title="Close (Esc)">×</button>
+    </div>
+    <!-- Modal table -->
+    <div style="overflow-y:auto;flex:1;">
+      <table style="width:100%;border-collapse:collapse;font-family:var(--ui);font-size:12px;">
+        <thead>
+          <tr style="background:var(--page);">
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Type</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">ID</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Name</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Warranty Expiry</th>
+            <th style="padding:6px 10px;text-align:left;color:var(--text-2);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);">Days</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#FFF5F5;border-bottom:1px solid #FFE4E4;">
+            <td style="padding:6px 10px;color:var(--text-2);">Computer</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--text-2);">C-007</td>
+            <td style="padding:6px 10px;font-weight:500;color:var(--text);">SERVER-BACK</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--s-expired);">2026-04-01</td>
+            <td style="padding:6px 10px;"><span style="background:rgba(220,38,38,.12);color:var(--s-expired);font-size:10px;padding:1px 6px;border-radius:2px;font-weight:600;">EXPIRED</span></td>
+          </tr>
+          <tr style="background:#FFFBEB;border-bottom:1px solid #FEF3C7;">
+            <td style="padding:6px 10px;color:var(--text-2);">Computer</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--text-2);">C-002</td>
+            <td style="padding:6px 10px;font-weight:500;color:var(--text);">LAPTOP-SALES</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--s-expiring);">2026-07-03</td>
+            <td style="padding:6px 10px;"><span style="background:rgba(217,119,6,.12);color:var(--s-expiring);font-size:10px;padding:1px 6px;border-radius:2px;font-weight:600;">16 days</span></td>
+          </tr>
+          <tr style="background:#FFFBEB;border-bottom:1px solid #FEF3C7;">
+            <td style="padding:6px 10px;color:var(--text-2);">Smartphone</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--text-2);">S-004</td>
+            <td style="padding:6px 10px;font-weight:500;color:var(--text);">PHONE-HR-02</td>
+            <td style="padding:6px 10px;font-family:var(--mono);font-size:11px;color:var(--s-expiring);">2026-07-14</td>
+            <td style="padding:6px 10px;"><span style="background:rgba(217,119,6,.12);color:var(--s-expiring);font-size:10px;padding:1px 6px;border-radius:2px;font-weight:600;">27 days</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Modal footer -->
+    <div style="padding:8px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;background:var(--page);">
+      <span style="font-size:11px;color:var(--text-3);align-self:center;">1 expired · 2 expiring within 30 days</span>
+      <button class="btn" style="font-size:12px;height:26px;">Close</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "change": "gover-ui-spec",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "eded2a4130c4b02f8fc050338cbe0f9c2a320b6e4282f2cba9120945766a3ceb",
+  "files": [
+    { "path": "openspec/changes/gover-ui-spec/proposal.md", "sha256": "397bd8a4ed33c3989e5fef56a77fe6e8183bddbe99b7e9327c74292402ae74aa" },
+    { "path": "openspec/changes/gover-ui-spec/design.md", "sha256": "7aadae266a24895e29e8e83a8d047ac80af62bbd3431a68308904fccecf98110" },
+    { "path": "openspec/changes/gover-ui-spec/tasks.md", "sha256": "5c28b9a154747ab2625da77c5b5111c74a89c3b61eb33c6f83b5b8bcfaa42ef8" },
+    { "path": "openspec/changes/gover-ui-spec/specs/ui-decisions/spec.md", "sha256": "b8bb5a73a4e73802a1ae38fd48e4b33cdc7117dc6ebccc047f678c6bddeb40e3" }
+  ]
+}

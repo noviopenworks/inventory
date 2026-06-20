@@ -1,0 +1,18 @@
+{
+  "change": "gover2-parity",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "9b7a3a210598c021fd022ffeab241f6cb878756c79d3e2def28bf05cc49f339d",
+  "files": [
+    { "path": "openspec/changes/gover2-parity/proposal.md", "sha256": "28a616df8261c429f04e0b34bdcf1b7c81b4f92e0ae19b39c7341b9ad9571100" },
+    { "path": "openspec/changes/gover2-parity/design.md", "sha256": "ea14ece95dffc7e61dd02d90b38d5f20292bda4b6bd57a0f4660f2c6bfa9b8e0" },
+    { "path": "openspec/changes/gover2-parity/tasks.md", "sha256": "1a02a2bf38b6fdcb36bc3db2b7db6290f6ef955f5b6f781bbc26c062cc020dbd" },
+    { "path": "openspec/changes/gover2-parity/specs/app-preferences/spec.md", "sha256": "6ae5b181e29003ab7bb7405e43d57a1ac671f802a81af0c74a9de0eae67a045b" },
+    { "path": "openspec/changes/gover2-parity/specs/asset-alerts/spec.md", "sha256": "fa0147a779dea992c93816651c007ac4dc66e210a51f475bfa34ea011ed58def" },
+    { "path": "openspec/changes/gover2-parity/specs/asset-search/spec.md", "sha256": "f684b98217cca680d4629862156c0e77f8d5587984907c375e21ad79f52ae71f" },
+    { "path": "openspec/changes/gover2-parity/specs/database-management/spec.md", "sha256": "35366e93b508a929e3bc572b9fdf70f8d92194cfe71e4f5c765b6f55314dbc10" },
+    { "path": "openspec/changes/gover2-parity/specs/data-export/spec.md", "sha256": "b18485034759bb39a89e856fceb083a8f4ef52a1fcaf490ff25d7ad8ad6b4d60" }
+  ]
+}

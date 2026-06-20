@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --c-page: #EEF1F7;
+  --c-surface: #FFFFFF;
+  --c-border: #DDE1EC;
+  --c-border-light: #EAECF4;
+  /* Light table header */
+  --c-th-bg: #E9EDF5;
+  --c-th-text: #334155;
+  --c-text-primary: #0F172A;
+  --c-text-secondary: #64748B;
+  --c-text-tertiary: #94A3B8;
+  --c-row-alt: #F6F8FC;
+  --c-row-hover: #EAF0FA;
+  --c-row-expiring: #FFFBEB;
+  --c-row-expired: #FFF5F5;
+  /* Light sidebar */
+  --c-sidebar: #E9EDF5;
+  --c-sidebar-hover: #DCE3EF;
+  --c-sidebar-active: #CFD9EC;
+  --c-sidebar-border: #DDE1EC;
+  --c-sidebar-text: #475569;
+  --c-sidebar-hi: #0F172A;
+}
+
+.dark {
+  --c-page: #0A0F18;
+  --c-surface: #0E1520;
+  --c-border: #1E293B;
+  --c-border-light: #16202F;
+  /* Dark table header */
+  --c-th-bg: #0B111B;
+  --c-th-text: #8FA5BF;
+  --c-text-primary: #DDE8F5;
+  --c-text-secondary: #8FA5BF;
+  --c-text-tertiary: #64748B;
+  --c-row-alt: #131C2A;
+  --c-row-hover: #18212F;
+  --c-row-expiring: #2A2410;
+  --c-row-expired: #2A1414;
+  /* Dark sidebar */
+  --c-sidebar: #0E1520;
+  --c-sidebar-hover: #131E2E;
+  --c-sidebar-active: #182337;
+  --c-sidebar-border: #141D2B;
+  --c-sidebar-text: #6B82A0;
+  --c-sidebar-hi: #DDE8F5;
+}

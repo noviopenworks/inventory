@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=IT Asset Inventory
-Comment=Track computers, phones, tablets and software licences
+Comment=Track computers, phones, tablets, licences and subscriptions
 Exec=/usr/local/bin/inventory
 Icon=computer
 Categories=Office;Utility;
