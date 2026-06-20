@@ -19,6 +19,27 @@ import (
 
 var errNoDB = errors.New("no database open")
 
+// list runs a read query, guarding the closed-db case and normalizing a nil
+// slice to an empty one so the frontend always receives [] rather than null.
+func list[T any](a *App, fn func(*sql.DB) ([]T, error)) ([]T, error) {
+	if a.db == nil {
+		return nil, errNoDB
+	}
+	out, err := fn(a.db)
+	if out == nil {
+		out = []T{}
+	}
+	return out, err
+}
+
+// withDB guards the closed-db case for write and side-effecting methods.
+func (a *App) withDB(fn func(*sql.DB) error) error {
+	if a.db == nil {
+		return errNoDB
+	}
+	return fn(a.db)
+}
+
 // App holds the application state shared between the Go backend and the Wails
 // frontend.
 type App struct {
@@ -56,95 +77,37 @@ func (a *App) Startup(ctx context.Context) {
 }
 
 // ListComputers returns all computers from the open database.
-func (a *App) ListComputers() ([]models.Computer, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListComputers(a.db)
-	if out == nil {
-		out = []models.Computer{}
-	}
-	return out, err
-}
+func (a *App) ListComputers() ([]models.Computer, error) { return list(a, services.ListComputers) }
 
 // ListSmartphones returns all smartphones from the open database.
 func (a *App) ListSmartphones() ([]models.Smartphone, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListSmartphones(a.db)
-	if out == nil {
-		out = []models.Smartphone{}
-	}
-	return out, err
+	return list(a, services.ListSmartphones)
 }
 
 // ListTablets returns all tablets from the open database.
-func (a *App) ListTablets() ([]models.Tablet, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListTablets(a.db)
-	if out == nil {
-		out = []models.Tablet{}
-	}
-	return out, err
-}
+func (a *App) ListTablets() ([]models.Tablet, error) { return list(a, services.ListTablets) }
 
 // ListWindowsKeys returns all Windows license keys from the open database.
 func (a *App) ListWindowsKeys() ([]models.WindowsKey, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListWindowsKeys(a.db)
-	if out == nil {
-		out = []models.WindowsKey{}
-	}
-	return out, err
+	return list(a, services.ListWindowsKeys)
 }
 
 // ListAntivirus returns all antivirus records from the open database.
-func (a *App) ListAntivirus() ([]models.Antivirus, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListAntivirus(a.db)
-	if out == nil {
-		out = []models.Antivirus{}
-	}
-	return out, err
-}
+func (a *App) ListAntivirus() ([]models.Antivirus, error) { return list(a, services.ListAntivirus) }
 
 // ListOtherSoftware returns all other-software records from the open database.
 func (a *App) ListOtherSoftware() ([]models.OtherSoftware, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListOtherSoftware(a.db)
-	if out == nil {
-		out = []models.OtherSoftware{}
-	}
-	return out, err
+	return list(a, services.ListOtherSoftware)
 }
 
 // ListUsers returns all users from the open database.
-func (a *App) ListUsers() ([]models.User, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListUsers(a.db)
-	if out == nil {
-		out = []models.User{}
-	}
-	return out, err
-}
+func (a *App) ListUsers() ([]models.User, error) { return list(a, services.ListUsers) }
 
 // GetAlerts returns expiry/warranty alerts based on the configured warning threshold.
 func (a *App) GetAlerts() ([]models.Alert, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	return services.GetAlerts(a.db, a.cfg.ExpiryWarningDays)
+	return list(a, func(db *sql.DB) ([]models.Alert, error) {
+		return services.GetAlerts(db, a.cfg.ExpiryWarningDays)
+	})
 }
 
 // GetDatabasePath returns the filesystem path of the currently open database.
@@ -226,24 +189,23 @@ func (a *App) OpenDatabaseDialog() error {
 
 // ExportCSV builds a CSV for the given category and prompts the user to save it.
 func (a *App) ExportCSV(category string) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	rows, err := services.BuildCSV(a.db, category)
-	if err != nil {
-		return err
-	}
-	path, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
-		DefaultFilename: category + ".csv",
-		Filters:         []runtime.FileFilter{{DisplayName: "CSV", Pattern: "*.csv"}},
+	return a.withDB(func(db *sql.DB) error {
+		rows, err := services.BuildCSV(db, category)
+		if err != nil {
+			return err
+		}
+		path, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+			DefaultFilename: category + ".csv",
+			Filters:         []runtime.FileFilter{{DisplayName: "CSV", Pattern: "*.csv"}},
+		})
+		if err != nil {
+			return err
+		}
+		if path == "" {
+			return nil // user cancelled
+		}
+		return services.WriteCSV(path, rows)
 	})
-	if err != nil {
-		return err
-	}
-	if path == "" {
-		return nil // user cancelled
-	}
-	return services.WriteCSV(path, rows)
 }
 
 // ---------------------------------------------------------------------------
@@ -252,27 +214,17 @@ func (a *App) ExportCSV(category string) error {
 
 // AddComputer inserts a new computer record.
 func (a *App) AddComputer(data models.ComputerInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	_, err := services.InsertComputer(a.db, data)
-	return err
+	return a.withDB(func(db *sql.DB) error { _, err := services.InsertComputer(db, data); return err })
 }
 
 // UpdateComputer updates the computer identified by id.
 func (a *App) UpdateComputer(id int, data models.ComputerInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.UpdateComputer(a.db, id, data)
+	return a.withDB(func(db *sql.DB) error { return services.UpdateComputer(db, id, data) })
 }
 
 // DeleteComputer removes the computer identified by id.
 func (a *App) DeleteComputer(id int) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.DeleteComputer(a.db, id)
+	return a.withDB(func(db *sql.DB) error { return services.DeleteComputer(db, id) })
 }
 
 // ---------------------------------------------------------------------------
@@ -281,27 +233,17 @@ func (a *App) DeleteComputer(id int) error {
 
 // AddSmartphone inserts a new smartphone record.
 func (a *App) AddSmartphone(data models.SmartphoneInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	_, err := services.InsertSmartphone(a.db, data)
-	return err
+	return a.withDB(func(db *sql.DB) error { _, err := services.InsertSmartphone(db, data); return err })
 }
 
 // UpdateSmartphone updates the smartphone identified by id.
 func (a *App) UpdateSmartphone(id int, data models.SmartphoneInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.UpdateSmartphone(a.db, id, data)
+	return a.withDB(func(db *sql.DB) error { return services.UpdateSmartphone(db, id, data) })
 }
 
 // DeleteSmartphone removes the smartphone identified by id.
 func (a *App) DeleteSmartphone(id int) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.DeleteSmartphone(a.db, id)
+	return a.withDB(func(db *sql.DB) error { return services.DeleteSmartphone(db, id) })
 }
 
 // ---------------------------------------------------------------------------
@@ -310,27 +252,17 @@ func (a *App) DeleteSmartphone(id int) error {
 
 // AddTablet inserts a new tablet record.
 func (a *App) AddTablet(data models.TabletInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	_, err := services.InsertTablet(a.db, data)
-	return err
+	return a.withDB(func(db *sql.DB) error { _, err := services.InsertTablet(db, data); return err })
 }
 
 // UpdateTablet updates the tablet identified by id.
 func (a *App) UpdateTablet(id int, data models.TabletInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.UpdateTablet(a.db, id, data)
+	return a.withDB(func(db *sql.DB) error { return services.UpdateTablet(db, id, data) })
 }
 
 // DeleteTablet removes the tablet identified by id.
 func (a *App) DeleteTablet(id int) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.DeleteTablet(a.db, id)
+	return a.withDB(func(db *sql.DB) error { return services.DeleteTablet(db, id) })
 }
 
 // ---------------------------------------------------------------------------
@@ -339,27 +271,17 @@ func (a *App) DeleteTablet(id int) error {
 
 // AddWindowsKey inserts a new Windows license key record.
 func (a *App) AddWindowsKey(data models.WindowsKeyInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	_, err := services.InsertWindowsKey(a.db, data)
-	return err
+	return a.withDB(func(db *sql.DB) error { _, err := services.InsertWindowsKey(db, data); return err })
 }
 
 // UpdateWindowsKey updates the Windows license key identified by id.
 func (a *App) UpdateWindowsKey(id int, data models.WindowsKeyInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.UpdateWindowsKey(a.db, id, data)
+	return a.withDB(func(db *sql.DB) error { return services.UpdateWindowsKey(db, id, data) })
 }
 
 // DeleteWindowsKey removes the Windows license key identified by id.
 func (a *App) DeleteWindowsKey(id int) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.DeleteWindowsKey(a.db, id)
+	return a.withDB(func(db *sql.DB) error { return services.DeleteWindowsKey(db, id) })
 }
 
 // ---------------------------------------------------------------------------
@@ -368,27 +290,17 @@ func (a *App) DeleteWindowsKey(id int) error {
 
 // AddAntivirus inserts a new antivirus record.
 func (a *App) AddAntivirus(data models.AntivirusInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	_, err := services.InsertAntivirus(a.db, data)
-	return err
+	return a.withDB(func(db *sql.DB) error { _, err := services.InsertAntivirus(db, data); return err })
 }
 
 // UpdateAntivirus updates the antivirus record identified by id.
 func (a *App) UpdateAntivirus(id int, data models.AntivirusInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.UpdateAntivirus(a.db, id, data)
+	return a.withDB(func(db *sql.DB) error { return services.UpdateAntivirus(db, id, data) })
 }
 
 // DeleteAntivirus removes the antivirus record identified by id.
 func (a *App) DeleteAntivirus(id int) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.DeleteAntivirus(a.db, id)
+	return a.withDB(func(db *sql.DB) error { return services.DeleteAntivirus(db, id) })
 }
 
 // ---------------------------------------------------------------------------
@@ -397,27 +309,20 @@ func (a *App) DeleteAntivirus(id int) error {
 
 // AddOtherSoftware inserts a new other-software record.
 func (a *App) AddOtherSoftware(data models.OtherSoftwareInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	_, err := services.InsertOtherSoftware(a.db, data)
-	return err
+	return a.withDB(func(db *sql.DB) error {
+		_, err := services.InsertOtherSoftware(db, data)
+		return err
+	})
 }
 
 // UpdateOtherSoftware updates the other-software record identified by id.
 func (a *App) UpdateOtherSoftware(id int, data models.OtherSoftwareInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.UpdateOtherSoftware(a.db, id, data)
+	return a.withDB(func(db *sql.DB) error { return services.UpdateOtherSoftware(db, id, data) })
 }
 
 // DeleteOtherSoftware removes the other-software record identified by id.
 func (a *App) DeleteOtherSoftware(id int) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.DeleteOtherSoftware(a.db, id)
+	return a.withDB(func(db *sql.DB) error { return services.DeleteOtherSoftware(db, id) })
 }
 
 // ---------------------------------------------------------------------------
@@ -426,27 +331,17 @@ func (a *App) DeleteOtherSoftware(id int) error {
 
 // AddUser inserts a new user record.
 func (a *App) AddUser(data models.UserInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	_, err := services.InsertUser(a.db, data)
-	return err
+	return a.withDB(func(db *sql.DB) error { _, err := services.InsertUser(db, data); return err })
 }
 
 // UpdateUser updates the user identified by id.
 func (a *App) UpdateUser(id int, data models.UserInput) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.UpdateUser(a.db, id, data)
+	return a.withDB(func(db *sql.DB) error { return services.UpdateUser(db, id, data) })
 }
 
 // DeleteUser removes the user identified by id.
 func (a *App) DeleteUser(id int) error {
-	if a.db == nil {
-		return errNoDB
-	}
-	return services.DeleteUser(a.db, id)
+	return a.withDB(func(db *sql.DB) error { return services.DeleteUser(db, id) })
 }
 
 // ---------------------------------------------------------------------------
@@ -455,27 +350,12 @@ func (a *App) DeleteUser(id int) error {
 
 // ListUsersForDropdown returns id and name pairs for all users.
 func (a *App) ListUsersForDropdown() ([]models.DropdownItem, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListUsersForDropdown(a.db)
-	if out == nil {
-		out = []models.DropdownItem{}
-	}
-	return out, err
+	return list(a, services.ListUsersForDropdown)
 }
 
 // ListDevicesForDropdown returns id, name and kind for all devices.
 func (a *App) ListDevicesForDropdown() ([]models.DeviceDropdownItem, error) {
-	if a.db == nil {
-		return nil, errNoDB
-	}
-	out, err := services.ListDevicesForDropdown(a.db)
-	if out == nil {
-		out = []models.DeviceDropdownItem{}
-	}
-	return out, err
+	return list(a, services.ListDevicesForDropdown)
 }
 
 var _ = backup.DB
-var _ = database.Open // keeps modernc.org/sqlite in go.mod
