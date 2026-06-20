@@ -30,6 +30,14 @@ export function AddWindowsKey(arg1) {
   return window['go']['bridge']['App']['AddWindowsKey'](arg1);
 }
 
+export function BackupDatabase(arg1) {
+  return window['go']['bridge']['App']['BackupDatabase'](arg1);
+}
+
+export function BackupDatabaseDialog() {
+  return window['go']['bridge']['App']['BackupDatabaseDialog']();
+}
+
 export function DeleteAntivirus(arg1) {
   return window['go']['bridge']['App']['DeleteAntivirus'](arg1);
 }

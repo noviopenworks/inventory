@@ -16,6 +16,10 @@ export function AddUser(arg1:models.UserInput):Promise<void>;
 
 export function AddWindowsKey(arg1:models.WindowsKeyInput):Promise<void>;
 
+export function BackupDatabase(arg1:string):Promise<void>;
+
+export function BackupDatabaseDialog():Promise<void>;
+
 export function DeleteAntivirus(arg1:number):Promise<void>;
 
 export function DeleteComputer(arg1:number):Promise<void>;

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
@@ -17,13 +18,14 @@ import (
 	"inventory/internal/services"
 )
 
-var errNoDB = errors.New("no database open")
+// ErrNoDB is returned when no database is open.
+var ErrNoDB = errors.New("no database open")
 
 // list runs a read query, guarding the closed-db case and normalizing a nil
 // slice to an empty one so the frontend always receives [] rather than null.
 func list[T any](a *App, fn func(*sql.DB) ([]T, error)) ([]T, error) {
 	if a.db == nil {
-		return nil, errNoDB
+		return nil, ErrNoDB
 	}
 	out, err := fn(a.db)
 	if out == nil {
@@ -35,7 +37,7 @@ func list[T any](a *App, fn func(*sql.DB) ([]T, error)) ([]T, error) {
 // withDB guards the closed-db case for write and side-effecting methods.
 func (a *App) withDB(fn func(*sql.DB) error) error {
 	if a.db == nil {
-		return errNoDB
+		return ErrNoDB
 	}
 	return fn(a.db)
 }
@@ -358,4 +360,26 @@ func (a *App) ListDevicesForDropdown() ([]models.DeviceDropdownItem, error) {
 	return list(a, services.ListDevicesForDropdown)
 }
 
-var _ = backup.DB
+// BackupDatabase writes a standalone copy of the open database to destPath.
+func (a *App) BackupDatabase(destPath string) error {
+	return a.withDB(func(db *sql.DB) error { return backup.Create(db, destPath) })
+}
+
+// BackupDatabaseDialog prompts for a destination and backs up the open
+// database there. Returns nil if the user cancels.
+func (a *App) BackupDatabaseDialog() error {
+	if a.db == nil {
+		return ErrNoDB
+	}
+	path, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		DefaultFilename: "inventory-backup-" + time.Now().Format("2006-01-02") + ".db",
+		Filters:         []runtime.FileFilter{{DisplayName: "SQLite database", Pattern: "*.db"}},
+	})
+	if err != nil {
+		return err
+	}
+	if path == "" {
+		return nil // user cancelled
+	}
+	return a.BackupDatabase(path)
+}
