@@ -2,8 +2,8 @@
 
 Roadmap for the Wails + Go + Vue + TypeScript rewrite of IT Asset Inventory.
 This document started as a planning artifact; phases are now tracked here as
-they are delivered. The current PyQt6 app remains the behavior reference until
-gover reaches feature parity.
+they are delivered. The Go/Wails app is now the sole `inventory` product —
+the PyQt6 app has been removed and the Go code promoted to the repo root.
 
 ## Objectives
 
@@ -22,7 +22,7 @@ gover reaches feature parity.
 | 2 — Read-Only Prototype | ✅ Done | `openspec/changes/archive/2026-06-18-gover2-readonly` |
 | 3 — Core CRUD | ✅ Done | `openspec/changes/archive/2026-06-18-gover2-crud` |
 | 4 — Alerts, Search, Export, Settings | ✅ Done | `openspec/changes/archive/2026-06-18-gover2-parity` |
-| 5 — Packaging And Migration | ⏳ Pending | `task gover:package:deb` / `:rpm` are stubs |
+| 5 — Packaging And Migration | ✅ Done | `task build:linux` (deb/rpm/tar) + `task build:windows` (exe); Go app promoted to repo root as the default `inventory` product, PyQt6 app removed |
 | 6 — Polish And Release Candidate | ⏳ Pending | — |
 
 ## Phase 0: Discovery And Decisions

@@ -1,10 +1,17 @@
 # IT Asset Inventory
 
-A desktop GUI application for tracking IT assets — computers, smartphones, tablets, software licences, Windows keys, antivirus subscriptions — and the users they are assigned to. Built with PyQt6 and a local SQLite database; no server or internet connection required.
+A local-first desktop application for tracking IT assets — computers, smartphones,
+tablets, software licences, Windows keys, antivirus subscriptions — and the users
+they are assigned to. No server or internet connection required.
 
-> **Note:** This project was mostly vibe-coded with GitHub Copilot as an AI pair programmer. It works, it has tests, and the code is reasonably clean — but don't expect every architectural decision to hold up to deep scrutiny.
+Built with:
 
-> **Rewrite in progress:** [`gover/`](gover/) is a Wails + Go + Vue + TypeScript rewrite of this app. Phases 0–4 (discovery, foundation, read-only prototype, CRUD, supporting features) are complete; packaging and polish remain. The PyQt6 app described below is the current stable release and the behavior reference for gover. See [`gover/README.md`](gover/README.md) for the rewrite.
+- [Wails v2](https://wails.io/) — desktop shell and Go ↔ TypeScript bridge
+- [Go 1.25](https://go.dev/) — backend services and SQLite access (`modernc.org/sqlite`, pure Go, no CGo for the DB)
+- [Vue 3](https://vuejs.org/) + [TypeScript](https://www.typescriptlang.org/) — frontend
+- [Tailwind CSS](https://tailwindcss.com/) — styling with CSS-variable theme tokens
+- [Pinia](https://pinia.vuejs.org/) — state management
+- SQLite — local data store
 
 ---
 
@@ -12,24 +19,16 @@ A desktop GUI application for tracking IT assets — computers, smartphones, tab
 
 - **Asset tracking** across six categories: Computers, Smartphones, Tablets, Windows Keys, Antivirus, Other Software
 - **User management** — assign devices to people, track user status
-- **Unified "All" view** — see every hardware asset in one table
-- **Expiry/warranty alerts** — highlights items expiring within 30 days on startup
+- **Unified "All" view** — every hardware asset in one table
+- **Expiry/warranty alerts** — highlights items expiring soon
 - **Inline editing** — add, edit, delete records through modal dialogs
-- **CSV export** — export any tab's data to a CSV file
-- **Dark mode** — toggle via the View menu; preference is persisted
+- **CSV export** — export any view's data to a CSV file
+- **Dark mode** — toggle in the UI; preference is persisted
 - **Local SQLite database** — stored in your home directory, no cloud, no account
 
 ---
 
-## Screenshots
-
-_TODO_
-
----
-
 ## Installation
-
-### Pre-built binaries (recommended)
 
 Download the latest release for your platform from the [Releases](../../releases) page:
 
@@ -40,23 +39,12 @@ Download the latest release for your platform from the [Releases](../../releases
 | Other Linux | `inventory-<version>-linux-x86_64.tar.gz` |
 | Windows | `inventory-<version>-windows-x86_64.exe` |
 
-**Debian/Ubuntu:**
-```sh
-sudo dpkg -i inventory_<version>_amd64.deb
-```
+**Debian/Ubuntu:** `sudo dpkg -i inventory_<version>_amd64.deb`
+**RPM:** `sudo rpm -i inventory-<version>-1.x86_64.rpm`
+**tar.gz:** `tar xzf inventory-<version>-linux-x86_64.tar.gz && sudo ./inventory-<version>-linux-x86_64/install.sh`
+**Windows:** run the `.exe` directly.
 
-**RPM:**
-```sh
-sudo rpm -i inventory-<version>-1.x86_64.rpm
-```
-
-**tar.gz:**
-```sh
-tar xzf inventory-<version>-linux-x86_64.tar.gz
-sudo ./inventory-<version>-linux-x86_64/install.sh
-```
-
-**Windows:** Run the `.exe` directly — no installer needed.
+> Linux packages depend on `webkit2gtk-4.1` and `gtk3` at runtime (declared in the deb/rpm metadata).
 
 ---
 
@@ -64,17 +52,19 @@ sudo ./inventory-<version>-linux-x86_64/install.sh
 
 ### Requirements
 
-- Python 3.14+
-- [uv](https://docs.astral.sh/uv/)
+- [Go](https://go.dev/doc/install) 1.25+
+- [Node.js](https://nodejs.org/) 20+ with [pnpm](https://pnpm.io/)
+- [Wails CLI](https://wails.io/docs/gettingstarted/installation) v2
 - [Task](https://taskfile.dev)
+- Linux: `libwebkit2gtk-4.1-dev` and `libgtk-3-dev`
 
 ### Setup
 
 ```sh
 git clone https://github.com/noviopenworks/inventory.git
 cd inventory
-task install       # uv sync --all-groups
-task run           # launch the app
+task install       # go mod download + pnpm install
+task dev           # launch the app with hot reload
 ```
 
 ---
@@ -82,19 +72,17 @@ task run           # launch the app
 ## Development tasks
 
 ```sh
-task               # list all tasks
-task run           # run the app
-task test          # run the test suite
-task test:cov      # tests with coverage report (target ≥ 85 %)
-task lint          # ruff check
-task lint:fix      # ruff check --fix
-task fmt           # ruff format
-task type:check    # mypy
-task check         # lint + type-check + tests (CI-style)
+task                 # list all tasks
+task dev             # run the app (hot reload)
+task build           # build a release binary → build/bin/inventory
+task test            # go test + vitest
+task lint            # golangci-lint
+task typecheck       # vue-tsc
+task check           # lint + typecheck + test (CI-style)
 task version:bump VERSION=1.2.3   # bump version everywhere
-task build:linux   # build .deb + .tar.gz + .rpm (Linux only)
-task build:windows # build .exe (Windows only)
-task clean         # remove dist/, build/ and caches
+task build:linux     # build .deb + .tar.gz + .rpm (Linux only)
+task build:windows   # build .exe (Windows only)
+task clean           # remove build/bin, dist/, caches
 ```
 
 ---
@@ -102,31 +90,31 @@ task clean         # remove dist/, build/ and caches
 ## Project structure
 
 ```
-main.py              # entry point
-app/
-  main_window.py     # main window, menus, tab bar
-  dialogs.py         # add/edit dialogs
-  models.py          # Qt table model
-  style.py           # theme and stylesheet helpers
-db/
-  schema.py          # SQLite DDL and migrations
-  queries.py         # read queries (All view, expiry alerts)
-  connection.py      # connection factory
-  config.py          # per-table column metadata and constants
-  alerts.py          # expiry/warranty alert queries
-tests/               # pytest test suite
-gover/               # Wails + Go + Vue rewrite (in development; see gover/README.md)
+main.go              # Wails entry point
+app.go               # App factory (delegates to internal/bridge)
+wails.json           # Wails project config
+internal/
+  backup/            # database backup and restore
+  bridge/            # Wails-exposed methods
+  config/            # app paths, DB location, preferences
+  database/          # SQLite connection, pragmas, schema
+  models/            # typed records
+  services/          # list/create/update/delete, CSV export, alerts
+frontend/            # Vue 3 + TypeScript + Tailwind UI
 packaging/
   deb/               # Debian packaging templates
   rpm/               # RPM spec template
+docs/                # architecture notes, decisions, development plan
 ```
 
 ---
 
-## Building packages
+## Documentation
 
-Packages are built with PyInstaller and wrapped by platform-specific tools.
-CI runs `task build:linux` (deb + rpm + tar.gz) and `task build:windows` (exe) in parallel and publishes everything to the GitHub release.
+- [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md) — phased roadmap and status
+- [`docs/ARCHITECTURE_NOTES.md`](docs/ARCHITECTURE_NOTES.md) — runtime boundaries and package layout
+- [`docs/DECISIONS.md`](docs/DECISIONS.md) — canonical decision log
+- [`openspec/specs/`](openspec/specs/) — published specifications
 
 ---
 

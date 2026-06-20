@@ -1,5 +1,5 @@
 export namespace models {
-
+	
 	export class Alert {
 	    category: string;
 	    id: number;
@@ -7,11 +7,11 @@ export namespace models {
 	    expiryDate: string;
 	    daysRemaining: number;
 	    severity: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new Alert(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.category = source["category"];
@@ -34,11 +34,11 @@ export namespace models {
 	    notes?: string;
 	    createdAt: string;
 	    updatedAt: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new Antivirus(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -63,11 +63,11 @@ export namespace models {
 	    status: string;
 	    expiryDate?: string;
 	    notes?: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new AntivirusInput(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
@@ -85,11 +85,11 @@ export namespace models {
 	    density: string;
 	    darkMode: boolean;
 	    expiryWarningDays: number;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new AppConfig(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.dbPath = source["dbPath"];
@@ -109,11 +109,11 @@ export namespace models {
 	    notes?: string;
 	    createdAt: string;
 	    updatedAt: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new Computer(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -136,11 +136,11 @@ export namespace models {
 	    purchaseDate?: string;
 	    warrantyExpiry?: string;
 	    notes?: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new ComputerInput(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
@@ -156,11 +156,11 @@ export namespace models {
 	    id: number;
 	    name: string;
 	    kind: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new DeviceDropdownItem(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -171,11 +171,11 @@ export namespace models {
 	export class DropdownItem {
 	    id: number;
 	    name: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new DropdownItem(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -194,11 +194,11 @@ export namespace models {
 	    notes?: string;
 	    createdAt: string;
 	    updatedAt: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new OtherSoftware(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -223,11 +223,11 @@ export namespace models {
 	    status: string;
 	    expiryDate?: string;
 	    notes?: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new OtherSoftwareInput(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
@@ -251,11 +251,11 @@ export namespace models {
 	    notes?: string;
 	    createdAt: string;
 	    updatedAt: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new Smartphone(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -278,11 +278,11 @@ export namespace models {
 	    purchaseDate?: string;
 	    warrantyExpiry?: string;
 	    notes?: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new SmartphoneInput(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
@@ -305,11 +305,11 @@ export namespace models {
 	    notes?: string;
 	    createdAt: string;
 	    updatedAt: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new Tablet(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -332,11 +332,11 @@ export namespace models {
 	    purchaseDate?: string;
 	    warrantyExpiry?: string;
 	    notes?: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new TabletInput(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
@@ -356,11 +356,11 @@ export namespace models {
 	    notes?: string;
 	    createdAt: string;
 	    updatedAt: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new User(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -377,11 +377,11 @@ export namespace models {
 	    surname?: string;
 	    status: string;
 	    notes?: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new UserInput(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.name = source["name"];
@@ -398,11 +398,11 @@ export namespace models {
 	    notes?: string;
 	    createdAt: string;
 	    updatedAt: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new WindowsKey(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
@@ -419,11 +419,11 @@ export namespace models {
 	    computerId?: number;
 	    status: string;
 	    notes?: string;
-
+	
 	    static createFrom(source: any = {}) {
 	        return new WindowsKeyInput(source);
 	    }
-
+	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.licenseKey = source["licenseKey"];
@@ -434,3 +434,4 @@ export namespace models {
 	}
 
 }
+
