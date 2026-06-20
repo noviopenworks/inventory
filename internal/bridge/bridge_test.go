@@ -1,7 +1,6 @@
 package bridge_test
 
 import (
-	"os"
 	"path/filepath"
 	"testing"
 
@@ -484,70 +483,6 @@ func TestExportCSV_BuildRows_Computers(t *testing.T) {
 	assert.Equal(t, "PC1", rows[1][0])
 }
 
-func TestBuildCSV_AllCategories(t *testing.T) {
-	db, err := database.Open(":memory:")
-	require.NoError(t, err)
-	require.NoError(t, database.InitSchema(db))
-	t.Cleanup(func() { _ = db.Close() })
-
-	// Insert one record per category
-	_, err = services.InsertSmartphone(db, models.SmartphoneInput{Name: "Pixel", Model: "9", Status: "active"})
-	require.NoError(t, err)
-	_, err = services.InsertTablet(db, models.TabletInput{Name: "iPad", Model: "Pro", Status: "active"})
-	require.NoError(t, err)
-	_, err = services.InsertWindowsKey(db, models.WindowsKeyInput{LicenseKey: "KEY-1", Status: "active"})
-	require.NoError(t, err)
-	_, err = services.InsertAntivirus(db, models.AntivirusInput{Name: "Norton", LicenseKey: "NRT", Status: "active"})
-	require.NoError(t, err)
-	_, err = services.InsertOtherSoftware(db, models.OtherSoftwareInput{Name: "Office", LicenseKey: "OFF", Status: "active"})
-	require.NoError(t, err)
-	_, err = services.InsertUser(db, models.UserInput{Name: "Alice", Status: "active"})
-	require.NoError(t, err)
-
-	cases := []struct {
-		category string
-		wantRows int
-		wantCol0 string
-	}{
-		{"smartphones", 2, "Pixel"},
-		{"tablets", 2, "iPad"},
-		{"windowskeys", 2, "KEY-1"},
-		{"antivirus", 2, "Norton"},
-		{"othersoftware", 2, "Office"},
-		{"users", 2, "Alice"},
-	}
-	for _, tc := range cases {
-		tc := tc
-		t.Run(tc.category, func(t *testing.T) {
-			rows, err := services.BuildCSV(db, tc.category)
-			require.NoError(t, err)
-			require.Len(t, rows, tc.wantRows)
-			assert.Equal(t, tc.wantCol0, rows[1][0])
-		})
-	}
-}
-
-func TestBuildCSV_UnknownCategory(t *testing.T) {
-	db, err := database.Open(":memory:")
-	require.NoError(t, err)
-	require.NoError(t, database.InitSchema(db))
-	t.Cleanup(func() { _ = db.Close() })
-
-	_, err = services.BuildCSV(db, "bogus")
-	require.Error(t, err)
-	assert.Contains(t, err.Error(), "unknown category")
-}
-
-func TestWriteCSV_RoundTrip(t *testing.T) {
-	path := filepath.Join(t.TempDir(), "out.csv")
-	rows := [][]string{{"Name", "Status"}, {"Alice", "active"}}
-	require.NoError(t, services.WriteCSV(path, rows))
-
-	data, err := os.ReadFile(path)
-	require.NoError(t, err)
-	assert.Contains(t, string(data), "Alice")
-}
-
 // ---------------------------------------------------------------------------
 // Backup bridge tests
 // ---------------------------------------------------------------------------
@@ -577,7 +512,7 @@ func TestApp_GetAlerts_WithDB(t *testing.T) {
 func TestApp_GetSetConfig_RoundTrip(t *testing.T) {
 	t.Setenv("XDG_CONFIG_HOME", t.TempDir())
 	app := bridge.NewApp()
-	cfg := models.AppConfig{Density: "compact", DarkMode: true, ExpiryWarningDays: 7, DBPath: "/tmp/test.db"}
+	cfg := models.AppConfig{Density: "compact", DarkMode: true, ExpiryWarningDays: 7, DBPath: filepath.Join(t.TempDir(), "test.db")}
 	require.NoError(t, app.SetConfig(cfg))
 	got, err := app.GetConfig()
 	require.NoError(t, err)

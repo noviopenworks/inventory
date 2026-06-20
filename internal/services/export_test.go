@@ -76,3 +76,43 @@ func TestWriteCSV_RoundTrip(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, "A,B\n1,2\n", string(data))
 }
+
+func TestBuildCSV_AllCategories(t *testing.T) {
+	db := newExportDB(t)
+
+	// Insert one record per category
+	_, err := services.InsertSmartphone(db, models.SmartphoneInput{Name: "Pixel", Model: "9", Status: "active"})
+	require.NoError(t, err)
+	_, err = services.InsertTablet(db, models.TabletInput{Name: "iPad", Model: "Pro", Status: "active"})
+	require.NoError(t, err)
+	_, err = services.InsertWindowsKey(db, models.WindowsKeyInput{LicenseKey: "KEY-1", Status: "active"})
+	require.NoError(t, err)
+	_, err = services.InsertAntivirus(db, models.AntivirusInput{Name: "Norton", LicenseKey: "NRT", Status: "active"})
+	require.NoError(t, err)
+	_, err = services.InsertOtherSoftware(db, models.OtherSoftwareInput{Name: "Office", LicenseKey: "OFF", Status: "active"})
+	require.NoError(t, err)
+	_, err = services.InsertUser(db, models.UserInput{Name: "Alice", Status: "active"})
+	require.NoError(t, err)
+
+	cases := []struct {
+		category string
+		wantRows int
+		wantCol0 string
+	}{
+		{"smartphones", 2, "Pixel"},
+		{"tablets", 2, "iPad"},
+		{"windowskeys", 2, "KEY-1"},
+		{"antivirus", 2, "Norton"},
+		{"othersoftware", 2, "Office"},
+		{"users", 2, "Alice"},
+	}
+	for _, tc := range cases {
+		tc := tc
+		t.Run(tc.category, func(t *testing.T) {
+			rows, err := services.BuildCSV(db, tc.category)
+			require.NoError(t, err)
+			require.Len(t, rows, tc.wantRows)
+			assert.Equal(t, tc.wantCol0, rows[1][0])
+		})
+	}
+}
