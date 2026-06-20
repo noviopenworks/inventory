@@ -368,6 +368,7 @@ func (a *App) BackupDatabase(destPath string) error {
 // BackupDatabaseDialog prompts for a destination and backs up the open
 // database there. Returns nil if the user cancels.
 func (a *App) BackupDatabaseDialog() error {
+	// Guard before opening the dialog so we don't prompt when no DB is loaded.
 	if a.db == nil {
 		return ErrNoDB
 	}

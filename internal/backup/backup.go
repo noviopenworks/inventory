@@ -3,6 +3,7 @@ package backup
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -11,6 +12,9 @@ import (
 // VACUUM INTO, which produces a defragmented snapshot regardless of WAL state.
 // destPath must not already exist (VACUUM INTO refuses to overwrite).
 func Create(db *sql.DB, destPath string) error {
+	if db == nil {
+		return errors.New("backup: nil database")
+	}
 	// VACUUM INTO does not accept a bound parameter for its destination, so the
 	// path is inlined with single quotes escaped by doubling.
 	escaped := strings.ReplaceAll(destPath, "'", "''")

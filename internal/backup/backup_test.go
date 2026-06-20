@@ -10,7 +10,12 @@ import (
 	"inventory/internal/database"
 )
 
-func TestBackupDB_ProducesOpenableCopyWithSameRows(t *testing.T) {
+func TestCreate_NilDB_ReturnsError(t *testing.T) {
+	err := backup.Create(nil, filepath.Join(t.TempDir(), "out.db"))
+	require.Error(t, err)
+}
+
+func TestCreate_ProducesOpenableCopyWithSameRows(t *testing.T) {
 	src, err := database.Open(filepath.Join(t.TempDir(), "src.db"))
 	require.NoError(t, err)
 	t.Cleanup(func() { _ = src.Close() })
