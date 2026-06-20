@@ -17,7 +17,7 @@ func ListComputers(db *sql.DB) ([]models.Computer, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.Computer
 	for rows.Next() {
 		var c models.Computer
@@ -38,7 +38,7 @@ func ListSmartphones(db *sql.DB) ([]models.Smartphone, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.Smartphone
 	for rows.Next() {
 		var s models.Smartphone
@@ -59,7 +59,7 @@ func ListTablets(db *sql.DB) ([]models.Tablet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.Tablet
 	for rows.Next() {
 		var tab models.Tablet
@@ -80,7 +80,7 @@ func ListWindowsKeys(db *sql.DB) ([]models.WindowsKey, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.WindowsKey
 	for rows.Next() {
 		var w models.WindowsKey
@@ -101,7 +101,7 @@ func ListAntivirus(db *sql.DB) ([]models.Antivirus, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.Antivirus
 	for rows.Next() {
 		var a models.Antivirus
@@ -122,7 +122,7 @@ func ListOtherSoftware(db *sql.DB) ([]models.OtherSoftware, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.OtherSoftware
 	for rows.Next() {
 		var s models.OtherSoftware
@@ -142,7 +142,7 @@ func ListUsers(db *sql.DB) ([]models.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.User
 	for rows.Next() {
 		var u models.User
@@ -193,7 +193,7 @@ func GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	today := time.Now().Format("2006-01-02")
 	var out []models.Alert

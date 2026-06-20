@@ -1,0 +1,14 @@
+version: "2"
+
+run:
+  build-tags:
+    - webkit2_41
+
+# Uses golangci-lint's default "standard" linter set:
+# errcheck, govet, ineffassign, staticcheck, unused.
+
+issues:
+  # Report every finding (defaults cap duplicates at 3 / 50, which hides
+  # repeated patterns like unchecked rows.Close across many functions).
+  max-same-issues: 0
+  max-issues-per-linter: 0

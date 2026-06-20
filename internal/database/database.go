@@ -12,7 +12,7 @@ func Open(path string) (*sql.DB, error) {
 		return nil, err
 	}
 	if _, err = db.Exec("PRAGMA journal_mode=WAL"); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, err
 	}
 	return db, nil

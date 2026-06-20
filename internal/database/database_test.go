@@ -13,13 +13,13 @@ func TestOpen_InMemory(t *testing.T) {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
 	require.NotNil(t, db)
-	defer db.Close()
+	defer func() { _ = db.Close() }()
 }
 
 func TestInitSchema_CreatesAllTables(t *testing.T) {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
-	defer db.Close()
+	defer func() { _ = db.Close() }()
 
 	err = database.InitSchema(db)
 	require.NoError(t, err)
@@ -36,7 +36,7 @@ func TestInitSchema_CreatesAllTables(t *testing.T) {
 func TestInitSchema_Idempotent(t *testing.T) {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
-	defer db.Close()
+	defer func() { _ = db.Close() }()
 
 	require.NoError(t, database.InitSchema(db))
 	// Second call must not fail (IF NOT EXISTS)

@@ -12,7 +12,7 @@ func ListUsersForDropdown(db *sql.DB) ([]models.DropdownItem, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.DropdownItem
 	for rows.Next() {
 		var item models.DropdownItem
@@ -37,7 +37,7 @@ func ListDevicesForDropdown(db *sql.DB) ([]models.DeviceDropdownItem, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []models.DeviceDropdownItem
 	for rows.Next() {
 		var item models.DeviceDropdownItem

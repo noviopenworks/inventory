@@ -98,7 +98,7 @@ func WriteCSV(path string, rows [][]string) error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	w := csv.NewWriter(f)
 	if err := w.WriteAll(rows); err != nil {
 		return err

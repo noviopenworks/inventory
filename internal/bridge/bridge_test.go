@@ -17,7 +17,7 @@ func newBridgeWithDB(t *testing.T) *bridge.App {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
 	require.NoError(t, database.InitSchema(db))
-	t.Cleanup(func() { db.Close() })
+	t.Cleanup(func() { _ = db.Close() })
 	return bridge.NewAppWithDB(db)
 }
 
@@ -471,7 +471,7 @@ func TestExportCSV_BuildRows_Computers(t *testing.T) {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
 	require.NoError(t, database.InitSchema(db))
-	t.Cleanup(func() { db.Close() })
+	t.Cleanup(func() { _ = db.Close() })
 
 	_, err = services.InsertComputer(db, models.ComputerInput{Name: "PC1", Model: "Dell", Status: "active"})
 	require.NoError(t, err)

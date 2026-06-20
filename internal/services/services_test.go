@@ -2,7 +2,6 @@ package services_test
 
 import (
 	"database/sql"
-	"fmt"
 	"testing"
 	"time"
 
@@ -20,7 +19,7 @@ func openTestDB(t *testing.T) *sql.DB {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
 	require.NoError(t, database.InitSchema(db))
-	t.Cleanup(func() { db.Close() })
+	t.Cleanup(func() { _ = db.Close() })
 	return db
 }
 
@@ -130,7 +129,7 @@ func TestGetAlerts_NotExpiringSoon(t *testing.T) {
 	assert.Empty(t, result)
 
 	// Also test other_software expiring soon
-	expiringSoon := fmt.Sprintf("%s", time.Now().AddDate(0, 0, 10).Format("2006-01-02"))
+	expiringSoon := time.Now().AddDate(0, 0, 10).Format("2006-01-02")
 	_, err = db.Exec(`INSERT INTO other_software (name, status, expiry_date) VALUES (?, ?, ?)`, "Slack", "Active", expiringSoon)
 	require.NoError(t, err)
 	result, err = services.GetAlerts(db, 30)

@@ -19,7 +19,7 @@ func newExportDB(t *testing.T) *sql.DB {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
 	require.NoError(t, database.InitSchema(db))
-	t.Cleanup(func() { db.Close() })
+	t.Cleanup(func() { _ = db.Close() })
 	return db
 }
 

@@ -153,11 +153,11 @@ func (a *App) NewDatabase(path string) error {
 		return err
 	}
 	if err := database.InitSchema(db); err != nil {
-		db.Close()
+		_ = db.Close()
 		return err
 	}
 	if a.db != nil {
-		a.db.Close()
+		_ = a.db.Close()
 	}
 	a.db = db
 	a.cfg.DBPath = path
