@@ -10,10 +10,12 @@ vi.mock('vue-router', () => ({
 const exportCSV = vi.fn().mockResolvedValue(undefined)
 const newDatabaseDialog = vi.fn().mockResolvedValue(undefined)
 const openDatabaseDialog = vi.fn().mockResolvedValue(undefined)
+const backupDatabaseDialog = vi.fn().mockResolvedValue(undefined)
 vi.mock('@/lib/api', () => ({
   exportCSV: (c: string) => exportCSV(c),
   newDatabaseDialog: () => newDatabaseDialog(),
   openDatabaseDialog: () => openDatabaseDialog(),
+  backupDatabaseDialog: () => backupDatabaseDialog(),
 }))
 
 import Topbar from './Topbar.vue'
@@ -27,6 +29,7 @@ describe('Topbar action row', () => {
     exportCSV.mockClear()
     newDatabaseDialog.mockClear()
     openDatabaseDialog.mockClear()
+    backupDatabaseDialog.mockClear()
   })
 
   it('shows the CSV export button on a category route', () => {
@@ -71,6 +74,13 @@ describe('Topbar action row', () => {
     const items2 = wrapper.findAll('[data-menu-item]')
     await items2[1].trigger('click') // Open Database
     expect(openDatabaseDialog).toHaveBeenCalled()
+  })
+
+  it('backs up the database when the menu item is clicked', async () => {
+    const wrapper = mount(Topbar)
+    await wrapper.find('button[title="More"]').trigger('click')
+    await wrapper.get('[data-testid="backup-database"]').trigger('click')
+    expect(backupDatabaseDialog).toHaveBeenCalled()
   })
 
   it('emits open-alerts/open-about/open-license', async () => {

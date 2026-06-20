@@ -61,6 +61,14 @@
           >
             Open Database
           </button>
+          <button
+            data-menu-item
+            data-testid="backup-database"
+            class="block w-full text-left px-3 py-2 text-text-primary hover:bg-page"
+            @click="onBackupDatabase"
+          >
+            Backup database…
+          </button>
           <div class="border-t border-border"></div>
           <button
             data-menu-item
@@ -88,7 +96,7 @@ import { useRoute } from 'vue-router'
 import { useSearchStore } from '@/stores/search'
 import { useUiStore } from '@/stores/ui'
 import { categoryForRoute } from '@/lib/routeCategory'
-import { exportCSV, newDatabaseDialog, openDatabaseDialog } from '@/lib/api'
+import { backupDatabaseDialog, exportCSV, newDatabaseDialog, openDatabaseDialog } from '@/lib/api'
 
 const emit = defineEmits<{
   (e: 'open-alerts'): void
@@ -123,6 +131,11 @@ async function onOpenDatabase() {
   menuOpen.value = false
   await openDatabaseDialog()
   emit('db-changed')
+}
+
+async function onBackupDatabase() {
+  menuOpen.value = false
+  await backupDatabaseDialog()
 }
 
 function onAbout() {

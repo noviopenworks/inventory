@@ -106,6 +106,9 @@ export const newDatabaseDialog = (): Promise<void> =>
 export const openDatabaseDialog = (): Promise<void> =>
   call<void>('OpenDatabaseDialog')
 
+export const backupDatabaseDialog = (): Promise<void> =>
+  call<void>('BackupDatabaseDialog')
+
 export const exportCSV = (category: string): Promise<void> =>
   call<void>('ExportCSV', category)
 
