@@ -4,11 +4,19 @@ run:
   build-tags:
     - webkit2_41
 
-# Uses golangci-lint's default "standard" linter set:
-# errcheck, govet, ineffassign, staticcheck, unused.
+linters:
+  enable:
+    - errorlint
+    - revive
+    - gocritic
+    - misspell
+    - unconvert
+    - gocyclo
+  settings:
+    gocyclo:
+      min-complexity: 15
 
 issues:
-  # Report every finding (defaults cap duplicates at 3 / 50, which hides
-  # repeated patterns like unchecked rows.Close across many functions).
+  # Report every finding (defaults cap duplicates at 3 / 50).
   max-same-issues: 0
   max-issues-per-linter: 0

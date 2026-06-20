@@ -1,11 +1,13 @@
+// Package database provides SQLite database opening and schema initialisation.
 package database
 
 import (
 	"database/sql"
 
-	_ "modernc.org/sqlite"
+	_ "modernc.org/sqlite" // register the sqlite driver
 )
 
+// Open opens the SQLite database at path with WAL journal mode enabled.
 func Open(path string) (*sql.DB, error) {
 	db, err := sql.Open("sqlite", path)
 	if err != nil {
@@ -18,6 +20,7 @@ func Open(path string) (*sql.DB, error) {
 	return db, nil
 }
 
+// InitSchema creates all application tables and enables foreign-key support.
 func InitSchema(db *sql.DB) error {
 	_, err := db.Exec(`
 		PRAGMA foreign_keys = ON;

@@ -9,6 +9,7 @@ import (
 	"inventory/internal/models"
 )
 
+// ListComputers returns all computers ordered by name.
 func ListComputers(db *sql.DB) ([]models.Computer, error) {
 	rows, err := db.Query(
 		`SELECT id, COALESCE(name,''), COALESCE(model,''), user_id, COALESCE(status,''),
@@ -30,6 +31,7 @@ func ListComputers(db *sql.DB) ([]models.Computer, error) {
 	return out, rows.Err()
 }
 
+// ListSmartphones returns all smartphones ordered by name.
 func ListSmartphones(db *sql.DB) ([]models.Smartphone, error) {
 	rows, err := db.Query(
 		`SELECT id, COALESCE(name,''), COALESCE(model,''), user_id, COALESCE(status,''),
@@ -51,6 +53,7 @@ func ListSmartphones(db *sql.DB) ([]models.Smartphone, error) {
 	return out, rows.Err()
 }
 
+// ListTablets returns all tablets ordered by name.
 func ListTablets(db *sql.DB) ([]models.Tablet, error) {
 	rows, err := db.Query(
 		`SELECT id, COALESCE(name,''), COALESCE(model,''), user_id, COALESCE(status,''),
@@ -72,6 +75,7 @@ func ListTablets(db *sql.DB) ([]models.Tablet, error) {
 	return out, rows.Err()
 }
 
+// ListWindowsKeys returns all Windows license keys ordered by id.
 func ListWindowsKeys(db *sql.DB) ([]models.WindowsKey, error) {
 	rows, err := db.Query(
 		`SELECT id, COALESCE(license_key,''), computer_id, COALESCE(status,''),
@@ -93,6 +97,7 @@ func ListWindowsKeys(db *sql.DB) ([]models.WindowsKey, error) {
 	return out, rows.Err()
 }
 
+// ListAntivirus returns all antivirus records ordered by name.
 func ListAntivirus(db *sql.DB) ([]models.Antivirus, error) {
 	rows, err := db.Query(
 		`SELECT id, COALESCE(name,''), COALESCE(license_key,''), computer_id, smartphone_id, tablet_id,
@@ -114,6 +119,7 @@ func ListAntivirus(db *sql.DB) ([]models.Antivirus, error) {
 	return out, rows.Err()
 }
 
+// ListOtherSoftware returns all other-software records ordered by name.
 func ListOtherSoftware(db *sql.DB) ([]models.OtherSoftware, error) {
 	rows, err := db.Query(
 		`SELECT id, COALESCE(name,''), COALESCE(license_key,''), computer_id, smartphone_id, tablet_id,
@@ -135,6 +141,7 @@ func ListOtherSoftware(db *sql.DB) ([]models.OtherSoftware, error) {
 	return out, rows.Err()
 }
 
+// ListUsers returns all users ordered by name.
 func ListUsers(db *sql.DB) ([]models.User, error) {
 	rows, err := db.Query(
 		`SELECT id, COALESCE(name,''), surname, COALESCE(status,''), notes, created_at, updated_at
@@ -172,6 +179,7 @@ var alertSources = []alertSource{
 	{"other_software", "Other Software", "expiry_date"},
 }
 
+// GetAlerts returns expiry and warranty alerts for items expiring within warningDays.
 func GetAlerts(db *sql.DB, warningDays int) ([]models.Alert, error) {
 	threshold := fmt.Sprintf("+%d days", warningDays)
 	parts := make([]string, 0, len(alertSources))

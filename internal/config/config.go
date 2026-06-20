@@ -1,3 +1,4 @@
+// Package config handles loading and saving application configuration.
 package config
 
 import (
@@ -22,6 +23,8 @@ func defaultDBPath() string {
 	return filepath.Join(home, ".local", "share", "inventory", "inventory.db")
 }
 
+// Load reads the configuration file and returns the application config,
+// filling any missing fields with sane defaults.
 func Load() (models.AppConfig, error) {
 	defaults := models.AppConfig{
 		DBPath:            defaultDBPath(),
@@ -53,6 +56,7 @@ func Load() (models.AppConfig, error) {
 	return cfg, nil
 }
 
+// Save writes the configuration to disk atomically.
 func Save(cfg models.AppConfig) error {
 	p := configPath()
 	if err := os.MkdirAll(filepath.Dir(p), 0o755); err != nil {

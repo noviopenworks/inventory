@@ -15,6 +15,8 @@ func deref(s *string) string {
 }
 
 // BuildCSV returns header + data rows for a category in canonical column order.
+//
+//nolint:gocyclo // flat query assembly: each case is an independent category branch with no nesting
 func BuildCSV(db *sql.DB, category string) ([][]string, error) {
 	switch category {
 	case "computers":

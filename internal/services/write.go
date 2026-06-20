@@ -10,6 +10,7 @@ import (
 // Computers
 // ---------------------------------------------------------------------------
 
+// InsertComputer inserts a new computer record and returns its id.
 func InsertComputer(db *sql.DB, d models.ComputerInput) (int64, error) {
 	res, err := db.Exec(
 		`INSERT INTO computers (name, model, user_id, status, purchase_date, warranty_expiry, notes)
@@ -22,6 +23,7 @@ func InsertComputer(db *sql.DB, d models.ComputerInput) (int64, error) {
 	return res.LastInsertId()
 }
 
+// UpdateComputer updates the computer identified by id.
 func UpdateComputer(db *sql.DB, id int, d models.ComputerInput) error {
 	_, err := db.Exec(
 		`UPDATE computers SET name=?, model=?, user_id=?, status=?, purchase_date=?,
@@ -31,6 +33,7 @@ func UpdateComputer(db *sql.DB, id int, d models.ComputerInput) error {
 	return err
 }
 
+// DeleteComputer removes the computer identified by id.
 func DeleteComputer(db *sql.DB, id int) error {
 	_, err := db.Exec(`DELETE FROM computers WHERE id=?`, id)
 	return err
@@ -40,6 +43,7 @@ func DeleteComputer(db *sql.DB, id int) error {
 // Smartphones
 // ---------------------------------------------------------------------------
 
+// InsertSmartphone inserts a new smartphone record and returns its id.
 func InsertSmartphone(db *sql.DB, d models.SmartphoneInput) (int64, error) {
 	res, err := db.Exec(
 		`INSERT INTO smartphones (name, model, user_id, status, purchase_date, warranty_expiry, notes)
@@ -52,6 +56,7 @@ func InsertSmartphone(db *sql.DB, d models.SmartphoneInput) (int64, error) {
 	return res.LastInsertId()
 }
 
+// UpdateSmartphone updates the smartphone identified by id.
 func UpdateSmartphone(db *sql.DB, id int, d models.SmartphoneInput) error {
 	_, err := db.Exec(
 		`UPDATE smartphones SET name=?, model=?, user_id=?, status=?, purchase_date=?,
@@ -61,6 +66,7 @@ func UpdateSmartphone(db *sql.DB, id int, d models.SmartphoneInput) error {
 	return err
 }
 
+// DeleteSmartphone removes the smartphone identified by id.
 func DeleteSmartphone(db *sql.DB, id int) error {
 	_, err := db.Exec(`DELETE FROM smartphones WHERE id=?`, id)
 	return err
@@ -70,6 +76,7 @@ func DeleteSmartphone(db *sql.DB, id int) error {
 // Tablets
 // ---------------------------------------------------------------------------
 
+// InsertTablet inserts a new tablet record and returns its id.
 func InsertTablet(db *sql.DB, d models.TabletInput) (int64, error) {
 	res, err := db.Exec(
 		`INSERT INTO tablets (name, model, user_id, status, purchase_date, warranty_expiry, notes)
@@ -82,6 +89,7 @@ func InsertTablet(db *sql.DB, d models.TabletInput) (int64, error) {
 	return res.LastInsertId()
 }
 
+// UpdateTablet updates the tablet identified by id.
 func UpdateTablet(db *sql.DB, id int, d models.TabletInput) error {
 	_, err := db.Exec(
 		`UPDATE tablets SET name=?, model=?, user_id=?, status=?, purchase_date=?,
@@ -91,6 +99,7 @@ func UpdateTablet(db *sql.DB, id int, d models.TabletInput) error {
 	return err
 }
 
+// DeleteTablet removes the tablet identified by id.
 func DeleteTablet(db *sql.DB, id int) error {
 	_, err := db.Exec(`DELETE FROM tablets WHERE id=?`, id)
 	return err
@@ -100,6 +109,7 @@ func DeleteTablet(db *sql.DB, id int) error {
 // Windows Keys
 // ---------------------------------------------------------------------------
 
+// InsertWindowsKey inserts a new Windows license key record and returns its id.
 func InsertWindowsKey(db *sql.DB, d models.WindowsKeyInput) (int64, error) {
 	res, err := db.Exec(
 		`INSERT INTO windows_keys (license_key, computer_id, status, notes)
@@ -112,6 +122,7 @@ func InsertWindowsKey(db *sql.DB, d models.WindowsKeyInput) (int64, error) {
 	return res.LastInsertId()
 }
 
+// UpdateWindowsKey updates the Windows license key identified by id.
 func UpdateWindowsKey(db *sql.DB, id int, d models.WindowsKeyInput) error {
 	_, err := db.Exec(
 		`UPDATE windows_keys SET license_key=?, computer_id=?, status=?, notes=?,
@@ -121,6 +132,7 @@ func UpdateWindowsKey(db *sql.DB, id int, d models.WindowsKeyInput) error {
 	return err
 }
 
+// DeleteWindowsKey removes the Windows license key identified by id.
 func DeleteWindowsKey(db *sql.DB, id int) error {
 	_, err := db.Exec(`DELETE FROM windows_keys WHERE id=?`, id)
 	return err
@@ -130,6 +142,7 @@ func DeleteWindowsKey(db *sql.DB, id int) error {
 // Antivirus
 // ---------------------------------------------------------------------------
 
+// InsertAntivirus inserts a new antivirus record and returns its id.
 func InsertAntivirus(db *sql.DB, d models.AntivirusInput) (int64, error) {
 	res, err := db.Exec(
 		`INSERT INTO antivirus (name, license_key, computer_id, smartphone_id, tablet_id, status, expiry_date, notes)
@@ -142,6 +155,7 @@ func InsertAntivirus(db *sql.DB, d models.AntivirusInput) (int64, error) {
 	return res.LastInsertId()
 }
 
+// UpdateAntivirus updates the antivirus record identified by id.
 func UpdateAntivirus(db *sql.DB, id int, d models.AntivirusInput) error {
 	_, err := db.Exec(
 		`UPDATE antivirus SET name=?, license_key=?, computer_id=?, smartphone_id=?, tablet_id=?,
@@ -151,6 +165,7 @@ func UpdateAntivirus(db *sql.DB, id int, d models.AntivirusInput) error {
 	return err
 }
 
+// DeleteAntivirus removes the antivirus record identified by id.
 func DeleteAntivirus(db *sql.DB, id int) error {
 	_, err := db.Exec(`DELETE FROM antivirus WHERE id=?`, id)
 	return err
@@ -160,6 +175,7 @@ func DeleteAntivirus(db *sql.DB, id int) error {
 // OtherSoftware
 // ---------------------------------------------------------------------------
 
+// InsertOtherSoftware inserts a new other-software record and returns its id.
 func InsertOtherSoftware(db *sql.DB, d models.OtherSoftwareInput) (int64, error) {
 	res, err := db.Exec(
 		`INSERT INTO other_software (name, license_key, computer_id, smartphone_id, tablet_id, status, expiry_date, notes)
@@ -172,6 +188,7 @@ func InsertOtherSoftware(db *sql.DB, d models.OtherSoftwareInput) (int64, error)
 	return res.LastInsertId()
 }
 
+// UpdateOtherSoftware updates the other-software record identified by id.
 func UpdateOtherSoftware(db *sql.DB, id int, d models.OtherSoftwareInput) error {
 	_, err := db.Exec(
 		`UPDATE other_software SET name=?, license_key=?, computer_id=?, smartphone_id=?, tablet_id=?,
@@ -181,6 +198,7 @@ func UpdateOtherSoftware(db *sql.DB, id int, d models.OtherSoftwareInput) error 
 	return err
 }
 
+// DeleteOtherSoftware removes the other-software record identified by id.
 func DeleteOtherSoftware(db *sql.DB, id int) error {
 	_, err := db.Exec(`DELETE FROM other_software WHERE id=?`, id)
 	return err
@@ -190,6 +208,7 @@ func DeleteOtherSoftware(db *sql.DB, id int) error {
 // Users
 // ---------------------------------------------------------------------------
 
+// InsertUser inserts a new user record and returns its id.
 func InsertUser(db *sql.DB, d models.UserInput) (int64, error) {
 	res, err := db.Exec(
 		`INSERT INTO users (name, surname, status, notes)
@@ -202,6 +221,7 @@ func InsertUser(db *sql.DB, d models.UserInput) (int64, error) {
 	return res.LastInsertId()
 }
 
+// UpdateUser updates the user identified by id.
 func UpdateUser(db *sql.DB, id int, d models.UserInput) error {
 	_, err := db.Exec(
 		`UPDATE users SET name=?, surname=?, status=?, notes=?,
@@ -211,6 +231,7 @@ func UpdateUser(db *sql.DB, id int, d models.UserInput) error {
 	return err
 }
 
+// DeleteUser removes the user identified by id.
 func DeleteUser(db *sql.DB, id int) error {
 	_, err := db.Exec(`DELETE FROM users WHERE id=?`, id)
 	return err

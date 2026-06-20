@@ -1,3 +1,5 @@
+// Package services implements the business logic for querying and mutating
+// inventory data stored in the SQLite database.
 package services
 
 import (
