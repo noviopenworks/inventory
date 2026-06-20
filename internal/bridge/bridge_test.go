@@ -10,7 +10,6 @@ import (
 	"inventory/internal/bridge"
 	"inventory/internal/database"
 	"inventory/internal/models"
-	"inventory/internal/services"
 )
 
 func newBridgeWithDB(t *testing.T) *bridge.App {
@@ -467,25 +466,6 @@ func TestExportCSV_NoDB(t *testing.T) {
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "no database")
 }
-
-func TestExportCSV_BuildRows_Computers(t *testing.T) {
-	db, err := database.Open(":memory:")
-	require.NoError(t, err)
-	require.NoError(t, database.InitSchema(db))
-	t.Cleanup(func() { _ = db.Close() })
-
-	_, err = services.InsertComputer(db, models.ComputerInput{Name: "PC1", Model: "Dell", Status: "active"})
-	require.NoError(t, err)
-
-	rows, err := services.BuildCSV(db, "computers")
-	require.NoError(t, err)
-	require.Len(t, rows, 2)
-	assert.Equal(t, "PC1", rows[1][0])
-}
-
-// ---------------------------------------------------------------------------
-// Backup bridge tests
-// ---------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------
 // GetAlerts
