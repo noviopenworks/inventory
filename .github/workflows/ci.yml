@@ -65,5 +65,8 @@ jobs:
       - name: Test (go test + vitest)
         run: task test
 
+      - name: Coverage floor (>= 75% of internal)
+        run: task test:cov
+
       - name: Build smoke (wails build)
         run: task build

@@ -81,6 +81,12 @@ tasks:
       - CGO_ENABLED=1 go test -tags {{.WAILS_TAGS}} ./...
       - pnpm --prefix frontend run test
 
+  test:cov:
+    desc: Run Go tests with coverage and enforce the floor (>= 75% of ./internal/...)
+    cmds:
+      - CGO_ENABLED=1 go test -tags {{.WAILS_TAGS}} -coverpkg=./internal/... -covermode=atomic -coverprofile=coverage.out ./internal/...
+      - "go tool cover -func=coverage.out | awk '/^total:/ {pct=$3+0; print \"total coverage:\", $3; if (pct < 75.0) {print \"FAIL: coverage below 75%\"; exit 1}}'"
+
   check:
     desc: Run lint + type-check + tests (CI-style)
     cmds:

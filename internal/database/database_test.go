@@ -33,6 +33,11 @@ func TestInitSchema_CreatesAllTables(t *testing.T) {
 	}
 }
 
+func TestOpen_BadPath(t *testing.T) {
+	_, err := database.Open("/nonexistent-dir/sub/dir/x.db")
+	require.Error(t, err)
+}
+
 func TestInitSchema_Idempotent(t *testing.T) {
 	db, err := database.Open(":memory:")
 	require.NoError(t, err)
