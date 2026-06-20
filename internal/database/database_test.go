@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"gover/internal/database"
+	"inventory/internal/database"
 )
 
 func TestOpen_InMemory(t *testing.T) {

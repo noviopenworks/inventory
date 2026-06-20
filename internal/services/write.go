@@ -3,7 +3,7 @@ package services
 import (
 	"database/sql"
 
-	"gover/internal/models"
+	"inventory/internal/models"
 )
 
 // ---------------------------------------------------------------------------

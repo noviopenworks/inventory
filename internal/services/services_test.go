@@ -9,9 +9,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"gover/internal/database"
-	"gover/internal/models"
-	"gover/internal/services"
+	"inventory/internal/database"
+	"inventory/internal/models"
+	"inventory/internal/services"
 )
 
 // openTestDB opens an in-memory SQLite database with schema initialized.

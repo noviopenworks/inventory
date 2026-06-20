@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gover/internal/models"
+	"inventory/internal/models"
 )
 
 func configPath() string {

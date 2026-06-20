@@ -1,6 +1,6 @@
 package main
 
-import "gover/internal/bridge"
+import "inventory/internal/bridge"
 
 func NewApp() *bridge.App {
 	return bridge.NewApp()

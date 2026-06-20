@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"gover/internal/models"
+	"inventory/internal/models"
 )
 
 func ListComputers(db *sql.DB) ([]models.Computer, error) {

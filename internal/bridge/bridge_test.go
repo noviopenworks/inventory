@@ -6,10 +6,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"gover/internal/bridge"
-	"gover/internal/database"
-	"gover/internal/models"
-	"gover/internal/services"
+	"inventory/internal/bridge"
+	"inventory/internal/database"
+	"inventory/internal/models"
+	"inventory/internal/services"
 )
 
 func newBridgeWithDB(t *testing.T) *bridge.App {

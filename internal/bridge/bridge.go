@@ -9,11 +9,11 @@ import (
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
-	"gover/internal/backup"
-	"gover/internal/config"
-	"gover/internal/database"
-	"gover/internal/models"
-	"gover/internal/services"
+	"inventory/internal/backup"
+	"inventory/internal/config"
+	"inventory/internal/database"
+	"inventory/internal/models"
+	"inventory/internal/services"
 )
 
 var errNoDB = errors.New("no database open")

@@ -1,89 +1,20 @@
-# ── Python ────────────────────────────────────────────────────────────────────
-__pycache__/
-*.py[cod]
-*$py.class
-*.pyo
-*.pyd
-*.so
-*.egg
-*.egg-info/
-.eggs/
-MANIFEST
-
-# ── Virtual environments ──────────────────────────────────────────────────────
-.venv/
-venv/
-env/
-ENV/
-.python-version
-
-# ── uv ───────────────────────────────────────────────────────────────────────
-# uv.lock is intentionally committed – do NOT add it here
-
-# ── PyInstaller ───────────────────────────────────────────────────────────────
-build/
-buildwindows/
+# ── Build output ──────────────────────────────────────────────────────────────
+build/bin/
 dist/
-*.spec.bak
+/inventory
+/inventory.exe
 
-# ── Testing & coverage ────────────────────────────────────────────────────────
-.coverage
-.coverage.*
-htmlcov/
-.pytest_cache/
-.tox/
-coverage.xml
-*.cover
-*.coveragerc
-test-results/
-junit*.xml
+# ── Node / frontend ───────────────────────────────────────────────────────────
+node_modules/
+frontend/node_modules/
+frontend/dist/
 
-# ── Type checkers ─────────────────────────────────────────────────────────────
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.pyright/
-pyrightconfig.json
-
-# ── Linters / formatters ──────────────────────────────────────────────────────
-.ruff_cache/
-
-# ── pre-commit ────────────────────────────────────────────────────────────────
-# .pre-commit-config.yaml is committed; skip generated cache
-.pre-commit-hooks.yaml.bak
+# ── Go ────────────────────────────────────────────────────────────────────────
+*.test
+*.out
 
 # ── Task (go-task) ────────────────────────────────────────────────────────────
 .task/
-
-# ── Editors ───────────────────────────────────────────────────────────────────
-# VS Code – keep settings.json / extensions.json if you share them
-.vscode/launch.json
-.vscode/tasks.json
-.vscode/*.code-snippets
-.vscode/ipch/
-# IntelliJ / PyCharm
-.idea/
-*.iml
-*.iws
-# Vim / Emacs
-*.swp
-*.swo
-*~
-\#*\#
-.\#*
-# Sublime Text
-*.sublime-project
-*.sublime-workspace
-
-# ── OS ────────────────────────────────────────────────────────────────────────
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
 
 # ── Packaging artefacts ───────────────────────────────────────────────────────
 *.deb
@@ -92,8 +23,6 @@ desktop.ini
 *.tar.bz2
 *.tar.xz
 *.zip
-*.whl
-sdist/
 
 # ── SQLite databases (runtime data, not source) ───────────────────────────────
 *.db
@@ -102,15 +31,28 @@ sdist/
 *.sqlite
 *.sqlite3
 
+# ── Editors ───────────────────────────────────────────────────────────────────
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
 # ── Secrets & local config ────────────────────────────────────────────────────
 .env
 .env.*
 !.env.example
 *.pem
 *.key
-*.p12
-secrets/
 
-# ── Logs ─────────────────────────────────────────────────────────────────────
+# ── Logs ──────────────────────────────────────────────────────────────────────
 *.log
 logs/

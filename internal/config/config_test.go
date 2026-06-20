@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"gover/internal/config"
-	"gover/internal/models"
+	"inventory/internal/config"
+	"inventory/internal/models"
 )
 
 func TestLoad_Defaults(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"gover/internal/models"
+	"inventory/internal/models"
 )
 
 func TestComputer_JSONRoundTrip(t *testing.T) {

@@ -3,7 +3,7 @@ package services
 import (
 	"database/sql"
 
-	"gover/internal/models"
+	"inventory/internal/models"
 )
 
 // ListUsersForDropdown returns id and name for all users, ordered by name.

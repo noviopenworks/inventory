@@ -9,9 +9,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"gover/internal/database"
-	"gover/internal/models"
-	"gover/internal/services"
+	"inventory/internal/database"
+	"inventory/internal/models"
+	"inventory/internal/services"
 )
 
 func newExportDB(t *testing.T) *sql.DB {
